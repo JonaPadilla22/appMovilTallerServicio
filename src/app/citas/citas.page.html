@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ page }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- <ion-content>
+  <div>
+    <ion-input type="text" placeholder="Ingrese texto" [(ngModel)]="datocodificado"></ion-input>
+    <ion-button expand="block" (click)="Codificar()">Generar QR</ion-button>
+    <br>
+
+    <ion-button expand="block" color="success" (click)="Leer()">Escanear QR</ion-button>
+    <div *ngIf="datoscaneado">
+      <p>
+        Contenido: {{ datoscaneado }}
+      </p>
+    </div>
+
+    <div>
+      {{ datocodificado }}
+    </div>
+
+  </div>
+</ion-content> -->
+<ion-content
+  [fullscreen]="true"
+  [style.--background]="scanActive?'#00000000':'#ffffff'"
+>
+  <ion-button expand="full" (click)="startScanner()" [hidden]="scanActive">
+    ESCANEAR
+  </ion-button>
+  <ion-row class="scan-button" [hidden]="!scanActive">
+    <ion-col class="ion-no-padding">
+      <ion-button expand="full" (click)="stopScanner()">CANCELAR</ion-button>
+    </ion-col>
+  </ion-row>
+  <div class="scan-box" [hidden]="!scanActive"></div>
+</ion-content>
