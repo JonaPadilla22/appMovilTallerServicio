@@ -41,17 +41,14 @@ export class InicioPage implements OnInit {
     PushNotifications.addListener('registration', (token: Token) => {
       this.token = token.value;
       alert('token guardado en ' + this.token);
+
       // console.log('Push registration success, token: ' + token.value);
       // alert('Push registration success, token: ' + token.value);
-      this.firebaseService.enviarToken(token).subscribe((data) => {
-        alert(JSON.stringify(data));
-      });
-      // alert("Probando")
-      // this.firebaseService.probandoServiciosGet().subscribe(data => {
-      //   this.WorkForceList = data;
-      //   alert(JSON.stringify(this.WorkForceList));
-      //   alert("asdasdasdasd");
-      // });
+      this.firebaseService.enviarToken(token).subscribe(
+        (response: any) => {
+          alert(response)
+        }
+      );
     });
 
     // Some issue with our setup and push will not work

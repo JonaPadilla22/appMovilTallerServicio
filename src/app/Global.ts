@@ -1,3 +1,4 @@
 export const Global = {
-  urlApi: 'http://tallerservicio-production.up.railway.app',
+  urlApi: 'https://tallerservicio-production.up.railway.app',
+  //urlApi: 'http://localhost:3000'
 };

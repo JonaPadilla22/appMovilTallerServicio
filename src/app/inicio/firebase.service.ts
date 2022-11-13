@@ -13,17 +13,17 @@ export class FirebaseService {
   constructor(private http: HttpClient) {}
 
   enviarToken(token: Token): Observable<any> {
-    var request = '/firebase/notification';
-    var url = Global.urlApi + request;
+    var url = Global.urlApi;
+    var id = 14
     alert(url);
     // TODO: Add user to the object sent to registered the new device
-    let objetoJson = JSON.stringify({
-      token: token.value,
-    });
-    alert(objetoJson);
-    var headers = new HttpHeaders().set('Content-type', 'application/json');
+    // let objetoJson = JSON.stringify({
+    //   TOKEN: token.value,
+    // });
+    // alert("objeto: "+objetoJson);
+    //var headers = new HttpHeaders().set('Content-type', 'application/json');
 
-    return this.http.post<any>(url, objetoJson, { headers: headers });
+    return this.http.post(`${url}/firebase/registerToken/${id}`, {TOKEN: token.value});   
   }
 
   probandoServiciosGet(){
