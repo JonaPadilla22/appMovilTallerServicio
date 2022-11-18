@@ -7,7 +7,7 @@ import { LoadingController } from '@ionic/angular';
   templateUrl: './citas.page.html',
   styleUrls: ['./citas.page.css'],
 })
-export class CitasPage implements OnInit {
+export class CitasPageCliente implements OnInit {
   public page: string;
   servicios: any = [];
 

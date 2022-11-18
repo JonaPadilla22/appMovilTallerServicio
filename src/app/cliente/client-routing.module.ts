@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CitasPage } from './citas/citas.page';
+import { CitasPageCliente } from './citas/citas.page';
 import { InicioPageCliente } from './inicio/inicio.page';
 import { ServiciosPage } from './servicios/servicios.page';
 
@@ -17,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'citas',
-    component: CitasPage
+    component: CitasPageCliente
   },
   {
     path: 'servicios',

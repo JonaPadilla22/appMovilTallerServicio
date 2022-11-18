@@ -6,25 +6,27 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   public appPages$ = [];
+  private type: string = "client";
+
   public appPagesCliente = [
     { 
       title: 'Inicio', 
-      url: '/employee/inicio', 
+      url: `/${this.type}/inicio`, 
       icon: 'home' 
     },
     { 
       title: 'Citas', 
-      url: '/employee/citas', 
+      url: `/${this.type}/citas`, 
       icon: 'calendar-number' 
     },
     { 
       title: 'Historial', 
-      url: '/employee/servicios', 
+      url: `/${this.type}/servicios`, 
       icon: 'car' 
     },
     { 
       title: 'Configuracion', 
-      url: '/employee/servicios', 
+      url: `/${this.type}/servicios`, 
       icon: 'car' 
     }
   ];
