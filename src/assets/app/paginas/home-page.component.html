@@ -1,0 +1,36 @@
+
+<div class="padre">
+    <header>
+        <img src="../assets/homepage/empresa.png" class="imagen-empresa" alt="">
+        <div class="contendor-usuario">
+            <div class="contenedor-imagen-usuario">
+                <img class="imagenUsuario" id="imagenUsuario" src="{{urlImagen}}" alt="">
+            </div>
+            <div class="contenedor-texto">
+                <h3>{{nombreUsuario}}</h3>
+            </div>
+            <div ngbDropdown class="d-inline-block">
+                <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle></button>
+                <div class="dropDown" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem (click)="cambiarImg()">CAMBIAR IMAGEN DE USUARIO</button>
+                    <button ngbDropdownItem (click)="modalCambiarPass()">CAMBIAR CONTRASEÑA</button>
+                    <button ngbDropdownItem (click)="cerrarSesion()">CERRAR SESIÓN</button>
+                </div>
+            </div>
+            
+
+        </div>
+    </header>
+    <div class="contenedor">
+        <aside>
+            <aside-identificador-usuario></aside-identificador-usuario>
+            <list-item [items]="listaDeNavegacion"></list-item>
+        </aside>
+        <section class="contenido">
+            <router-outlet></router-outlet>
+            <footer>
+                Made by Estudiantes ING Software UAS
+            </footer>
+        </section>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+$alturaHeader: 120px
+$anchoAside: 250px
+$backgroundAsideHeader: url(../../assets/login/denim.png) repeat
+$alturaFooter: 50px
+*
+    padding: 0
+    margin: 0
+    box-sizing: border-box
+
+.padre
+    width: 100vw
+    height: 100vh
+
+header
+    background: $backgroundAsideHeader
+    height: $alturaHeader
+    width: 100%
+    display: flex
+    justify-content: space-between
+    align-items: center
+    .imagen-empresa
+        width: 150px
+        height: 85px
+        margin-left: 45px
+    .contendor-usuario
+        display: flex
+        align-items: center
+        justify-content: space-evenly
+        padding: 20px 0
+        margin-right: 20px
+        h2
+            margin-left: 10px
+            font-size: 16pt
+            font-weight: 400
+            color: #fff
+
+.contenedor
+    width: 100%
+    display: flex
+    .contenido
+        width: calc( 100vw - $anchoAside )
+        height: calc( 100vh - ($alturaHeader + $alturaFooter))
+
+    aside
+        width: $anchoAside
+        height: calc( 100vh - $alturaHeader )
+        background: $backgroundAsideHeader
+    
+    footer
+        width: calc( 100vw - $anchoAside )
+        display: flex
+        align-items: center
+        justify-content: center
+        width: 100%
+        height: 50px
+        color: #fff
+        background: #264653

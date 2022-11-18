@@ -1,0 +1,96 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.padre {
+  width: 100vw;
+  height: 100vh;
+}
+
+header {
+  background: url(../../assets/login/denim.png) repeat;
+  height: 120px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header .imagen-empresa {
+  width: 150px;
+  height: 85px;
+  margin-left: 45px;
+}
+header .contendor-usuario {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 20px 0;
+  margin-right: 20px;
+}
+header .contendor-usuario h3 {
+  margin-left: 10px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.contenedor {
+  width: 100%;
+  display: flex;
+}
+.contenedor .contenido {
+  width: calc(100vw - 250px);
+  height: calc(100vh - 170px);
+}
+.contenedor aside {
+  width: 250px;
+  height: calc(100vh - 120px);
+  background: url(../../assets/login/denim.png) repeat;
+}
+.contenedor footer {
+  width: calc(100vw - 250px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  color: #fff;
+  background: #264653;
+}/*# sourceMappingURL=home-page.component.css.map */
+
+.dropDown {
+  padding: 10px;
+}
+
+.imagenUsuario {
+  width: 60px;
+  height: 60px;
+  border-radius: 40px;
+}
+
+.btn-outline-primary{
+  padding: 10px;
+  color:#fff;
+  border: none;
+  width: 40px;
+}
+.btn-outline-primary:hover{
+  --bs-btn-hover-bg: none;
+}
+
+.dropdown-item {
+  color: #264653;
+  background-color: white;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.dropdown-item:hover {
+  background-color: #264653;
+  color: #fff;
+}

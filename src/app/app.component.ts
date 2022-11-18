@@ -5,10 +5,34 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  public appPages = [
+  public appPages$ = [];
+  public appPagesCliente = [
     { 
       title: 'Inicio', 
-      url: 'inicio', 
+      url: 'inicioCliente', 
+      icon: 'home' 
+    },
+    { 
+      title: 'Citas', 
+      url: 'citas', 
+      icon: 'calendar-number' 
+    },
+    { 
+      title: 'Historial', 
+      url: 'servicios', 
+      icon: 'car' 
+    },
+    { 
+      title: 'Configuracion', 
+      url: 'servicios', 
+      icon: 'car' 
+    }
+  ];
+
+  public appPagesTecnico = [
+    { 
+      title: 'Inicio', 
+      url: 'inicioTecnico', 
       icon: 'home' 
     },
     { 
@@ -22,5 +46,7 @@ export class AppComponent {
       icon: 'car' 
     }
   ];
-  constructor() {}
+  constructor() {
+    this.appPages$ = this.appPagesCliente
+  }
 }
