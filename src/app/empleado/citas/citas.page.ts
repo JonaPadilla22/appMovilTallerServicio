@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ServicioService } from '../services/servicios/servicio.service';
 import { LoadingController } from '@ionic/angular';
 
 @Component({
@@ -14,7 +13,7 @@ export class CitasPage implements OnInit {
   async ngOnInit() {
     this.page = "Citas";
     this.showLoading();
-    this.servicios = await this.servService.getServiciosTecnico("2").toPromise();
+    // this.servicios = await this.servService.getServiciosTecnico("2").toPromise();
     this.servicios = this.servicios.filter((serv: any) => {
       return (
         serv.ESTATUS.ID_ESTATUS != "C" && serv.ESTATUS.ID_ESTATUS != "T"
@@ -33,7 +32,6 @@ export class CitasPage implements OnInit {
   }
 
   constructor(
-    private servService: ServicioService,
     private loadingCtrl: LoadingController
   ) {}
 

@@ -9,40 +9,22 @@ export class AppComponent {
   public appPagesCliente = [
     { 
       title: 'Inicio', 
-      url: 'inicioCliente', 
+      url: '/employee/inicio', 
       icon: 'home' 
     },
     { 
       title: 'Citas', 
-      url: 'citas', 
+      url: '/employee/citas', 
       icon: 'calendar-number' 
     },
     { 
       title: 'Historial', 
-      url: 'servicios', 
+      url: '/employee/servicios', 
       icon: 'car' 
     },
     { 
       title: 'Configuracion', 
-      url: 'servicios', 
-      icon: 'car' 
-    }
-  ];
-
-  public appPagesTecnico = [
-    { 
-      title: 'Inicio', 
-      url: 'inicioTecnico', 
-      icon: 'home' 
-    },
-    { 
-      title: 'Citas', 
-      url: 'citas', 
-      icon: 'calendar-number' 
-    },
-    { 
-      title: 'Servicios', 
-      url: 'servicios', 
+      url: '/employee/servicios', 
       icon: 'car' 
     }
   ];

@@ -3,18 +3,17 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
-
-import { ServiciosPageRoutingModule } from './servicios-routing.module';
-
-import { ServiciosPage } from './servicios.page';
+import { CitasPageRoutingModule } from './client-routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ServiciosPageRoutingModule
+    CitasPageRoutingModule
   ],
-  declarations: [ServiciosPage]
+  declarations: [
+    
+  ]
 })
-export class ServiciosPageModule {}
+export class ClientPageModule {}

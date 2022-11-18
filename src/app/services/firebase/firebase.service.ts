@@ -8,21 +8,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root',
 })
 export class FirebaseService {
-  
   constructor(private http: HttpClient) {}
 
   enviarToken(token: Token): Observable<any> {
     var url = Global.urlApi;
-    var id = 14
+    var id = 14;
     alert(url);
-    // TODO: Add user to the object sent to registered the new device
-    // let objetoJson = JSON.stringify({
-    //   TOKEN: token.value,
-    // });
-    // alert("objeto: "+objetoJson);
-    //var headers = new HttpHeaders().set('Content-type', 'application/json');
 
-    return this.http.post(`${url}/firebase/registerToken/${id}`, {TOKEN: token.value});   
+    return this.http.post(`${url}/firebase/registerToken/${id}`, {
+      TOKEN: token.value,
+    });
   }
 
+  // TODO: remove token of the device when the user logout from the app
+  eliminarToken(token: Token) {}
 }
