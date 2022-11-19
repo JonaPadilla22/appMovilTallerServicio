@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ServicioService } from '../../services/servicios/servicio.service';
+import { ServicioService } from '../../../services/servicios/servicio.service';
 import { LoadingController } from '@ionic/angular';
 
 @Component({
@@ -9,17 +9,19 @@ import { LoadingController } from '@ionic/angular';
 })
 export class CitasPageCliente implements OnInit {
   public page: string;
-  servicios: any = [];
+  citas: any = [];
+  num_citas: number = 0;
 
   async ngOnInit() {
     this.page = "Citas";
     this.showLoading();
-    this.servicios = await this.servService.getServiciosTecnico("2").toPromise();
-    this.servicios = this.servicios.filter((serv: any) => {
+    this.citas = await this.servService.getServiciosTecnico("2").toPromise();
+    this.citas = this.citas.filter((serv: any) => {
       return (
         serv.ESTATUS.ID_ESTATUS != "C" && serv.ESTATUS.ID_ESTATUS != "T"
       );
     });
+    this.num_citas = this.citas.length;
     this.loadingCtrl.dismiss();
   }
 
