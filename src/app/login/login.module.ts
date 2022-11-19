@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { LoginFormComponent } from './login-form/login-form.component';
+import { FormLoginComponent } from './login-form/login-form.component';
+import { AppRoutingModule } from '../app-routing.module';
 
 
 
@@ -12,12 +13,14 @@ import { LoginFormComponent } from './login-form/login-form.component';
   declarations: [
     LoginComponent,
     RegisterFormComponent,
-    LoginFormComponent
+    FormLoginComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    ReactiveFormsModule,
+    AppRoutingModule
   ]
 })
 export class LoginModule { }

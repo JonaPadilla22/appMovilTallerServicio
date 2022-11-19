@@ -2,16 +2,23 @@
   <img src="../../assets/login/fondoLoginTel.png" alt="" />
   <h2>{{ isLogin ? "Inicio de Sesión" : "Registrarse" }}</h2>
 
-  <login-form *ngIf="isLogin"></login-form>
+  <login-form
+    *ngIf="isLogin"
+  ></login-form>
   <register-form *ngIf="!isLogin"></register-form>
 
   <div class="change-forms-btn-container">
-    <ion-button class="register-btn register" (click)="handleRegiterFormChange($event)"
-      >{{isLogin ? "Registrarse" : "¿Ya estas registrado? Inicia sesión aquí" }}</ion-button
+    <ion-button
+      #btnChangeForms
+      class="register-btn register"
+      (click)="handleRegiterFormChange($event)"
+      >{{
+        isLogin ? "Registrarse" : "¿Ya estas registrado? Inicia sesión aquí"
+      }}</ion-button
     >
   </div>
-  <button class="action-btn-forms">Ingresar</button>
-  <footer>
-    Hecho por Estudiantes ING Software UAS
-  </footer>
+  <ion-button class="action-btn-forms" (click)="handleSubmit()">{{
+    isLogin ? "Ingresar" : "Registrarse"
+  }}</ion-button>
+  <footer>Hecho por Estudiantes ING Software UAS</footer>
 </section>

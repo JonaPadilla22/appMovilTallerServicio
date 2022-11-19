@@ -8,9 +8,11 @@ import { environment } from 'src/environments/environment';
 })
 export class CitaService {
   url: string;
-  token: string | null = localStorage.getItem('TOKEN');
+  // token: string | null = localStorage.getItem('TOKEN');
+  // token: string =
+  //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjY4ODQwNzkxfQ.7Z8wqOfOvOGeenjayIp5bLajtvvGs-3bLzW0WaGuFG0';
   headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
-  
+
   constructor(private http: HttpClient) {
     this.url = environment.baseUrlAPI;
   }
@@ -55,7 +57,7 @@ export class CitaService {
     return this.http.post(`${this.url}/servicios/actualizacion`, form);
   }
 
-  actualizarCita(data: any,id_cita: number) {
+  actualizarCita(data: any, id_cita: number) {
     return this.http.put(`${this.url}/servicios/${id_cita}`, data);
   }
 }

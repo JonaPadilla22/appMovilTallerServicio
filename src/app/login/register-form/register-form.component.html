@@ -1,9 +1,66 @@
-<form>
-    <ion-input placeholder="RFC" class="custom"></ion-input>
-    <ion-input placeholder="Nombre/Empresa" class="custom"></ion-input>
-    <ion-input placeholder="Apellido Paterno" class="custom"></ion-input>
-    <ion-input placeholder="Apellido Materno" class="custom"></ion-input>
-    <ion-input placeholder="Telefono" class="custom"></ion-input>
-    <ion-input placeholder="Direccion" class="custom"></ion-input>
-    <ion-input placeholder="Correo Electrónico" class="custom"></ion-input>
+<form [formGroup]="formRegister">
+  <ion-item lines="none">
+    <ion-input
+      placeholder="RFC"
+      class="custom"
+      formControlName="RFC"
+      [clearInput]="true"
+    ></ion-input>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-checkbox
+      slot="start"
+      (click)="isMoralPerson = !isMoralPerson"
+    ></ion-checkbox>
+    <ion-label>Soy una persona moral</ion-label>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-input
+      placeholder="{{ isMoralPerson ? 'Nombre Empresa' : 'Nombre(s)' }}"
+      class="custom"
+      formControlName="NOMBRE"
+      [clearInput]="true"
+    ></ion-input>
+  </ion-item>
+  <ion-item lines="none" *ngIf="!isMoralPerson">
+    <ion-input
+      placeholder="Apellido Paterno"
+      class="custom"
+      formControlName="AP1"
+      [clearInput]="true"
+    ></ion-input>
+  </ion-item>
+  <ion-item lines="none" *ngIf="!isMoralPerson">
+    <ion-input
+      placeholder="Apellido Materno"
+      class="custom"
+      formControlName="AP2"
+      [clearInput]="true"
+    ></ion-input>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-input
+      placeholder="Telefono"
+      class="custom"
+      formControlName="TELEFONO"
+      [clearInput]="true"
+    ></ion-input>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-input
+      placeholder="Direccion"
+      class="custom"
+      formControlName="DIRECCION"
+      [clearInput]="true"
+    ></ion-input>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-input
+      placeholder="Correo Electrónico"
+      class="custom"
+      formControlName="CORREO"
+      type="email"
+      [clearInput]="true"
+    ></ion-input>
+  </ion-item>
 </form>

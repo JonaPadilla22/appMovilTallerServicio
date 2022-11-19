@@ -4,7 +4,7 @@ form {
   margin-top: 30px;
 }
 form ion-input.custom {
-  --color: rgb(42,157,143,.7);
+  --color: #000;
   --placeholder-color: rgb(42,157,143,.7);
   --placeholder-opacity: .8;
   margin-top: 20px;
@@ -18,4 +18,13 @@ form ion-input.custom {
 }
 form ion-input.custom:first-child {
   margin-top: 14px;
+  margin-bottom: 20px;
+}
+form ion-checkbox {
+  --size: 25px;
+  --background-checked: rgb(42,157,143,.7);
+}
+form ion-checkbox::part(container) {
+  border-radius: 6px;
+  border: 2px solid rgba(42, 157, 143, 0.7);
 }/*# sourceMappingURL=register-form.component.css.map */

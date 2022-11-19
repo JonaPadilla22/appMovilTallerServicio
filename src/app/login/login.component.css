@@ -30,9 +30,10 @@ section .login {
   display: flex;
   justify-content: center;
 }
-section .action-btn-forms {
+section ion-button.action-btn-forms {
   display: block;
-  background: #264653;
+  --background: #264653;
+  --box-shadow: none;
   width: 260px;
   height: 50px;
   border-radius: 50px;
@@ -43,9 +44,9 @@ section .action-btn-forms {
   margin-top: 30px;
   font-family: Odor Mean Chey;
 }
-
-footer {
+section footer {
   position: relative;
+  color: #000;
   bottom: 0;
   width: 100%;
   text-align: center;

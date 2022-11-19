@@ -4,7 +4,7 @@ form {
   margin-top: 30px;
 }
 form ion-input.custom {
-  --color: rgb(42,157,143,.7);
+  --color: #000;
   --placeholder-color: rgb(42,157,143,.7);
   --placeholder-opacity: .8;
   margin-top: 10px;

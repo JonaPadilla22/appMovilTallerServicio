@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -15,15 +14,15 @@ export class ClienteService {
   constructor(private http: HttpClient) {}
 
   getUsuarioToken() {
-    return this.http
-      .get(`${this.url}/usuarios/token`, { headers: this.headers })
-      .pipe(map((res) => res));
+    return this.http.get(`${this.url}/usuarios/token`, {
+      headers: this.headers,
+    });
   }
 
   getClientes() {
-    return this.http
-      .get(`${this.url}/usuarios/clientes`, { headers: this.headers })
-      .pipe(map((res) => res));
+    return this.http.get(`${this.url}/usuarios/clientes`, {
+      headers: this.headers,
+    });
   }
 
   registrarUsuario(form: any) {
@@ -33,9 +32,7 @@ export class ClienteService {
   }
 
   getUsuarios() {
-    return this.http
-      .get(`${this.url}/usuarios`, { headers: this.headers })
-      .pipe(map((res) => res));
+    return this.http.get(`${this.url}/usuarios`, { headers: this.headers });
   }
 
   updateUser(data: any, id: any) {
@@ -45,9 +42,13 @@ export class ClienteService {
   }
 
   updatePassword(id: any, oldPass: string, newPass: string) {
-    return this.http.put(`${this.url}/usuarios/${id}/pass/${oldPass}`, {CONTRA: newPass}, {
-      headers: this.headers,
-    });
+    return this.http.put(
+      `${this.url}/usuarios/${id}/pass/${oldPass}`,
+      { CONTRA: newPass },
+      {
+        headers: this.headers,
+      }
+    );
   }
 
   updateImageUser(id: any, img: any) {
@@ -57,16 +58,11 @@ export class ClienteService {
     });
   }
 
-
   getTiposPersona() {
-    return this.http
-      .get(`${this.url}/tipoPersona`, { headers: this.headers })
-      .pipe(map((res) => res));
+    return this.http.get(`${this.url}/tipoPersona`, { headers: this.headers });
   }
 
   getTiposUsuario() {
-    return this.http
-      .get(`${this.url}/tipoUsuario`, { headers: this.headers })
-      .pipe(map((res) => res));
+    return this.http.get(`${this.url}/tipoUsuario`, { headers: this.headers });
   }
 }
