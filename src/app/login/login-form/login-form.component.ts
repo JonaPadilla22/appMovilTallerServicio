@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { Globals } from 'src/app/Global';
+// import { Globals } from 'src/app/Global';
 import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class FormLoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    public globals: Globals,
+    // public globals: Globals,
     private alertController: AlertController,
     private loginService: LoginService,
     private router: Router
@@ -55,7 +55,7 @@ export class FormLoginComponent implements OnInit {
 
         await alert.present();
         localStorage.setItem('TOKEN', v.TOKEN);
-        this.globals.usuario = v.USUARIO.ID;
+        // this.globals.usuario = v.USUARIO.ID;
         this.router.navigate(['/employee'], { skipLocationChange: true });
       },
       error: async (e) => {

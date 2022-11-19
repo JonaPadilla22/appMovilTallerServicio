@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
-import { Globals } from 'src/app/Global';
+// import { Globals } from 'src/app/Global';
 import { ClienteService } from 'src/app/services/clientes/cliente.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class RegisterFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    public globals: Globals,
+    // public globals: Globals,
     private alertController: AlertController,
     private clientService: ClienteService,
   ) {
@@ -48,7 +48,7 @@ export class RegisterFormComponent implements OnInit {
     let address = this.formRegister.value.TELEFONO;
 
     // TODO: do validations
-    
+
     let registerUsr: any = {
       ID_TIPO_PERSONA: 1,
       ID_TIPO_USUARIO: 4,

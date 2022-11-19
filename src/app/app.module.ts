@@ -11,7 +11,7 @@ import { FirebaseService } from './services/firebase/firebase.service';
 import { LoginModule } from './login/login.module';
 import { NavComponent } from './nav/nav.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Globals } from './Global';
+// import { Globals } from './Global';
 //import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 
 @NgModule({
@@ -27,7 +27,7 @@ import { Globals } from './Global';
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     FirebaseService,
-    Globals
+    // Globals
   ],
   bootstrap: [AppComponent],
 })
