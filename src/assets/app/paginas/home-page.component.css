@@ -29,13 +29,11 @@ header .contendor-usuario {
   padding: 20px 0;
   margin-right: 20px;
 }
-header .contendor-usuario h3 {
+header .contendor-usuario h2 {
   margin-left: 10px;
-  font-size: 16px;
+  font-size: 16pt;
   font-weight: 400;
   color: #fff;
-  padding-left: 5px;
-  padding-right: 5px;
 }
 
 .contenedor {
@@ -61,36 +59,3 @@ header .contendor-usuario h3 {
   color: #fff;
   background: #264653;
 }/*# sourceMappingURL=home-page.component.css.map */
-
-.dropDown {
-  padding: 10px;
-}
-
-.imagenUsuario {
-  width: 60px;
-  height: 60px;
-  border-radius: 40px;
-}
-
-.btn-outline-primary{
-  padding: 10px;
-  color:#fff;
-  border: none;
-  width: 40px;
-}
-.btn-outline-primary:hover{
-  --bs-btn-hover-bg: none;
-}
-
-.dropdown-item {
-  color: #264653;
-  background-color: white;
-  cursor: pointer;
-  padding: 10px;
-  border-radius: 10px;
-}
-
-.dropdown-item:hover {
-  background-color: #264653;
-  color: #fff;
-}

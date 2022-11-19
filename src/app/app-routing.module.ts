@@ -1,19 +1,31 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { NavComponent } from './nav/nav.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'employee',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
-    path: 'employee',
-    loadChildren: () => import('./empleado/employee.module').then( m => m.EmployeePageModule)
+    path: 'login',
+    component: LoginComponent,
   },
   {
-    path: 'client',
-    loadChildren: () => import('./cliente/client.module').then( m => m.ClientPageModule)
+    path: '',
+    component: NavComponent,
+    children: [
+      {
+        path: 'employee',
+        loadChildren: () => import('./empleado/employee.module').then( m => m.EmployeePageModule)
+      },
+      {
+        path: 'client',
+        loadChildren: () => import('./cliente/client.module').then( m => m.ClientPageModule)
+      },
+    ]
   },
 ];
 
