@@ -1,8 +1,12 @@
+
+
+import { RegistrarCitaPage } from './citas/registrar-cita/registrar-cita.page';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CitasPageCliente } from './citas/citas.page';
+import { InicioCitasClientePage } from './citas/inicio-citas-cliente/inicio-citas-cliente.page';
 import { InicioPageCliente } from './inicio/inicio.page';
-import { ServiciosPage } from './servicios/servicios.page';
+import { CitasPageCliente } from './citas/pendientes/citas.page';
+import { ServiciosPageCliente } from './servicios/servicios.page';
 
 
 const routes: Routes = [
@@ -17,12 +21,46 @@ const routes: Routes = [
   },
   {
     path: 'citas',
-    component: CitasPageCliente
+    component: InicioCitasClientePage,
+    children: [
+      {
+        path: 'registrar',
+        component: RegistrarCitaPage
+      },
+      {
+        path: 'pendientes',
+        component: CitasPageCliente
+      },
+      {
+        path: '',
+        component: RegistrarCitaPage
+      }
+    ]
+    // children: [
+    //   {
+    //     path: 'registrar',
+    //     component: RegistrarCitaPage
+    //   },
+    //   {
+    //     path: 'pendientes',
+    //     component: CitasPageCliente
+    //   },
+    //   {
+    //     path: '',
+    //     redirectTo: 'client/citas/registrar',
+    //     pathMatch: 'full'
+    //   }
+    // ]
   },
   {
     path: 'servicios',
-    component: ServiciosPage
+    component: ServiciosPageCliente
+  },
+  {
+    path: 'inicio',
+    component: InicioPageCliente
   }
+
 ];
 
 @NgModule({

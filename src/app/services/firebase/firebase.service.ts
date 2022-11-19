@@ -1,21 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Token } from '@capacitor/push-notifications';
 import { Observable } from 'rxjs';
-import { Globals } from 'src/app/Global';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class FirebaseService {
+  url = environment.baseUrlAPI;
+  headers = new HttpHeaders().set(
+    'Authorization',
+    'Bearer ' + localStorage.getItem('TOKEN')
+  );
   constructor(private http: HttpClient) {}
 
   enviarToken(token: Token): Observable<any> {
-    var url = Globals;
     var id = 14;
-    alert(url);
+    alert(this.url);
 
-    return this.http.post(`${url}/firebase/registerToken/${id}`, {
+    return this.http.post(`${this.url}/firebase/registerToken/${id}`, {
       TOKEN: token.value,
     });
   }

@@ -1,0 +1,4 @@
+.ion-tab-bar {
+    overflow: auto; 
+    justify-content: flex-start;
+}
