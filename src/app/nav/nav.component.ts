@@ -24,14 +24,26 @@ export class NavComponent implements OnInit {
     { 
       title: 'Historial', 
       url: `/${this.type}/servicios`, 
-      icon: 'car' 
-    },
-    { 
-      title: 'Configuracion', 
-      url: `/${this.type}/servicios`, 
-      icon: 'car' 
+      icon: 'today' 
     }
   ];
+  public labels = [
+    {
+      title: 'Cambiar Contraseña',
+      url: `/${this.type}/servicios`,
+      icon: 'lock-closed'
+    },
+    {
+      title: 'Cambiar Imagen',
+      url: `/${this.type}/servicios`,
+      icon: 'image'
+    },
+    {
+      title: 'Cerrar Sesión',
+      icon: 'log-out'
+    }  
+  ];
+
   constructor() {
     this.appPages$ = this.appPagesCliente
   }

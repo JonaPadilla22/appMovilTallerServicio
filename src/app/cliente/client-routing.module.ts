@@ -1,13 +1,14 @@
-
-
+import { RegistrarVehPage } from './citas/registrar-veh/registrar-veh.page';
+import { ChatClientePage } from './chat-cliente/chat-cliente.page';
+import { DetalleServClientePage } from './detalle-serv-cliente/detalle-serv-cliente.page';
+import { InicioCitasClientePage } from './citas/inicio-citas-cliente/inicio-citas-cliente.page';
+import { DetalleCitasClientePage } from './citas/detalle-citas-cliente/detalle-citas-cliente.page';
 import { RegistrarCitaPage } from './citas/registrar-cita/registrar-cita.page';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { InicioCitasClientePage } from './citas/inicio-citas-cliente/inicio-citas-cliente.page';
 import { InicioPageCliente } from './inicio/inicio.page';
 import { CitasPageCliente } from './citas/pendientes/citas.page';
 import { ServiciosPageCliente } from './servicios/servicios.page';
-
 
 const routes: Routes = [
   {
@@ -32,34 +33,34 @@ const routes: Routes = [
         component: CitasPageCliente
       },
       {
+        path: 'detalleCita',
+        component: DetalleCitasClientePage
+      },
+      {
         path: '',
         component: RegistrarCitaPage
       }
     ]
-    // children: [
-    //   {
-    //     path: 'registrar',
-    //     component: RegistrarCitaPage
-    //   },
-    //   {
-    //     path: 'pendientes',
-    //     component: CitasPageCliente
-    //   },
-    //   {
-    //     path: '',
-    //     redirectTo: 'client/citas/registrar',
-    //     pathMatch: 'full'
-    //   }
-    // ]
   },
   {
     path: 'servicios',
     component: ServiciosPageCliente
   },
   {
-    path: 'inicio',
-    component: InicioPageCliente
-  }
+    path: 'detalleServicio',
+    component: DetalleServClientePage
+  },
+  {
+    path: 'chat',
+    component: ChatClientePage
+  },
+  {
+    path: 'registrar-veh',
+    component: RegistrarVehPage
+  },
+
+
+
 
 ];
 

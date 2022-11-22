@@ -1,19 +1,17 @@
-<ion-header [translucent]="true">
+<!-- <ion-header [translucent]="true" class="header">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>{{ page }}</ion-title>
+    <ion-title>Citas</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
-<ion-content>
-
-</ion-content>
+<app-header [page]="page"></app-header>
 
 <ion-tabs>
   <ion-tab-bar slot="bottom">
-    <ion-tab-button selected="" tab="registrar">
+    <ion-tab-button selected="true" tab="registrar">
       <ion-icon name="calendar"></ion-icon>
       <ion-label>Registrar</ion-label>
     </ion-tab-button>
@@ -21,7 +19,7 @@
     <ion-tab-button tab="pendientes">
       <ion-icon name="person-circle"></ion-icon>
       <ion-label>Pendientes</ion-label>
-      <ion-badge *ngIf="num_citas>0">{{num_citas}}</ion-badge>
+      <ion-badge>{{num_citas}}</ion-badge>
     </ion-tab-button>
 
   </ion-tab-bar>

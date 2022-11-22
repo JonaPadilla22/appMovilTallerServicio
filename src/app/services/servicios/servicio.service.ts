@@ -14,6 +14,15 @@ export class ServicioService {
     this.url = environment.baseUrlAPI; 
   }
 
+  getServicioById(id: string){
+    return this.http
+    .get(`${this.url}/servicios/${id}`, {headers: this.headers}).pipe(
+      map((res: any)=>{
+        return res;
+      })
+    );
+  }
+
   getServiciosPendientes(){
     return this.http
     .get(`${this.url}/servicios/pendientes`, {headers: this.headers}).pipe(
@@ -26,6 +35,15 @@ export class ServicioService {
   getServiciosTecnico(id: string){
     return this.http
     .get(`${this.url}/servicios/tecnico/${id}`, {headers: this.headers}).pipe(
+      map((res: any)=>{
+        return res;
+      })
+    );
+  }
+  
+  getServiciosCliente(id: string){
+    return this.http
+    .get(`${this.url}/servicios/cliente/${id}`, {headers: this.headers}).pipe(
       map((res: any)=>{
         return res;
       })

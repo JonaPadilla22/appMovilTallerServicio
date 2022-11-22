@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CitaService {
   url: string;
-  // token: string | null = localStorage.getItem('TOKEN');
+  token: string | null = localStorage.getItem('TOKEN');
   // token: string =
   //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjY4ODQwNzkxfQ.7Z8wqOfOvOGeenjayIp5bLajtvvGs-3bLzW0WaGuFG0';
   headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);

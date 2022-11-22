@@ -12,6 +12,9 @@ export class FirebaseService {
     'Authorization',
     'Bearer ' + localStorage.getItem('TOKEN')
   );
+  token_notif: string = localStorage.getItem('TOKEN_NOTIF');
+
+  
   constructor(private http: HttpClient) {}
 
   enviarToken(token: Token): Observable<any> {
@@ -23,6 +26,9 @@ export class FirebaseService {
     });
   }
 
-  // TODO: remove token of the device when the user logout from the app
-  eliminarToken(token: Token) {}
+  eliminarToken(): Observable<any> {
+    return this.http.post(`${this.url}/firebase/deleteToken`, {
+      TOKEN: this.token_notif,
+    });
+  }
 }

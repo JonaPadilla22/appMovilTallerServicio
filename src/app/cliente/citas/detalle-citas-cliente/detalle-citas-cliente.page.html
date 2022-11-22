@@ -1,0 +1,18 @@
+
+<ion-content>
+  <p>MANTENIMIENTO {{cita.TIPO_SERVICIO.DESCRIPCION}}</p>
+  <p>{{cita.DESCRIPCION}}</p>
+
+  <p *ngIf="cita.TECNICO_ENCARGADO">TÉCNICO ASIGNADO: {{cita.TECNICO_ENCARGADO.NOMBRE}}</p>
+  <p *ngIf="cita.TECNICO_ENCARGADO==null">TÉCNICO NO ASIGNADO</p>
+
+  <p>MATRÍCULA: {{cita.VEHICULO.MATRICULA}}</p>
+  <p *ngIf="cita.VEHICULO.VIN">VIN: {{cita.VEHICULO.VIN}} </p>
+
+  <h3>FECHA DE CITA</h3>
+  <h4>{{cita.FECHA_CITA | date: 'medium'}}</h4>
+
+  <p>QR DE CITA:</p>
+
+
+</ion-content>

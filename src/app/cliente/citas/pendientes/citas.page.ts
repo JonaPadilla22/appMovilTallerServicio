@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicioService } from '../../../services/servicios/servicio.service';
 import { LoadingController } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-citas',
@@ -8,19 +9,19 @@ import { LoadingController } from '@ionic/angular';
   styleUrls: ['./citas.page.css'],
 })
 export class CitasPageCliente implements OnInit {
+  url = environment.baseUrlAPI + "/usuarios/";
+  id_usuario = "3";
   public page: string;
   citas: any = [];
   num_citas: number = 0;
+  cita: number = 0;
+
+  isModalOpen = false;
 
   async ngOnInit() {
     this.page = "Citas";
     this.showLoading();
-    this.citas = await this.servService.getServiciosTecnico("2").toPromise();
-    this.citas = this.citas.filter((serv: any) => {
-      return (
-        serv.ESTATUS.ID_ESTATUS != "C" && serv.ESTATUS.ID_ESTATUS != "T"
-      );
-    });
+    await this.cargarCitas();
     this.num_citas = this.citas.length;
     this.loadingCtrl.dismiss();
   }
@@ -36,10 +37,31 @@ export class CitasPageCliente implements OnInit {
 
   constructor(
     private servService: ServicioService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
   ) {}
 
-  detalleServ(id: string){
-    alert(id);
+  async cargarCitas(){
+    this.citas = await this.servService.getServiciosCliente(this.id_usuario).toPromise();
+    this.citas = this.citas.filter((serv: any) => {
+      return (
+        serv.ESTATUS.ID_ESTATUS == "C"
+      );
+    });
+  }
+
+  handleRefresh(event: any) {
+    setTimeout(async () => {
+      await this.cargarCitas();
+      event.target.complete();
+    }, 2000);
+  };
+
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+    
+  }
+
+  setServ(cita: any){
+    this.cita = cita;
   }
 }

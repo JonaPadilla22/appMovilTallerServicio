@@ -25,6 +25,35 @@
           </ion-item>
         </ion-menu-toggle>
       </ion-list>
+
+      <ion-list id="labels-list">
+        <ion-accordion-group>
+          <ion-accordion value="first">
+            <ion-item slot="header" color="light">
+              <ion-icon slot="start" ios="options-outline" md="options-sharp"></ion-icon>
+              <ion-label>Configuración</ion-label>
+            </ion-item>
+            <div class="ion-padding" slot="content">
+
+              <ion-item *ngFor="let label of labels"
+              routerDirection="root"
+              [routerLink]="[label.url]"
+              lines="none"
+              detail="false">
+                <ion-icon
+                    slot="start"
+                    [ios]="label.icon + '-outline'"
+                    [md]="label.icon + '-sharp'"
+                  ></ion-icon>
+                <ion-label>{{label.title}}</ion-label>
+              </ion-item>
+
+            </div>
+          </ion-accordion>
+        </ion-accordion-group> 
+           
+      </ion-list>
+
     </ion-content>
   </ion-menu>
   <ion-router-outlet id="main-content"></ion-router-outlet>

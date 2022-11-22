@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  baseUrlAPI: "https://tallerservicio-production.up.railway.app"
-  // baseUrlAPI: "http://localhost:3000"
+  //baseUrlAPI: "https://tallerservicio-production.up.railway.app"
+  baseUrlAPI: "https://apitallerservicio-production.up.railway.app"
+  //baseUrlAPI: "http://localhost:3000"
 };
 
 /*

@@ -1,4 +1,4 @@
-.ion-tab-bar {
-    overflow: auto; 
-    justify-content: flex-start;
+.header {
+    background-color: #264653;
+    color: #264653;
 }
