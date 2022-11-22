@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   @ViewChild(FormLoginComponent) loginForm: any;
   @ViewChild(RegisterFormComponent) registerForm: any;
   @ViewChild('btnChangeForms') btnChangeForms: any;
-
+  
   constructor() {}
 
   ngOnInit() {}

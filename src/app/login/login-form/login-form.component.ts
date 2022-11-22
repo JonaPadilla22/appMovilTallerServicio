@@ -47,16 +47,22 @@ export class FormLoginComponent implements OnInit {
     }
 
     this.loginService.validateLogin(this.formLogin.value).subscribe({
-      next: async (v: any) => {
+      next: async (dataUser: any) => {
         const alert = await this.alertController.create({
           header: 'Bienvenido',
           buttons: ['OK'],
         });
 
         await alert.present();
-        localStorage.setItem('TOKEN', v.TOKEN);
-        // this.globals.usuario = v.USUARIO.ID;
-        this.router.navigate(['/employee'], { skipLocationChange: true });
+        localStorage.setItem('TOKEN', dataUser.TOKEN);
+        localStorage.setItem('USUARIO', JSON.stringify(dataUser.USUARIO));
+
+        if(dataUser.USUARIO.TIPO_USUARIO.ID == 4){
+          this.router.navigate(['/client']);
+          return
+        }
+
+        this.router.navigate(['/employee']);
       },
       error: async (e) => {
         const alert = await this.alertController.create({
