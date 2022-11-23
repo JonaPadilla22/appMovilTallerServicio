@@ -13,14 +13,11 @@ export class FirebaseService {
     'Bearer ' + localStorage.getItem('TOKEN')
   );
   token_notif: string = localStorage.getItem('TOKEN_NOTIF');
-
+  // id_user = JSON.parse(localStorage.getItem('USUARIO')).ID;
   
   constructor(private http: HttpClient) {}
 
-  enviarToken(token: Token): Observable<any> {
-    var id = 14;
-    alert(this.url);
-
+  enviarToken(token: Token, id: string): Observable<any> {
     return this.http.post(`${this.url}/firebase/registerToken/${id}`, {
       TOKEN: token.value,
     });

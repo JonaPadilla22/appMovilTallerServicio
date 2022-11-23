@@ -2,8 +2,14 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-// import { Globals } from 'src/app/Global';
 import { LoginService } from 'src/app/services/login/login.service';
+import {
+  ActionPerformed,
+  PushNotificationSchema,
+  PushNotifications,
+  Token,
+} from '@capacitor/push-notifications';
+import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 
 @Component({
   selector: 'login-form',
@@ -12,14 +18,16 @@ import { LoginService } from 'src/app/services/login/login.service';
 })
 export class FormLoginComponent implements OnInit {
   formLogin: any;
+  public token: string;
 
   constructor(
     private formBuilder: FormBuilder,
-    // public globals: Globals,
     private alertController: AlertController,
     private loginService: LoginService,
-    private router: Router
-  ) {
+    private router: Router,
+    private firebaseService: FirebaseService
+  )
+  {
     this.formLogin = this.formBuilder.group({
       CORREO: '',
       CONTRA: '',
@@ -27,8 +35,13 @@ export class FormLoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // TODO: check wat user is loged to redirect to his page
-    // if (localStorage.getItem('TOKEN')) this.router.navigate(['/cita']);
+    if (localStorage.getItem('TOKEN')){
+      if(JSON.parse(localStorage.getItem('USUARIO')).TIPO_USUARIO.ID==4){
+        this.router.navigate(['/client']);
+      }else{
+        this.router.navigate(['/employee']);
+      }
+    } 
   }
 
   public async validateLogin() {
@@ -50,15 +63,35 @@ export class FormLoginComponent implements OnInit {
       next: async (dataUser: any) => {
         const alert = await this.alertController.create({
           header: 'Bienvenido',
-          buttons: ['OK'],
+          buttons: [
+            {
+              text: 'OK',
+              role: 'confirm',
+              handler: () => {
+                this.router.navigate(['/client']);
+              },
+            }
+          ],
         });
-
-        await alert.present();
+   
         localStorage.setItem('TOKEN', dataUser.TOKEN);
         localStorage.setItem('USUARIO', JSON.stringify(dataUser.USUARIO));
 
         if(dataUser.USUARIO.TIPO_USUARIO.ID == 4){
-          this.router.navigate(['/client']);
+          PushNotifications.requestPermissions().then((result) => {
+            if (result.receive === 'granted') {
+              PushNotifications.register();
+            } else {
+            }
+          });
+
+          PushNotifications.addListener('registration', (token: Token) => {
+            this.token = token.value;
+            localStorage.setItem('TOKEN_NOTIF', dataUser.TOKEN);
+            this.firebaseService.enviarToken(token, JSON.parse(localStorage.getItem('USUARIO')).ID).subscribe();
+          });
+
+          await alert.present();  
           return
         }
 

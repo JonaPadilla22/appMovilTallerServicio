@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CitasPageCliente implements OnInit {
   url = environment.baseUrlAPI + "/usuarios/";
-  id_usuario = "3";
+  id_usuario = JSON.parse(localStorage.getItem('USUARIO')).ID;
   public page: string;
   citas: any = [];
   num_citas: number = 0;

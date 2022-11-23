@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ServiciosPageCliente implements OnInit {
   url = environment.baseUrlAPI + "/usuarios/";
-  id_usuario = "15";
+  id_usuario = JSON.parse(localStorage.getItem('USUARIO')).ID;
   public page: string = "Historial";
   servicios: any = [];
   servicio: any;

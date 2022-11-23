@@ -7,7 +7,7 @@
 
         <ion-menu-toggle
           auto-hide="false"
-          *ngFor="let p of appPages$; let i = index"
+          *ngFor="let p of appPages; let i = index"
         >
           <ion-item
             routerDirection="root"
@@ -35,9 +35,8 @@
             </ion-item>
             <div class="ion-padding" slot="content">
 
-              <ion-item *ngFor="let label of labels"
-              routerDirection="root"
-              [routerLink]="[label.url]"
+              <!-- <ion-item *ngFor="let label of labels"
+              (click)="label.func()"
               lines="none"
               detail="false">
                 <ion-icon
@@ -46,6 +45,21 @@
                     [md]="label.icon + '-sharp'"
                   ></ion-icon>
                 <ion-label>{{label.title}}</ion-label>
+              </ion-item> -->
+
+              <ion-item (click)="changePass()" lines="none" detail="false">
+                <ion-icon slot="start" [ios]="'lock-closed-outline'" [md]="'lock-closed-sharp'"></ion-icon>
+                <ion-label>Cambiar Contraseña</ion-label>
+              </ion-item>
+
+              <ion-item (click)="changeImage()" lines="none" detail="false">
+                <ion-icon slot="start" [ios]="'image-outline'" [md]="'image-sharp'"></ion-icon>
+                <ion-label>Cambiar Imagen</ion-label>
+              </ion-item>
+
+              <ion-item (click)="closeSession()" lines="none" detail="false">
+                <ion-icon slot="start" [ios]="'log-out-outline'" [md]="'log-out-sharp'"></ion-icon>
+                <ion-label>Cerrar Sesión</ion-label>
               </ion-item>
 
             </div>

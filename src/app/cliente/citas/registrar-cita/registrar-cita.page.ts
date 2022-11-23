@@ -14,7 +14,7 @@ import { AlertController, IonSelect } from '@ionic/angular';
 export class RegistrarCitaPage implements OnInit {
   page = "Registrar"
   public formRegisterCit: FormGroup;
-  id_cliente = "22";
+  id_cliente = JSON.parse(localStorage.getItem('USUARIO')).ID;
 
   typesServ: any;
   vehiculos: any;
