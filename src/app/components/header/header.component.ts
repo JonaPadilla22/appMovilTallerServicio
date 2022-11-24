@@ -9,8 +9,8 @@ import { environment } from 'src/environments/environment';
 export class HeaderComponent{
   @Input() page: any;
   url = environment.baseUrlAPI + "/usuarios/";
-  id_usuario = "3";
-  img_usuario = "1.png";
+  id_usuario = JSON.parse(localStorage.getItem('USUARIO')).ID;
+  img_usuario = JSON.parse(localStorage.getItem('USUARIO')).IMG;
   constructor() { }
 
   ngOnInit() {}

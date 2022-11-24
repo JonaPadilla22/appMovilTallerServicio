@@ -1,5 +1,4 @@
-import { ChangePasswordComponent } from './../components/change-password/change-password.component';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
@@ -19,8 +18,7 @@ export class NavComponent implements OnInit {
   modalImageOpen = false;
 
   constructor(
-    private alertController: AlertController, 
-    private modalCtrl: ModalController,
+    private alertController: AlertController,
     private router: Router,
     private firebaseService: FirebaseService
     ) {

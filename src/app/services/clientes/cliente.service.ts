@@ -52,7 +52,6 @@ export class ClienteService {
   }
 
   updateImageUser(id: any, img: any) {
-    console.log(img);
     return this.http.post(`${this.url}/usuarios/actualizarImagen/${id}`, img, {
       headers: this.headers,
     });

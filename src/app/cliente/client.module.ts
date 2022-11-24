@@ -1,10 +1,7 @@
 
-import { HeaderComponent } from './../components/header/header.component';
 import { RegistrarVehPage } from './citas/registrar-veh/registrar-veh.page';
 import { ChatClientePage } from './chat-cliente/chat-cliente.page';
 import { DetalleServClientePage } from './detalle-serv-cliente/detalle-serv-cliente.page';
-
-
 import { InicioCitasClientePage } from './citas/inicio-citas-cliente/inicio-citas-cliente.page';
 import { InicioPageCliente } from './inicio/inicio.page';
 import { DetalleCitasClientePage } from './citas/detalle-citas-cliente/detalle-citas-cliente.page';

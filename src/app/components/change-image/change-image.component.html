@@ -1,0 +1,8 @@
+<ion-content class="ion-padding">
+  <ion-avatar class="imgUser"><img src="{{ url }} "alt=""/></ion-avatar>
+
+  <ion-input #inputImage type="file" (change)="inputChange($event.target)"></ion-input>
+  <div [ngStyle]="{'background-image':'url('+url+')'}"></div>
+  <ion-button (click)="changeImage()">Confirmar</ion-button>
+</ion-content>
+

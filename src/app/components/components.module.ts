@@ -4,8 +4,6 @@ import { HeaderComponent } from './header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
-
-
 @NgModule({
   declarations: [
     HeaderComponent

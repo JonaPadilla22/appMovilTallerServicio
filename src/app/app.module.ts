@@ -1,3 +1,4 @@
+import { ChangeImageComponent } from './components/change-image/change-image.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 import { NgModule } from '@angular/core';
@@ -15,7 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 // import { Globals } from './Global';
 
 @NgModule({
-  declarations: [AppComponent, NavComponent, ChangePasswordComponent],
+  declarations: [AppComponent, NavComponent, ChangePasswordComponent, ChangeImageComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
