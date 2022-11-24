@@ -7,13 +7,15 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 import { EmployeePageRoutingModule } from './employee-routing.module';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    EmployeePageRoutingModule
+    EmployeePageRoutingModule,
+    ComponentsModule
   ],
   declarations: [
     CitasPage,

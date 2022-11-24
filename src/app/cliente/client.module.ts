@@ -16,6 +16,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { IonicModule } from '@ionic/angular';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    CitasPageRoutingModule
+    CitasPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [
     InicioPageCliente,
@@ -35,7 +37,6 @@ import { IonicModule } from '@ionic/angular';
     DetalleServClientePage,
     ChatClientePage,
     RegistrarVehPage,
-    HeaderComponent
   ]
 })
 export class ClientPageModule {}
