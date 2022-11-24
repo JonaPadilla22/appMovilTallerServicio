@@ -1,3 +1,4 @@
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -14,7 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 // import { Globals } from './Global';
 
 @NgModule({
-  declarations: [AppComponent, NavComponent],
+  declarations: [AppComponent, NavComponent, ChangePasswordComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

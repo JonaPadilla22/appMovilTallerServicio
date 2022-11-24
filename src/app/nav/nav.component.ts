@@ -1,4 +1,4 @@
-import { ChatClientePage } from './../cliente/chat-cliente/chat-cliente.page';
+import { ChangePasswordComponent } from './../components/change-password/change-password.component';
 import { AlertController, ModalController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -14,6 +14,9 @@ export class NavComponent implements OnInit {
 
   appPages: any;
   labels: any;
+
+  modalPasswordOpen = false;
+  modalImageOpen = false;
 
   constructor(
     private alertController: AlertController, 
@@ -77,16 +80,11 @@ export class NavComponent implements OnInit {
   }
 
   async changePass(){
-    const modal = await this.modalCtrl.create({
-      component: ChatClientePage,
-    });
-    modal.present();
-
-    const { data, role } = await modal.onWillDismiss();
+    this.modalPasswordOpen = true;
   }
 
   changeImage(){
-    console.log("cambiar imagen");
+    this.modalImageOpen = true;
   }
 
 }
