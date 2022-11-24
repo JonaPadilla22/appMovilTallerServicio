@@ -23,11 +23,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    LoginModule
+    LoginModule,
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    FirebaseService
+    FirebaseService,
     // Globals
   ],
   bootstrap: [AppComponent],

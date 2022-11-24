@@ -1,28 +1,80 @@
 <app-header [page]="page"></app-header>
 
 <ion-content>
-
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">{{ page }}</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div class="card" *ngFor="let serv of servicios">
-    <div class="contenido-card" id="tarjeta" (click)="detalleServ(serv.ID_SERVICIO)">
-      <h4>{{serv.VEHICULO.MODELO.MARCA.DESCRIPCION}} {{serv.VEHICULO.MODELO.DESCRIPCION}} {{serv.VEHICULO.COLOR}} {{serv.VEHICULO.ANIO}}</h4>
-      {{serv.VEHICULO.MATRICULA}}
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div>
+    <ion-modal [isOpen]="isModalOpen">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>DETALLE SERVICIO</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="setOpen(false)">CERRAR</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding"> </ion-content>
+      </ng-template>
+    </ion-modal>
+  </div>
+
+  <ion-card
+    *ngFor="let serv of servicios"
+    (click)="setServ(serv);setOpen(true)"
+  >
+    <ion-card-header>
+      <ion-card-title
+        >{{serv.VEHICULO.MODELO.MARCA.DESCRIPCION}}
+        {{serv.VEHICULO.MODELO.DESCRIPCION}} {{serv.VEHICULO.COLOR}}
+        {{serv.VEHICULO.ANIO}}</ion-card-title
+      >
+      <ion-card-subtitle>{{serv.VEHICULO.MATRICULA}}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
       <p>MANTENIMIENTO {{serv.TIPO_SERVICIO.DESCRIPCION}}</p>
-      <p>CLIENTE: {{serv.CLIENTE.NOMBRE}}</p>
-      <img class="imgEstatus" src="../../../assets/servicios/{{serv.ESTATUS.ID_ESTATUS}}.png" alt="">
-      {{serv.ESTATUS.DESCRIPCION}}     
-    </div>
-</div>
 
-<div hidden id="noServices">
-  <img src="../../assets/sin-autos.png" alt="">
-  <p>Nada que mostrar por aquí</p>
-</div>
+      <div class="contendor-tecnico-status">
+        <div>
+          <div class="tecnicoEncargado" *ngIf="serv.TECNICO_ENCARGADO">
+            <ion-avatar>
+              <img
+                class="imgTecnico"
+                src="{{ url }}{{
+                  serv.TECNICO_ENCARGADO.IMG ?? 'default.png'
+                }}"
+                alt=""
+              />
+            </ion-avatar>
+            {{serv.TECNICO_ENCARGADO.NOMBRE}}
+          </div>
+          <div *ngIf="!serv.TECNICO_ENCARGADO">
+            TÉCNICO ENCARGADO: NO ASIGNADO
+          </div>
+        </div>
+        <div class="estatus">
+          <img
+            class="imgEstatus"
+            src="../../../../assets/servicios/{{serv.ESTATUS.ID_ESTATUS}}.png"
+            alt=""
+          />
+          {{serv.ESTATUS.DESCRIPCION}}
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
 
-
+  <div hidden id="noServices">
+    <img src="../../assets/sin-autos.png" alt="" />
+    <p>Nada que mostrar por aquí</p>
+  </div>
 </ion-content>

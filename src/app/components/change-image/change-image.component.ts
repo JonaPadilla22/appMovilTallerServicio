@@ -16,6 +16,7 @@ export class ChangeImageComponent implements OnInit {
   imagen: any;
 
   @ViewChild('inputImage') inputImage: any; 
+  
   constructor(
     private alertController: AlertController,
     private clientService: ClienteService

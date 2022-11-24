@@ -1,9 +1,21 @@
-.card{
-    margin: 20px;
-    background-color: #26465370;
-    padding: 10px;
-    border-radius: 20px;
-    box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
-    transition: all 300ms ease-out;
+.scan-box {
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 100vmax rgb(255, 255, 255);
+  content: "";
+  display: block;
+  left: 50%;
+  height: 300px;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
 }
 
+.scan-button {
+  margin: 0px;
+  position: absolute;
+  bottom: 100px;
+  width: 100vw;
+  height: 50px;
+  z-index: 11;
+}/*# sourceMappingURL=citas.page.css.map */
