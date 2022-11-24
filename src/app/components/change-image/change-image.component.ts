@@ -57,10 +57,17 @@ export class ChangeImageComponent implements OnInit {
                     const alert = await this.alertController.create({
                       header: 'Exito',
                       message: response.message,
-                      buttons: ['OK'],
+                      buttons: [
+                        {
+                          text: 'Confirmar',
+                          role: 'confirm',
+                          handler: async () => {
+                            window.location.reload();
+                          },
+                        },
+                      ],
                     });
                     await alert.present();
-
                   },
                   error: async (e) => {
                     const alert = await this.alertController.create({

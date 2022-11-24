@@ -22,42 +22,62 @@ export class ChangePasswordComponent implements OnInit {
   ngOnInit() {}
 
   async changePass(){
+
     let actualPass: string = this.inputActualPass.value;
     let newPass: string = this.inputNewPass.value;
     let confPass: string = this.inputConfPass.value;
 
-    if(newPass!=confPass){
-      const alert = await this.alertController.create({
-        header: 'Error',
-        message: "LA CONFIRMACIÓN NO COINCIDE CON LA NUEVA CONTRASEÑA",
-        buttons: ['OK'],
-      });
-      await alert.present();
-    }else{
-      this.clientService.updatePassword(this.id_user, actualPass, newPass).subscribe(
+
+    const alert = await this.alertController.create({
+      header: '¿Desea cambiar la contraseña?',
+      buttons: [
         {
-          next: async (response: any) => {
-            const alert = await this.alertController.create({
-              header: 'Éxito',
-              message: response.message,
-              buttons: ['OK'],
-            });
-            await alert.present();
-            this.inputActualPass.value = "";
-            this.inputNewPass.value = "";
-            this.inputConfPass.value = "";
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
           },
-          error: async (e) => {
-            console.log(e);
-            const alert = await this.alertController.create({
-              header: 'Error',
-              message: "LA CONTRASEÑA ACTUAL NO ES CORRECTA",
-              buttons: ['OK'],
-            });
-            await alert.present();
-          }
-        }
-      );
-    }
+        },
+        {
+          text: 'Confirmar',
+          role: 'confirm',
+          handler: async () => {
+            if(newPass!=confPass){
+              const alert = await this.alertController.create({
+                header: 'Error',
+                message: "LA CONFIRMACIÓN NO COINCIDE CON LA NUEVA CONTRASEÑA",
+                buttons: ['OK'],
+              });
+              await alert.present();
+            }else{
+              this.clientService.updatePassword(this.id_user, actualPass, newPass).subscribe(
+                {
+                  next: async (response: any) => {
+                    const alert = await this.alertController.create({
+                      header: 'Éxito',
+                      message: response.message,
+                      buttons: ['OK'],
+                    });
+                    await alert.present();
+                    this.inputActualPass.value = "";
+                    this.inputNewPass.value = "";
+                    this.inputConfPass.value = "";
+                  },
+                  error: async (e) => {
+                    console.log(e);
+                    const alert = await this.alertController.create({
+                      header: 'Error',
+                      message: "LA CONTRASEÑA ACTUAL NO ES CORRECTA",
+                      buttons: ['OK'],
+                    });
+                    await alert.present();
+                  }
+                }
+              );
+            }
+          },
+        },
+      ],
+    });
+    await alert.present();
   }
 }
