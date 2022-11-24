@@ -13,7 +13,7 @@ export class InicioPageTecnico implements OnInit {
   public page: string;
   servicios: any = [];
   id_user = JSON.parse(localStorage.getItem('USUARIO')).ID;
-  tipo_usuario = JSON.parse(localStorage.getItem('USUARIO')).TIPO_USUARIO;
+  tipo_usuario = JSON.parse(localStorage.getItem('USUARIO')).TIPO_USUARIO.ID;
 
   servicio: any;
   isModalOpen = false;
@@ -55,7 +55,6 @@ export class InicioPageTecnico implements OnInit {
         .getServiciosPendientes()
         .toPromise();
     }
-
 
     this.servicios = this.servicios.filter((serv: any) => {
       return serv.ESTATUS.ID_ESTATUS != 'C' && serv.ESTATUS.ID_ESTATUS != 'T';
