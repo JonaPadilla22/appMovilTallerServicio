@@ -1,0 +1,14 @@
+.seguimientoServ {
+    margin: 5px;
+    padding: 5px;
+    background-color: bisque;
+}
+
+.seguimientoServ div img {
+    width: 40px;
+    height: 40px;
+}   
+
+.tablaDetalle {
+    font-size: 8px;
+}

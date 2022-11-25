@@ -12,8 +12,7 @@
           </ion-toolbar>
         </ion-header>
         <ion-content class="ion-padding">
-          CHAT
-          <!-- <app-chat-cliente [serv]="serv"></app-chat-cliente> -->
+          <app-chat [serv]="serv"></app-chat>
         </ion-content>
       </ng-template>
     </ion-modal>
@@ -54,15 +53,42 @@
   
   <div *ngIf="serv.ESTATUS.ID_ESTATUS!='C'">
     <p>REFACCIONES Y MANO DE OBRA</p>
-    TABLA
+    <ion-grid class="tablaDetalle">
+      <ion-row>
+        <ion-col>TIPO</ion-col>
+        <ion-col>DESCRIPCION</ion-col>
+        <ion-col>PRECIO</ion-col>
+        <ion-col>CANTIDAD</ion-col>
+        <ion-col>TOTAL</ion-col>
+      </ion-row>
+
+      <ion-row *ngFor="let det of detalle_serv">
+        <ion-col>{{det.TIPO_PROD}}</ion-col>
+        <ion-col>{{det.PRODUCTO.DESCRIPCION}}</ion-col>
+        <ion-col>{{det.PRECIO | currency}} </ion-col>
+        <ion-col>{{det.CANTIDAD}}</ion-col>
+        <ion-col>{{det.PRECIO * det.CANTIDAD | currency}}</ion-col>
+      </ion-row>
+    </ion-grid>
     <ion-button *ngIf="serv.ESTATUS.ID_ESTATUS=='R'">AGREGAR</ion-button>
   </div>
   
   <ion-button *ngIf="serv.ESTATUS.ID_ESTATUS!='T'" (click)="updateStatus()">ACTUALIZAR ESTATUS</ion-button>
   <br>
 
-  <div *ngIf="serv.ESTATUS.ID_ESTATUS=='T'">
+  <div class="seguimientoServ" *ngIf="serv.ESTATUS.ID_ESTATUS!='C'">
     SEGUIMIENTO SERVICIO
+
+    <div *ngFor="let act of actualizaciones_serv">
+      {{act.ESTATUS.DESCRIPCION}}
+      {{act.USUARIO.NOMBRE}}
+      {{act.FECHA | date: 'medium'}}
+      <ion-avatar>
+        <img src="{{url}}{{act.USUARIO.IMG ?? 'default.png'}}" alt="">
+      </ion-avatar>
+    </div>
+
+
   </div>
 
   <ion-fab>

@@ -1,0 +1,17 @@
+<!-- 
+  cosas a tomar en cuenta
+  slot "start" o "end"
+  class "other" o "you"
+  imagen
+  contenido msg
+-->
+<ion-item class="other">
+  <ion-thumbnail slot="start">
+    <img alt="" src="{{url}}{{usuario.IMG ?? 'default.png'}}" />
+  </ion-thumbnail>
+  <div>
+    <ion-label>{{usuario.NOMBRE}}</ion-label>
+    <ion-label>{{message.message}}</ion-label>
+  </div>
+  
+</ion-item>

@@ -25,6 +25,12 @@ export class ClienteService {
     });
   }
 
+  getClienteById(id: string) {
+    return this.http.get(`${this.url}/usuarios/${id}`, {
+      headers: this.headers,
+    });
+  }
+
   registrarUsuario(form: any) {
     return this.http.post(`${this.url}/usuarios`, form, {
       headers: this.headers,

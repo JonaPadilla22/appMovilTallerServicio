@@ -1,0 +1,25 @@
+<ion-content>
+  <h3 class="fecha-del-chat">Hoy</h3>
+  <div *ngFor="let message of chats">
+    <mensaje [message]="message"></mensaje>
+  </div>
+  
+  <form id="message" [formGroup]="form" (ngSubmit)="onChatSubmit(form.value)">
+
+    <ion-item fill="solid" class="descripcion-text">
+      <ion-label position="floating">Descripcion</ion-label>
+      <ion-textarea
+        formControlName="message"
+        class="custom-textarea"
+        [autoGrow]="true"
+      ></ion-textarea>
+    </ion-item>
+
+    <button type="submit" matSuffix mat-icon-button aria-label="Submit">
+      ENVIAR
+    </button>
+     
+  </form>
+</ion-content>
+
+

@@ -16,7 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 // import { Globals } from './Global';
 
 @NgModule({
-  declarations: [AppComponent, NavComponent, ChangePasswordComponent, ChangeImageComponent],
+  declarations: [AppComponent, NavComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

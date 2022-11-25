@@ -15,6 +15,8 @@ export class DetalleServEmpleadoPage implements OnInit {
   isModalOpen = false;
   user = JSON.parse(localStorage.getItem('USUARIO'));
   estatus: any;
+  actualizaciones_serv: any;
+  detalle_serv: any;
 
   constructor(
     private servService: ServicioService,
@@ -24,14 +26,13 @@ export class DetalleServEmpleadoPage implements OnInit {
 
   async ngOnInit() {
     this.estatus = await this.servService.getEstatus().toPromise();
-
-   
+    this.actualizaciones_serv = await this.servService.getActualizacionesServicios(this.serv.ID_SERVICIO).toPromise();
+    this.detalle_serv = await this.servService.getDetalleServicio(this.serv.ID_SERVICIO).toPromise();
   }
 
   getSigEstatus(id_est: string): any{
     const resultado = this.estatus.find( (est: any) => est.ID_ESTATUS === id_est);
     let sig_id = this.estatus.indexOf(resultado) + 1;
-
     return this.estatus[sig_id];
   }
 
@@ -43,7 +44,6 @@ export class DetalleServEmpleadoPage implements OnInit {
       
       sig_estatus = {ID_ESTATUS: "I", DESCRIPCION: "INGRESADO"};
     }
-    // console.log(sig_estatus)
 
     const alert = await this.alertController.create({
       header: `¿Desea actualizar el estatus del servicio a "${sig_estatus.DESCRIPCION}"?`,
