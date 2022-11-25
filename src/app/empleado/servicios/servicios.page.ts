@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-servicios',
   templateUrl: './servicios.page.html',
-  styleUrls: ['./servicios.page.scss'],
+  styleUrls: ['./servicios.page.css'],
 })
 export class ServiciosPage implements OnInit {
   url = environment.baseUrlAPI + "/usuarios/";
