@@ -10,13 +10,14 @@ import { LoginModule } from './login/login.module';
 import { NavComponent } from './nav/nav.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from './components/components.module';
+// import { QRCodeModule } from 'angularx-qrcode'
 //import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 // import { Globals } from './Global';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,
@@ -25,11 +26,12 @@ import { ComponentsModule } from './components/components.module';
     HttpClientModule,
     ReactiveFormsModule,
     LoginModule,
-    ComponentsModule
+    ComponentsModule,
+    // QRCodeModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    FirebaseService,
+    FirebaseService
     // Globals
   ],
   bootstrap: [AppComponent],

@@ -49,4 +49,23 @@
 
   <h2 class="titulo-qr">QR DE CITA:</h2>
   <!-- TODO: Poner el QR -->
+
+  <div class="qrcodeImage">
+    <qrcode
+      [qrdata]="'{{cita.ID_SERVICIO}}'"
+      [allowEmptyString]="true"
+      [ariaLabel]="'QR Code image with the following content...'"
+      [cssClass]="'center'"
+      [colorDark]="'#000000ff'"
+      [colorLight]="'#ffffffff'"
+      [elementType]="'canvas'"
+      [errorCorrectionLevel]="'M'"
+      [imageHeight]="75"
+      [imageWidth]="75"
+      [margin]="4"
+      [scale]="1"
+      [title]="'QR'"
+      [width]="300"
+    ></qrcode>
+  </div>
 </ion-content>
