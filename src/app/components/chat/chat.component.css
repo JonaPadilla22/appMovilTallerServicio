@@ -1,0 +1,9 @@
+.contenedor-mensajes {
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+button {
+  margin-top: 20px;
+  padding: 15px 25px;
+}/*# sourceMappingURL=chat.component.css.map */

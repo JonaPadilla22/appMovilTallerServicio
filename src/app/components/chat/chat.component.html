@@ -1,6 +1,7 @@
 <ion-content>
-  <div *ngFor="let message of chats">
-    <mensaje [message]="message"></mensaje>
+  <h3 class="fecha-del-chat">Hoy</h3>
+  <div class="contenedor-mensajes" >
+    <mensaje *ngFor="let message of chats" [message]="message"></mensaje>
   </div>
   
   <form id="message" [formGroup]="form" (ngSubmit)="onChatSubmit(form.value)">

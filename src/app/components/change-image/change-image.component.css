@@ -1,8 +1,15 @@
-.ion-padding{
-    text-align: center;
+.ion-padding {
+  text-align: center;
 }
 
 .imgUser {
-    width: 100px;
-    height: 100px;
+  width: 100px;
+  height: 100px;
 }
+
+ion-content ion-avatar {
+  margin: 0 auto;
+}
+ion-content ion-input {
+  margin: 20px 0;
+}/*# sourceMappingURL=change-image.component.css.map */
