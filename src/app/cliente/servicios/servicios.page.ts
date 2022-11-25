@@ -15,6 +15,7 @@ export class ServiciosPageCliente implements OnInit {
   servicios: any = [];
   servicio: any;
   isModalOpen = false;
+  loading = false;
 
   async showLoading() {
     const loading = await this.loadingCtrl.create({
@@ -26,6 +27,7 @@ export class ServiciosPageCliente implements OnInit {
   }
 
   async cargarServ(){
+    this.loading = true;
     this.servicios = await this.servService.getServiciosCliente(this.id_usuario).toPromise();
     this.servicios = this.servicios.filter((serv: any) => {
       return (
@@ -43,7 +45,10 @@ export class ServiciosPageCliente implements OnInit {
     this.page = "Historial";
     this.showLoading();
     await this.cargarServ();
-    this.loadingCtrl.dismiss();
+    if(this.loading){
+      this.loadingCtrl.dismiss();
+      this.loading=false;
+    }  
     if(this.servicios.length==0){
       (<HTMLInputElement>document.getElementById("noServices")).hidden = false;
     }
@@ -56,8 +61,16 @@ export class ServiciosPageCliente implements OnInit {
     }, 2000);
   };
 
-  setOpen(isOpen: boolean) {
-    this.isModalOpen = isOpen; 
+  async setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+    if(!isOpen){
+      this.showLoading();
+      await this.cargarServ();
+      if(this.loading){
+        this.loadingCtrl.dismiss();
+        this.loading=false;
+      }
+    }
   }
 
   setServ(servicio: any){

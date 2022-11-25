@@ -1,0 +1,73 @@
+
+<ion-content>
+  <div>
+    <ion-modal [isOpen]="isModalOpen">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>CHAT DE SERVICIO</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="abrirChat(false)">CERRAR</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          CHAT
+          <!-- <app-chat-cliente [serv]="serv"></app-chat-cliente> -->
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  </div>
+
+  <p>MANTENIMIENTO {{serv.TIPO_SERVICIO.DESCRIPCION}}</p>
+  <p>{{serv.DESCRIPCION}}</p>
+
+  <p>MATRÍCULA: {{serv.VEHICULO.MATRICULA}}</p>
+  <p *ngIf="serv.VEHICULO.VIN">VIN: {{serv.VEHICULO.VIN}} </p>
+
+  <p *ngIf="serv.TECNICO_ENCARGADO">
+    <ion-avatar>
+      <img
+        class="imgTecnico"
+        src="{{ url }}{{
+          serv.TECNICO_ENCARGADO.IMG ?? 'default.png'
+        }}"
+        alt=""
+      /> 
+    </ion-avatar>
+    TÉCNICO ASIGNADO: {{serv.TECNICO_ENCARGADO.NOMBRE}}
+  </p>
+  <p *ngIf="!serv.TECNICO_ENCARGADO">TÉCNICO NO ASIGNADO</p>
+
+  <div>
+    <ion-avatar>
+      <img
+        class="imgTecnico"
+        src="{{ url }}{{
+          serv.CLIENTE.IMG ?? 'default.png'
+        }}"
+        alt=""
+      /> 
+    </ion-avatar>
+    CLIENTE: {{serv.CLIENTE.NOMBRE}}
+  </div>
+  
+  <div *ngIf="serv.ESTATUS.ID_ESTATUS!='C'">
+    <p>REFACCIONES Y MANO DE OBRA</p>
+    TABLA
+    <ion-button *ngIf="serv.ESTATUS.ID_ESTATUS=='R'">AGREGAR</ion-button>
+  </div>
+  
+  <ion-button *ngIf="serv.ESTATUS.ID_ESTATUS!='T'" (click)="updateStatus()">ACTUALIZAR ESTATUS</ion-button>
+  <br>
+
+  <div *ngIf="serv.ESTATUS.ID_ESTATUS=='T'">
+    SEGUIMIENTO SERVICIO
+  </div>
+
+  <ion-fab>
+    <ion-fab-button (click)="abrirChat(true)">
+      <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

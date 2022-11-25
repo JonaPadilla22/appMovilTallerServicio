@@ -17,13 +17,18 @@ export class CitasPageCliente implements OnInit {
   cita: number = 0;
 
   isModalOpen = false;
+  loading = false;
+
 
   async ngOnInit() {
     this.page = "Citas";
     this.showLoading();
     await this.cargarCitas();
+    if(this.loading){
+      this.loadingCtrl.dismiss();
+      this.loading=false;
+    }  
     this.num_citas = this.citas.length;
-    this.loadingCtrl.dismiss();
   }
 
   async showLoading() {
@@ -41,6 +46,7 @@ export class CitasPageCliente implements OnInit {
   ) {}
 
   async cargarCitas(){
+    this.loading = true;
     this.citas = await this.servService.getServiciosCliente(this.id_usuario).toPromise();
     this.citas = this.citas.filter((serv: any) => {
       return (
@@ -56,9 +62,16 @@ export class CitasPageCliente implements OnInit {
     }, 2000);
   };
 
-  setOpen(isOpen: boolean) {
+  async setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
-    
+    if(!isOpen){
+      this.showLoading();
+      await this.cargarCitas();
+      if(this.loading){
+        this.loadingCtrl.dismiss();
+        this.loading=false;
+      }
+    }
   }
 
   setServ(cita: any){

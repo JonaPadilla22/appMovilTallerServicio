@@ -23,6 +23,7 @@ const routes: Routes = [
     path: 'servicios',
     component: ServiciosPage
   }
+
 ];
 
 @NgModule({

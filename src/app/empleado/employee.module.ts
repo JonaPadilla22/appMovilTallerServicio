@@ -1,3 +1,4 @@
+import { DetalleServEmpleadoPage } from './detalle-serv-empleado/detalle-serv-empleado.page';
 import { HeaderComponent } from './../components/header/header.component';
 import { ServiciosPage } from './servicios/servicios.page';
 import { InicioPageTecnico } from './inicio/inicio.page';
@@ -20,7 +21,8 @@ import { ComponentsModule } from '../components/components.module';
   declarations: [
     CitasPage,
     InicioPageTecnico,
-    ServiciosPage
+    ServiciosPage,
+    DetalleServEmpleadoPage
   ]
 })
 export class EmployeePageModule {}

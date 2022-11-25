@@ -17,6 +17,7 @@ export class InicioPageTecnico implements OnInit {
 
   servicio: any;
   isModalOpen = false;
+  loading = false;
 
   constructor(
     private loadingCtrl: LoadingController,
@@ -29,12 +30,13 @@ export class InicioPageTecnico implements OnInit {
     this.showLoading();
 
     await this.cargarServ();
-
+    if(this.loading){
+      this.loadingCtrl.dismiss();
+      this.loading=false;
+    }  
     if (this.servicios.length == 0) {
       (<HTMLInputElement>document.getElementById('noServices')).hidden = false;
     }
-
-    this.loadingCtrl.dismiss();
   }
 
   handleRefresh(event: any) {
@@ -45,7 +47,7 @@ export class InicioPageTecnico implements OnInit {
   }
 
   async cargarServ() {
-
+    this.loading = true;
     if(this.tipo_usuario == 3){
       this.servicios = await this.servService
         .getServiciosTecnico(this.id_user)
@@ -72,8 +74,16 @@ export class InicioPageTecnico implements OnInit {
 
   // detalleServ(id: string) {}
 
-  setOpen(isOpen: boolean) {
+  async setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
+    if(!isOpen){
+      this.showLoading();
+      await this.cargarServ();
+      if(this.loading){
+        this.loadingCtrl.dismiss();
+        this.loading=false;
+      }
+    }
   }
 
   setServ(servicio: any) {
