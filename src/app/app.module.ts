@@ -1,6 +1,3 @@
-import { ChangeImageComponent } from './components/change-image/change-image.component';
-import { ChangePasswordComponent } from './components/change-password/change-password.component';
-
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -12,11 +9,15 @@ import { FirebaseService } from './services/firebase/firebase.service';
 import { LoginModule } from './login/login.module';
 import { NavComponent } from './nav/nav.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ComponentsModule } from './components/components.module';
 //import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 // import { Globals } from './Global';
 
 @NgModule({
-  declarations: [AppComponent, NavComponent],
+  declarations: [
+    AppComponent,
+    NavComponent,
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -24,6 +25,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule,
     LoginModule,
+    ComponentsModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
