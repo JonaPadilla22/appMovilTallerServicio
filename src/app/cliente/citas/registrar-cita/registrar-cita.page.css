@@ -31,4 +31,8 @@ ion-content .contenedor-btn-veih {
 ion-content ion-textarea.custom-textarea {
   max-height: 200px;
   overflow-y: scroll;
+}
+
+ion-datetime {
+  --background: rgb(24, 24, 26);
 }/*# sourceMappingURL=registrar-cita.page.css.map */
