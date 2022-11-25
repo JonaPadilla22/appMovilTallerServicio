@@ -1,5 +1,45 @@
-#container {
-  height: 100%;
-  display: inline;
+h4 {
+  text-align: center;
+  margin: 20px 0;
+}
+
+ion-card {
+  max-height: 300px;
+}
+ion-card ion-card-content .contendor-tecnico-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 15px 0;
+  background: rgb(150, 166, 203);
+  padding: 10px 0;
+  color: #fff;
+  border-radius: 10px;
+}
+ion-card ion-card-content .contendor-tecnico-status .tecnicoEncargado {
+  width: 100%;
+  text-align: center;
+  flex-direction: column;
   justify-content: center;
+  text-align: center;
+}
+ion-card ion-card-content .contendor-tecnico-status .tecnicoEncargado ion-avatar {
+  margin: 0 auto;
+}
+ion-card ion-card-content .contendor-tecnico-status .estatus {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+ion-card ion-card-content .imgEstatus {
+  width: 40%;
+  max-width: 40px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+ion-card ion-card-content .imgTecnico {
+  max-width: 50px;
+  width: 50px;
 }/*# sourceMappingURL=inicio.page.css.map */

@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ComponentsModule } from '../components/components.module';
+import { MensajeComponent } from './chat-cliente/mensaje/mensaje.component';
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import { ComponentsModule } from '../components/components.module';
     DetalleServClientePage,
     ChatClientePage,
     RegistrarVehPage,
+    MensajeComponent
   ]
 })
 export class ClientPageModule {}

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-detalle-serv-cliente',
@@ -8,6 +9,8 @@ import { Component, Input, OnInit } from '@angular/core';
 export class DetalleServClientePage implements OnInit {
   @Input() serv: any;
   isModalOpen = false;
+
+  url = environment.baseUrlAPI + "/usuarios/";
 
   constructor() { }
 

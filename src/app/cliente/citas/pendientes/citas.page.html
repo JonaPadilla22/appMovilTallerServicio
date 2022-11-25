@@ -5,7 +5,6 @@
 </ion-header>
 
 <ion-content>
-
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
@@ -27,30 +26,41 @@
       </ng-template>
     </ion-modal>
   </div>
-  
+
   <ion-card *ngFor="let serv of citas" (click)="setServ(serv);setOpen(true)">
     <ion-card-header>
-      <ion-card-title>{{serv.VEHICULO.MODELO.MARCA.DESCRIPCION}} {{serv.VEHICULO.MODELO.DESCRIPCION}} {{serv.VEHICULO.COLOR}} {{serv.VEHICULO.ANIO}}</ion-card-title>
+      <ion-card-title
+        >{{serv.VEHICULO.MODELO.MARCA.DESCRIPCION}}
+        {{serv.VEHICULO.MODELO.DESCRIPCION}} {{serv.VEHICULO.COLOR}}
+        {{serv.VEHICULO.ANIO}}</ion-card-title
+      >
       <ion-card-subtitle>{{serv.VEHICULO.MATRICULA}}</ion-card-subtitle>
     </ion-card-header>
-  
+
     <ion-card-content>
-      <p>MANTENIMIENTO {{serv.TIPO_SERVICIO.DESCRIPCION}}</p>   
-      <p>FECHA CITA: {{serv.FECHA_CITA | date: 'medium'}}</p>
-      <div>
-          <div *ngIf="serv.TECNICO_ENCARGADO">                   
-            <ion-avatar>
-              <img class="imgTecnico"
+      <div class="info-mantenimiento">
+        <span>MANTENIMIENTO:</span>
+        <p>{{serv.TIPO_SERVICIO.DESCRIPCION}}</p>
+        <span>FECHA CITA:</span>
+        <p>{{serv.FECHA_CITA | date: 'medium'}}</p>
+      </div>
+      <div class="tecnico-mantenimiento">
+        <div *ngIf="serv.TECNICO_ENCARGADO">
+          <ion-avatar>
+            <img
+              class="imgTecnico"
               src="{{ url }}{{
                 serv.TECNICO_ENCARGADO.IMG ?? 'default.png'
               }}"
-              alt=""/> 
-            </ion-avatar> {{serv.TECNICO_ENCARGADO.NOMBRE}}
-          </div>    
+              alt=""
+            />
+          </ion-avatar>
+          {{serv.TECNICO_ENCARGADO.NOMBRE}}
+        </div>
 
-          <div *ngIf="serv.TECNICO_ENCARGADO==null">
-            TÉCNICO ENCARGADO: NO ASIGNADO
-          </div>
+        <div *ngIf="!serv.TECNICO_ENCARGADO">
+          TÉCNICO ENCARGADO: NO ASIGNADO
+        </div>
       </div>
     </ion-card-content>
   </ion-card>
@@ -72,5 +82,4 @@
       </div>
     </div>
   </div> -->
-  
 </ion-content>

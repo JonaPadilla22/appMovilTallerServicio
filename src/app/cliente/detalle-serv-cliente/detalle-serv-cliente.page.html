@@ -1,4 +1,3 @@
-
 <ion-content>
   <div>
     <ion-modal [isOpen]="isModalOpen">
@@ -18,14 +17,54 @@
     </ion-modal>
   </div>
 
-  <p>MANTENIMIENTO {{serv.TIPO_SERVICIO.DESCRIPCION}}</p>
-  <p>{{serv.DESCRIPCION}}</p>
+  <ion-item>
+    <ion-label>
+      <h1>MANTENIMIENTO</h1>
+      <p>{{serv.TIPO_SERVICIO.DESCRIPCION}}</p>
+    </ion-label>
+  </ion-item>
 
-  <p *ngIf="serv.TECNICO_ENCARGADO">TÉCNICO ASIGNADO: {{serv.TECNICO_ENCARGADO.NOMBRE}}</p>
-  <p *ngIf="serv.TECNICO_ENCARGADO==null">TÉCNICO NO ASIGNADO</p>
+  <ion-item>
+    <ion-label class="ion-text-wrap">
+      <h2>Descripcion:</h2>
+      <p>{{serv.DESCRIPCION}}</p>
+    </ion-label>
+  </ion-item>
 
-  <p>MATRÍCULA: {{serv.VEHICULO.MATRICULA}}</p>
-  <p *ngIf="serv.VEHICULO.VIN">VIN: {{serv.VEHICULO.VIN}} </p>
+  <ion-item class="tecnico-encargado" *ngIf="serv.TECNICO_ENCARGADO">
+    <ion-label>
+      <h3>TÉCNICO ASIGNADO</h3>
+      <p>{{serv.TECNICO_ENCARGADO.NOMBRE}}</p>
+    </ion-label>
+    <img src="{{ url }}{{serv.TECNICO_ENCARGADO.IMG}}" alt="" />
+  </ion-item>
+
+  <ion-item *ngIf="!serv.TECNICO_ENCARGADO">
+    <ion-label>
+      <h3>TÉCNICO NO ASIGNADO</h3>
+    </ion-label>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label>
+      <h3>MATRÍCULA</h3>
+      <p>{{serv.VEHICULO.MATRICULA}}</p>
+    </ion-label>
+  </ion-item>
+
+  <ion-item *ngIf="serv.VEHICULO.VIN">
+    <ion-label>
+      <h3>VIN</h3>
+      <p>{{serv.VEHICULO.VIN}}</p>
+    </ion-label>
+  </ion-item>
+
+  <ion-item class="estado-servicio">
+    <ion-label>
+      <h1>ESTADO SERVICIO</h1>
+      <p>{{serv.ESTATUS.DESCRIPCION}}</p>
+    </ion-label>
+  </ion-item>
 
 
   <ion-fab>

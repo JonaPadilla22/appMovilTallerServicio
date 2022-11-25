@@ -1,0 +1,33 @@
+ion-content {
+  text-align: center;
+}
+ion-content .tipo-mantenimiento {
+  font-size: 15pt;
+  color: #000;
+  font-weight: 700;
+}
+ion-content .descripcion {
+  font-size: 12pt;
+  color: #000;
+  font-weight: 400;
+}
+ion-content span {
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+ion-content .tecnico-encargado img {
+  max-width: 150px;
+}
+ion-content ion-fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+ion-content .estado-servicio {
+  color: #fff;
+  margin-top: 25px;
+  --background: #4b574b;
+}
+ion-content .estado-servicio p {
+  color: inherit;
+}/*# sourceMappingURL=detalle-serv-cliente.page.css.map */
