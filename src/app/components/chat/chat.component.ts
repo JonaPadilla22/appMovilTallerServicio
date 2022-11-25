@@ -40,6 +40,11 @@ export class ChatComponent implements OnInit {
           this.chats.push(data[id])
         }
       }
+      this.chats.sort(function(a, b) {
+        var c = new Date(a.timestamp).getTime();
+        var d = new Date(b.timestamp).getTime();
+        return c-d;
+      });
     });
   }
 
