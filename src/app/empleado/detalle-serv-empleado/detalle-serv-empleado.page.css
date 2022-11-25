@@ -1,14 +1,77 @@
-.seguimientoServ {
-    margin: 5px;
-    padding: 5px;
-    background-color: bisque;
+ion-content {
+  text-align: center;
 }
-
-.seguimientoServ div img {
-    width: 40px;
-    height: 40px;
-}   
-
-.tablaDetalle {
-    font-size: 8px;
+ion-content .tipo-mantenimiento {
+  font-size: 15pt;
+  color: #000;
+  font-weight: 700;
 }
+ion-content .descripcion {
+  font-size: 12pt;
+  color: #000;
+  font-weight: 400;
+}
+ion-content span {
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+ion-content .tecnico-encargado img {
+  max-width: 100px;
+}
+ion-content ion-fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+ion-content .estado-servicio {
+  color: #fff;
+  margin-top: 25px;
+  --background: #4b574b;
+}
+ion-content .estado-servicio p {
+  color: inherit;
+}
+ion-content .contendor-refacciones {
+  max-height: 300px;
+  overflow-y: scroll;
+}
+ion-content .contendor-refacciones ion-card {
+  --background: #262a33;
+  color: #fff;
+}
+ion-content .contendor-refacciones ion-card ion-card-header ion-card-title, ion-content .contendor-refacciones ion-card ion-card-header ion-card-subtitle {
+  color: #fff;
+}
+ion-content .contendor-refacciones ion-card ion-card-content {
+  display: flex;
+  justify-content: space-evenly;
+  align-content: center;
+  text-align: center;
+  width: 100%;
+}
+ion-content .contendor-refacciones ion-card ion-card-content h3 {
+  width: 50%;
+  margin-top: 25px;
+}
+ion-content .contendor-refacciones ion-card ion-card-content h3:first-child {
+  margin-top: 0;
+}
+ion-content .contendor-refacciones ion-card ion-card-content h3:last-child {
+  margin-top: 0;
+}
+ion-content ion-button {
+  display: block;
+  width: 250px;
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+ion-content .seguimiento-serv {
+  background: #5e687f;
+  color: #fff;
+  padding: 10px;
+}
+ion-content .seguimiento-serv ion-item {
+  --background: #5e687f;
+  color: #fff;
+}/*# sourceMappingURL=detalle-serv-empleado.page.css.map */

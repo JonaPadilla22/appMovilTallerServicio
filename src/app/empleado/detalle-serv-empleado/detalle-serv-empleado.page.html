@@ -18,77 +18,73 @@
     </ion-modal>
   </div>
 
-  <p>MANTENIMIENTO {{serv.TIPO_SERVICIO.DESCRIPCION}}</p>
-  <p>{{serv.DESCRIPCION}}</p>
+  <ion-item>
+    <ion-label>
+      <h1>MANTENIMIENTO</h1>
+      <p>{{serv.TIPO_SERVICIO.DESCRIPCION}}</p>
+    </ion-label>
+  </ion-item>
 
-  <p>MATRÍCULA: {{serv.VEHICULO.MATRICULA}}</p>
-  <p *ngIf="serv.VEHICULO.VIN">VIN: {{serv.VEHICULO.VIN}} </p>
+  <ion-item>
+    <ion-label class="ion-text-wrap">
+      <h2>Descripcion:</h2>
+      <p>{{serv.DESCRIPCION}}</p>
+    </ion-label>
+  </ion-item>
 
-  <p *ngIf="serv.TECNICO_ENCARGADO">
-    <ion-avatar>
-      <img
-        class="imgTecnico"
-        src="{{ url }}{{
-          serv.TECNICO_ENCARGADO.IMG ?? 'default.png'
-        }}"
-        alt=""
-      /> 
-    </ion-avatar>
-    TÉCNICO ASIGNADO: {{serv.TECNICO_ENCARGADO.NOMBRE}}
-  </p>
-  <p *ngIf="!serv.TECNICO_ENCARGADO">TÉCNICO NO ASIGNADO</p>
+  <ion-item class="tecnico-encargado" *ngIf="serv.TECNICO_ENCARGADO">
+    <ion-label>
+      <h3>TÉCNICO ASIGNADO</h3>
+      <p>{{serv.TECNICO_ENCARGADO.NOMBRE}}</p>
+    </ion-label>
+    <img src="{{ url }}{{serv.TECNICO_ENCARGADO.IMG}}" alt="" />
+  </ion-item>
 
-  <div>
-    <ion-avatar>
-      <img
-        class="imgTecnico"
-        src="{{ url }}{{
-          serv.CLIENTE.IMG ?? 'default.png'
-        }}"
-        alt=""
-      /> 
-    </ion-avatar>
-    CLIENTE: {{serv.CLIENTE.NOMBRE}}
-  </div>
+  <ion-item *ngIf="!serv.TECNICO_ENCARGADO">
+    <ion-label>
+      <h3>TÉCNICO NO ASIGNADO</h3>
+    </ion-label>
+  </ion-item>
+
+
+  <ion-item class="tecnico-encargado" *ngIf="serv.TECNICO_ENCARGADO">
+    <ion-label>
+      <h3>CLIENTE</h3>
+      <p>{{serv.CLIENTE.NOMBRE}}</p>
+    </ion-label>
+    <img src="{{ url }}{{serv.CLIENTE.IMG ?? 'default.png'}}" alt="" />
+  </ion-item>
   
-  <div *ngIf="serv.ESTATUS.ID_ESTATUS!='C'">
-    <p>REFACCIONES Y MANO DE OBRA</p>
-    <ion-grid class="tablaDetalle">
-      <ion-row>
-        <ion-col>TIPO</ion-col>
-        <ion-col>DESCRIPCION</ion-col>
-        <ion-col>PRECIO</ion-col>
-        <ion-col>CANTIDAD</ion-col>
-        <ion-col>TOTAL</ion-col>
-      </ion-row>
-
-      <ion-row *ngFor="let det of detalle_serv">
-        <ion-col>{{det.TIPO_PROD}}</ion-col>
-        <ion-col>{{det.PRODUCTO.DESCRIPCION}}</ion-col>
-        <ion-col>{{det.PRECIO | currency}} </ion-col>
-        <ion-col>{{det.CANTIDAD}}</ion-col>
-        <ion-col>{{det.PRECIO * det.CANTIDAD | currency}}</ion-col>
-      </ion-row>
-    </ion-grid>
+  <p>REFACCIONES Y MANO DE OBRA</p>
+  <div class="contendor-refacciones" *ngIf="serv.ESTATUS.ID_ESTATUS!='C'">
+    <ion-card *ngFor="let det of detalle_serv">
+      <ion-card-header>
+        <ion-card-title>{{det.PRODUCTO.DESCRIPCION}}</ion-card-title>
+        <ion-card-subtitle>{{det.TIPO_PROD == 'R' ? 'Refacción' : 'Mano de Obra'}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+          <h3>Precio {{det.PRECIO * det.CANTIDAD | currency}}</h3>
+          <h3>Total {{det.PRECIO * det.CANTIDAD | currency}}</h3>
+          <h3>Cantidad {{det.CANTIDAD}}</h3>
+      </ion-card-content>
+    </ion-card>
     <ion-button *ngIf="serv.ESTATUS.ID_ESTATUS=='R'">AGREGAR</ion-button>
   </div>
   
   <ion-button *ngIf="serv.ESTATUS.ID_ESTATUS!='T'" (click)="updateStatus()">ACTUALIZAR ESTATUS</ion-button>
-  <br>
 
-  <div class="seguimientoServ" *ngIf="serv.ESTATUS.ID_ESTATUS!='C'">
+  <div class="seguimiento-serv" *ngIf="serv.ESTATUS.ID_ESTATUS!='C'">
     SEGUIMIENTO SERVICIO
-
-    <div *ngFor="let act of actualizaciones_serv">
-      {{act.ESTATUS.DESCRIPCION}}
-      {{act.USUARIO.NOMBRE}}
-      {{act.FECHA | date: 'medium'}}
-      <ion-avatar>
-        <img src="{{url}}{{act.USUARIO.IMG ?? 'default.png'}}" alt="">
-      </ion-avatar>
-    </div>
-
-
+    <ion-item *ngFor="let act of actualizaciones_serv" class="seguimiento">
+      <ion-thumbnail slot="start">
+        <img alt="" src="{{url}}{{act.USUARIO.IMG ?? 'default.png'}}" />
+      </ion-thumbnail>
+      <div>
+        <ion-label>{{act.ESTATUS.DESCRIPCION}}</ion-label>
+        <ion-label>{{act.USUARIO.NOMBRE}}</ion-label>
+        <ion-label>{{act.FECHA | date: 'medium'}}</ion-label>
+      </div>
+    </ion-item>
   </div>
 
   <ion-fab>
