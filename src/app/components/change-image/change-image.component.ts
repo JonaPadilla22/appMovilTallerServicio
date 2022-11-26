@@ -12,7 +12,7 @@ export class ChangeImageComponent implements OnInit {
   url = environment.baseUrlAPI + "/usuarios/";
   id_usuario = JSON.parse(localStorage.getItem('USUARIO')).ID;
   img_usuario = JSON.parse(localStorage.getItem('USUARIO')).IMG;
-
+  user: any;
   imagen: any;
 
   @ViewChild('inputImage') inputImage: any; 
@@ -27,7 +27,6 @@ export class ChangeImageComponent implements OnInit {
   }
 
   async changeImage(){
-    console.log(this.inputImage.value);
     if(this.inputImage.value==""){
       const alert = await this.alertController.create({
         header: 'Error',
@@ -49,7 +48,6 @@ export class ChangeImageComponent implements OnInit {
             text: 'Confirmar',
             role: 'confirm',
             handler: async () => {
-              console.log(this.imagen);
               const img = new FormData();
               img.append("file", this.imagen);
               this.clientService.updateImageUser(this.id_usuario, img).subscribe(
@@ -63,6 +61,10 @@ export class ChangeImageComponent implements OnInit {
                           text: 'Confirmar',
                           role: 'confirm',
                           handler: async () => {
+                            this.user = await this.clientService.getClienteById(this.id_usuario).toPromise();
+                            localStorage.removeItem('USUARIO');
+                            
+                            localStorage.setItem('USUARIO', JSON.stringify(this.user[0]));
                             window.location.reload();
                           },
                         },
