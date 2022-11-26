@@ -1,3 +1,5 @@
+import { DetalleServEmpleadoPage } from './../empleado/detalle-serv-empleado/detalle-serv-empleado.page';
+import { ScanQrComponent } from './scan-qr/scan-qr.component';
 import { ChatComponent } from './chat/chat.component';
 import { MensajeComponent } from './mensaje/mensaje.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
@@ -14,7 +16,9 @@ import { IonicModule } from '@ionic/angular';
     ChangeImageComponent,
     ChangePasswordComponent,
     ChatComponent,
-    MensajeComponent
+    MensajeComponent,
+    ScanQrComponent,
+    DetalleServEmpleadoPage
   ],
   imports: [
     CommonModule,
@@ -27,7 +31,9 @@ import { IonicModule } from '@ionic/angular';
     ChangeImageComponent,
     ChangePasswordComponent,
     ChatComponent,
-    MensajeComponent
+    MensajeComponent,
+    ScanQrComponent,
+    DetalleServEmpleadoPage
   ]
 })
 export class ComponentsModule { }

@@ -1,0 +1,32 @@
+<div>
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>DETALLE SERVICIO</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpen(false)">CERRAR</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <app-detalle-serv-empleado [serv]="servicio"></app-detalle-serv-empleado>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</div>
+
+<ion-content
+  [fullscreen]="true"
+  [style.--background]="scanActive?'#00000000':'#ffffff'"
+>
+  <ion-button expand="full" (click)="startScanner()" [hidden]="scanActive">
+    ESCANEAR
+  </ion-button>
+  <ion-row class="scan-button" [hidden]="!scanActive">
+    <ion-col class="ion-no-padding">
+      <ion-button expand="full" (click)="stopScanner()">CANCELAR</ion-button>
+    </ion-col>
+  </ion-row>
+  <div class="scan-box" [hidden]="!scanActive"></div>
+</ion-content>

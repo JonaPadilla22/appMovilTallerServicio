@@ -7,8 +7,8 @@ import { Component, Input } from '@angular/core';
 })
 export class DetalleCitasClientePage{
   @Input() cita: any;
-
-
+  @Input() id_cita: string;
+  
   constructor() { 
     
   }

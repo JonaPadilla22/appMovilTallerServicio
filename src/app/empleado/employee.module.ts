@@ -21,8 +21,7 @@ import { ComponentsModule } from '../components/components.module';
   declarations: [
     CitasPage,
     InicioPageTecnico,
-    ServiciosPage,
-    DetalleServEmpleadoPage
+    ServiciosPage
   ]
 })
 export class EmployeePageModule {}

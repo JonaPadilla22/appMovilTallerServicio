@@ -27,6 +27,12 @@
       </ion-list>
 
       <ion-list id="labels-list">
+
+        <ion-item *ngIf="isEmployee" (click)="scanQR()" lines="none" detail="false">
+          <ion-icon slot="start" [ios]="'qr-code-outline'" [md]="'qr-code-outline'"></ion-icon>
+          <ion-label>Escanear</ion-label>
+        </ion-item>
+
         <ion-accordion-group>
           <ion-accordion value="first">
             <ion-item slot="header" color="light">
@@ -34,18 +40,6 @@
               <ion-label>Configuración</ion-label>
             </ion-item>
             <div class="ion-padding" slot="content">
-
-              <!-- <ion-item *ngFor="let label of labels"
-              (click)="label.func()"
-              lines="none"
-              detail="false">
-                <ion-icon
-                    slot="start"
-                    [ios]="label.icon + '-outline'"
-                    [md]="label.icon + '-sharp'"
-                  ></ion-icon>
-                <ion-label>{{label.title}}</ion-label>
-              </ion-item> -->
 
               <ion-item (click)="changePass()" lines="none" detail="false">
                 <ion-icon slot="start" [ios]="'lock-closed-outline'" [md]="'lock-closed-sharp'"></ion-icon>
@@ -97,6 +91,22 @@
           </ion-header>
           <ion-content class="ion-padding">
             <app-change-image></app-change-image>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+
+      <ion-modal [isOpen]="modalScanQR">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+              <ion-title>ESCANEAR QR</ion-title>
+              <ion-buttons slot="end">
+                <ion-button (click)="modalScanQR=false">CERRAR</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding">
+            <app-scan-qr></app-scan-qr>
           </ion-content>
         </ng-template>
       </ion-modal>

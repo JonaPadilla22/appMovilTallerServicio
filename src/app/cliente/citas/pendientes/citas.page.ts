@@ -15,6 +15,7 @@ export class CitasPageCliente implements OnInit {
   citas: any = [];
   num_citas: number = 0;
   cita: number = 0;
+  id_cita: string = ""
 
   isModalOpen = false;
   loading = false;
@@ -75,6 +76,7 @@ export class CitasPageCliente implements OnInit {
   }
 
   setServ(cita: any){
+    this.id_cita = "'" + cita.ID_SERVICIO + "'";
     this.cita = cita;
   }
 }

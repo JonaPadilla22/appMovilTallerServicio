@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicioService } from 'src/app/services/servicios/servicio.service';
 import { LoadingController } from '@ionic/angular';
-
+import {
+  ActionPerformed,
+  PushNotificationSchema,
+  PushNotifications,
+  Token,
+} from '@capacitor/push-notifications';
 import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-inicio',
@@ -28,6 +33,16 @@ export class InicioPageCliente implements OnInit {
     if(this.servicios.length==0){
       (<HTMLInputElement>document.getElementById("noServices")).hidden = false;
     }
+
+    
+    // Method called when tapping on a notification
+    // PushNotifications.addListener(
+    //   'pushNotificationActionPerformed',
+    //   (notification: ActionPerformed) => {
+    //     alert('Push action performed: ' + JSON.stringify(notification));
+    //   }
+    // );
+
   }
 
   async showLoading() {
@@ -77,4 +92,6 @@ export class InicioPageCliente implements OnInit {
   setServ(servicio: any){
     this.servicio = servicio;
   }
+
+  
 }

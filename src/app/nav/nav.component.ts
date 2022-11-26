@@ -10,23 +10,29 @@ import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 })
 export class NavComponent implements OnInit {
   type: string;
+  dataUser: any;
 
   appPages: any;
   labels: any;
+  isEmployee: boolean = false;
 
   modalPasswordOpen = false;
   modalImageOpen = false;
+  modalScanQR = false;
 
   constructor(
     private alertController: AlertController,
     private router: Router,
     private firebaseService: FirebaseService
-    ) {
-  }
+  ) 
+  { }
 
   ngOnInit() {
-    let dataUser = JSON.parse(localStorage.getItem('USUARIO'));
-    if (dataUser.TIPO_USUARIO.ID != 4) {
+    this.dataUser = JSON.parse(localStorage.getItem('USUARIO'));
+    if(this.dataUser.TIPO_USUARIO.ID!=4){
+      this.isEmployee = true;
+    }
+    if (this.dataUser.TIPO_USUARIO.ID != 4) {
       this.type = 'employee';
     } else {
       this.type = 'client';
@@ -85,4 +91,7 @@ export class NavComponent implements OnInit {
     this.modalImageOpen = true;
   }
 
+  scanQR(){
+    this.modalScanQR = true;
+  }
 }
