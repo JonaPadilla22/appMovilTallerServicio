@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild} from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ServicioService } from 'src/app/services/servicios/servicio.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, IonInput } from '@ionic/angular';
 import { NotificacionService } from 'src/app/services/notificaciones/notificacion.service';
+import { RefaccionService } from 'src/app/services/refacciones/refaccion.service';
 
 @Component({
   selector: 'app-detalle-serv-empleado',
@@ -17,17 +18,29 @@ export class DetalleServEmpleadoPage implements OnInit {
   estatus: any;
   actualizaciones_serv: any;
   detalle_serv: any;
+  refacciones: any;
+  mano_obra: any;
+
+  prod_selec: any;
+
+  total: any;
+  total_selec: any = 0;
+  @ViewChild('inputCantidad', {static: false}) inputCantidad: IonInput;
 
   constructor(
     private servService: ServicioService,
     private alertController: AlertController,
-    private notifService: NotificacionService
+    private notifService: NotificacionService,
+    private refService: RefaccionService
   ) { }
 
   async ngOnInit() {
     this.estatus = await this.servService.getEstatus().toPromise();
     this.actualizaciones_serv = await this.servService.getActualizacionesServicios(this.serv.ID_SERVICIO).toPromise();
     this.detalle_serv = await this.servService.getDetalleServicio(this.serv.ID_SERVICIO).toPromise();
+    this.refacciones = await this.refService.getRefactions().toPromise();
+    this.mano_obra = await this.refService.getWorkforce().toPromise();
+    this.calcularTotalServicio();
   }
 
   getSigEstatus(id_est: string): any{
@@ -109,4 +122,83 @@ export class DetalleServEmpleadoPage implements OnInit {
     this.isModalOpen = isOpen; 
   }
 
+  calcularTotalServicio(){
+    this.total = 0;
+    for(var k = 0; k<this.detalle_serv.length; k++){
+      this.total += parseFloat(this.detalle_serv[k].PRECIO) * parseFloat(this.detalle_serv[k].CANTIDAD)
+    }
+  }
+
+  selectProd(e: any){
+    this.prod_selec = e;
+  }
+
+  actTotalSelec(precio: any){
+    this.total_selec = precio * parseFloat(this.inputCantidad.value.toString());
+  }
+
+  async aggProd(prod: any){
+    
+    let id_prod: number = prod.ID ?? prod.ID_MANO_OBRA;
+    let tipo_prod: string = (prod.ID) ? "R" : "M";
+    
+    if(this.inputCantidad.value){
+      const alert = await this.alertController.create({
+        header: '¿Desea agregar este producto al servicio?',
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            handler: () => {
+            },
+          },
+          {
+            text: 'Confirmar',
+            role: 'confirm',
+            handler: async () => {
+
+              const formAct = new FormData();
+              formAct.append("ID_SERVICIO", this.serv.ID_SERVICIO);
+              formAct.append("ID_PRODUCTO", id_prod.toString());
+              formAct.append("TIPO_PROD", tipo_prod);
+              formAct.append("PRECIO", prod.PRECIO);
+              formAct.append("CANTIDAD", this.inputCantidad.value.toString());
+
+              this.servService.insertarDetalleServ(formAct).subscribe(
+                {
+                  next: async (response: any) => {
+                    const alert = await this.alertController.create({
+                      header: 'Éxito',
+                      message: "AGREGADO CORRECTAMENTE",
+                      buttons: ['OK'],
+                    });
+                    await alert.present();
+
+                    // let s: any = await this.servService.getServicioById(this.serv.ID_SERVICIO).toPromise();
+                    // this.serv =  s[0];
+                    // console.log(this.serv);
+                    this.detalle_serv = await this.servService.getDetalleServicio(this.serv.ID_SERVICIO).toPromise();
+                    this.calcularTotalServicio();
+
+                    this.refacciones = await this.refService.getRefactions().toPromise();
+                    this.prod_selec = undefined;
+                    this.total_selec = 0;
+                  },
+                  error: async (e) => {
+                    console.log(e);
+                    const alert = await this.alertController.create({
+                      header: 'Error',
+                      message: "ERROR AL AGREGAR EL PRODUCTO",
+                      buttons: ['OK'],
+                    });
+                    await alert.present();
+                  }
+                });       
+            },
+          },
+        ],
+      });
+      await alert.present();
+    }  
+  }
 }

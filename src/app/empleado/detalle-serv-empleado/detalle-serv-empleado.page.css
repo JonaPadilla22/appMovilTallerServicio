@@ -75,3 +75,8 @@ ion-content .seguimiento-serv ion-item {
   --background: #5e687f;
   color: #fff;
 }/*# sourceMappingURL=detalle-serv-empleado.page.css.map */
+
+.lista-ref {
+  overflow-y: scroll;
+  max-height: 400px;
+}
