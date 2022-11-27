@@ -1,6 +1,7 @@
 .contenedor-mensajes {
   max-height: 500px;
   overflow-y: scroll;
+  scroll-snap-align: end;
 }
 
 button {

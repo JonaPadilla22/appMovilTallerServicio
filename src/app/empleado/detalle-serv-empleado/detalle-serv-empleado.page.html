@@ -68,50 +68,74 @@
           <h3>Cantidad {{det.CANTIDAD}}</h3>
       </ion-card-content>
     </ion-card>
-
-    <ion-label>Total: {{total | currency}}</ion-label>
-
-    <ion-button id="open-modal" *ngIf="serv.ESTATUS.ID_ESTATUS=='R'">AGREGAR</ion-button>
   </div>
+  <ion-button id="open-modal" *ngIf="serv.ESTATUS.ID_ESTATUS=='R'">AGREGAR</ion-button>
+  
+  <p>Total: {{total | currency}}</p>
 
-  <ion-modal #modal trigger="open-modal" [initialBreakpoint]="0.25" [breakpoints]="[0, 0.25, 0.5, 0.75]">
+  <ion-modal class="agregar-producto" #modal trigger="open-modal" [initialBreakpoint]="0.5" [breakpoints]="[0, 0.25, 0.5, 0.75, 1]">
     <ng-template>
-      <ion-content>
-        <ion-searchbar placeholder="Buscar" (click)="modal.setCurrentBreakpoint(0.75)"></ion-searchbar>
-        <ion-list class="lista-ref">
-          <ion-item *ngFor="let ref of refacciones" (dblclick)="selectProd(ref)">
-            <ion-avatar slot="start">
-              <ion-img src="../../../assets/service.png"></ion-img>
-            </ion-avatar>
-            <ion-label>
-              <h2>{{ref.DESCRIPCION}}</h2>
-              <h2>Precio: {{ref.PRECIO | currency}}</h2>
-              <h3>Stock disponible: {{ref.STOCK}}</h3>
-            </ion-label>
-          </ion-item>
+      <ion-content class="contendor-ref">
+        <ion-searchbar 
+        placeholder="Buscar" 
+        (click)="modal.setCurrentBreakpoint(0.75)"
+        show-cancel-button="focus"
+        cancel-button-icon="trash"
+        (ionChange)="handleSearchChange($event)"
+        ></ion-searchbar>
+        <ion-list class="lista-ref" (click)="modal.setCurrentBreakpoint(1)">
 
-          <ion-item *ngFor="let man of mano_obra" (dblclick)="selectProd(man)">
+          <ion-item *ngFor="let prod of productosToShow" (click)="selectProd(prod);">
             <ion-avatar slot="start">
-              <ion-img src="../../../assets/maintenance.png"></ion-img>
+              <ion-img *ngIf="!prod.ID_MANO_OBRA" src="../../../assets/service.png"></ion-img>
+              <ion-img *ngIf="prod.ID_MANO_OBRA" src="../../../assets/maintenance.png"></ion-img>
             </ion-avatar>
             <ion-label>
-              <h2>{{man.DESCRIPCION}}</h2>
-              <h2>Precio: {{man.PRECIO | currency}}</h2>
+              <h2>{{prod.DESCRIPCION}}</h2>
+              <h2>Precio: {{prod.PRECIO | currency}}</h2>
+              <h3 *ngIf="prod.STOCK">Stock disponible: {{prod.STOCK}}</h3>
             </ion-label>
-          </ion-item>
-          
+          </ion-item>       
         </ion-list>
+        
+        <h2 *ngIf="prod_selec.length > 0" class="productos-agregados"> Lista productos agregados </h2>
 
-        <ion-item *ngIf="prod_selec">
-          <ion-label>
-            <h2>{{prod_selec.DESCRIPCION}}</h2>
-            <h2>Precio: {{prod_selec.PRECIO | currency}}</h2>
-            <h3 *ngIf="prod_selec.STOCK">Stock disponible: {{prod_selec.STOCK}}</h3>
-          </ion-label>
-          <ion-input #inputCantidad type="number" min="1" [max]="prod_selec.STOCK ?? null" (change)="actTotalSelec(prod_selec.PRECIO)"></ion-input>
-          <button ion-button outline item-right (click)="aggProd(prod_selec)">Agregar</button>    
-        </ion-item>
-        <ion-label *ngIf="total_selec!=0">Total: {{total_selec | currency }}</ion-label>
+        <div class="contenedor-prod-por-agregar" *ngIf="prod_selec.length > 0">
+          <div *ngFor="let prod of prod_selec" class="producto">
+            <ion-item class="prod">
+              <ion-label>
+                <h2>{{prod.DESCRIPCION}}</h2>
+                <h2>Precio: {{prod.PRECIO | currency}}</h2>
+                <h3 *ngIf="prod.STOCK">Stock disponible: {{prod.STOCK}}</h3>
+              </ion-label>
+            </ion-item>
+            <ion-item class="input-cantidad">
+              <ion-label position="floating"> Cantidad</ion-label>
+              <ion-input
+                #inputCantidad
+                type="number"
+                min="1"
+                value="1"
+                [max]="prod.STOCK ?? null"
+                (change)="actTotalSelec($event,prod)">
+              </ion-input>
+            </ion-item>
+            <button (click)="eliminateProdFromList(prod)"class="borrar-prod">X</button>
+          </div>
+        </div>
+        <p
+        class="total" 
+        *ngIf="total_selec!=0"
+        >
+          Total: {{total_selec | currency }}
+        </p>
+        <button 
+          class="btn-agregar-prod"
+          ion-button outline item-right 
+          (click)="aggProd();modal.setCurrentBreakpoint(0.25)"
+          *ngIf="prod_selec.length > 0"
+          >Agregar
+        </button>
       </ion-content>
     </ng-template>
   </ion-modal>

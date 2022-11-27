@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FirebaseApp, initializeApp } from 'firebase/app';
 import { Database, getDatabase, ref, set, onValue  } from "firebase/database";
 import { FormGroup, FormBuilder } from "@angular/forms";
@@ -15,6 +15,8 @@ export class ChatComponent implements OnInit {
   @Input() serv: any;
   user = JSON.parse(localStorage.getItem('USUARIO'));
 
+  @ViewChild('contenedorMensaje') contenedorMensaje : any; 
+
   app: FirebaseApp;
   db: Database;
   form: FormGroup;
@@ -30,6 +32,9 @@ export class ChatComponent implements OnInit {
       'username' : []
     });
    }
+  ngAfterViewInit(){
+    this.contenedorMensaje.elc.scrollTop = 9999
+  }
 
   ngOnInit() {
     const chatsRef = ref(this.db, `chats/${this.serv.ID_SERVICIO}`);

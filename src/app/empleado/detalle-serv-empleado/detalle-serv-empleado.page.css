@@ -70,13 +70,80 @@ ion-content .seguimiento-serv {
   background: #5e687f;
   color: #fff;
   padding: 10px;
+  margin: 20px 0;
 }
 ion-content .seguimiento-serv ion-item {
   --background: #5e687f;
   color: #fff;
-}/*# sourceMappingURL=detalle-serv-empleado.page.css.map */
-
-.lista-ref {
-  overflow-y: scroll;
-  max-height: 400px;
 }
+
+ion-list.lista-ref {
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+ion-content.contendor-ref {
+  overflow-y: scroll;
+}
+
+div.contenedor-prod-por-agregar {
+  max-height: 300px;
+  overflow-y: scroll;
+  background: #262a33;
+  padding: 10px 0;
+}
+
+p.total {
+  margin-top: 15px;
+}
+
+h2.productos-agregados {
+  border-bottom: 1px solid #000;
+  border-top: 1px solid #000;
+  padding: 10px 0;
+}
+
+button.btn-agregar-prod {
+  padding: 10px 25px;
+  font-size: 18pt;
+  font-weight: bold;
+  margin-bottom: 50px;
+}
+
+div.producto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 10px;
+  background: #262a33;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 10px 0;
+  position: relative;
+}
+div.producto:first-child {
+  margin-top: 0;
+}
+div.producto ion-item.input-cantidad, div.producto ion-item.prod {
+  width: 100%;
+  --background: #262a33;
+  color: inherit;
+}
+div.producto ion-item.input-cantidad {
+  font-size: 16pt;
+}
+div.producto .borrar-prod {
+  position: absolute;
+  font-size: 14pt;
+  top: 10px;
+  right: 10px;
+  color: #fff;
+  background: #722323;
+  padding: 5px 10px;
+  display: block;
+  z-index: 10;
+  border: 1px solid #fff;
+}/*# sourceMappingURL=detalle-serv-empleado.page.css.map */
