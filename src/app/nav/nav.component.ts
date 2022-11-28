@@ -28,6 +28,7 @@ export class NavComponent implements OnInit {
   { }
 
   ngOnInit() {
+
     this.dataUser = JSON.parse(localStorage.getItem('USUARIO'));
     if(this.dataUser.TIPO_USUARIO.ID!=4){
       this.isEmployee = true;
@@ -70,7 +71,7 @@ export class NavComponent implements OnInit {
           text: 'Confirmar',
           role: 'confirm',
           handler: async () => {
-            await this.firebaseService.eliminarToken().toPromise();
+            await this.firebaseService.eliminarToken(localStorage.getItem('TOKEN_NOTIF')).toPromise();
             localStorage.removeItem('TOKEN');
             localStorage.removeItem('USUARIO');
             localStorage.removeItem('TOKEN_NOTIF');

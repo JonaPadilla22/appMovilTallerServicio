@@ -30,6 +30,13 @@ ion-content ion-card ion-card-content .tecnico-mantenimiento ion-avatar {
   margin-top: 10px;
 }
 
+.contendor-cliente {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
 .noservices {
   margin: 0 auto;
   margin-top: 20px;

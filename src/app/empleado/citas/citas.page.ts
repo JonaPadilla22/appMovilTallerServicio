@@ -40,22 +40,25 @@ export class CitasPage implements OnInit {
   async cargarServ(){
     this.loading = true;
     if(this.tipo_usuario == 3){
-      console.log(this.id_user);
 
       this.servicios = await this.servService
         .getServiciosTecnico(this.id_user)
         .toPromise();
-
       this.servicios = this.servicios.filter((serv: any) => {
         return (
-          serv.ESTATUS.ID_ESTATUS == "C" && serv.TECNICO_ENCARGADO
+          serv.ESTATUS.ID_ESTATUS == "C"
         );
+      });
+      this.servicios.forEach((element: any) => {
+        element.TECNICO_ENCARGADO = JSON.parse(localStorage.getItem('USUARIO'))
       });
 
     }else{
       this.servicios = await this.citaService
         .getCitasPendientes()
         .toPromise();
+      console.log(this.servicios)
+
       this.servicios.forEach((element: any) => {
         element.ESTATUS = {ID_ESTATUS: element.ID_ESTATUS, DESCRIPCION: "CITA"}
         delete element.ID_ESTATUS

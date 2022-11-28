@@ -12,7 +12,6 @@ export class FirebaseService {
     'Authorization',
     'Bearer ' + localStorage.getItem('TOKEN')
   );
-  token_notif: string = localStorage.getItem('TOKEN_NOTIF');
   // id_user = JSON.parse(localStorage.getItem('USUARIO')).ID;
   
   constructor(private http: HttpClient) {}
@@ -23,9 +22,9 @@ export class FirebaseService {
     });
   }
 
-  eliminarToken(): Observable<any> {
+  eliminarToken(token_notif: string): Observable<any> {
     return this.http.post(`${this.url}/firebase/deleteToken`, {
-      TOKEN: this.token_notif,
+      TOKEN: token_notif,
     });
   }
 }

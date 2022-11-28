@@ -17,6 +17,9 @@ ion-content span {
 }
 ion-content .tecnico-encargado img {
   max-width: 150px;
+  height: 70px;
+  width: 70px;
+  border-radius: 40px;
 }
 ion-content ion-fab {
   position: fixed;
@@ -31,3 +34,41 @@ ion-content .estado-servicio {
 ion-content .estado-servicio p {
   color: inherit;
 }/*# sourceMappingURL=detalle-serv-cliente.page.css.map */
+ion-content .contendor-refacciones {
+  max-height: 300px;
+  overflow-y: scroll;
+}
+ion-content .contendor-refacciones ion-card {
+  --background: #262a33;
+  color: #fff;
+}
+ion-content .contendor-refacciones ion-card ion-card-header ion-card-title, ion-content .contendor-refacciones ion-card ion-card-header ion-card-subtitle {
+  color: #fff;
+}
+ion-content .contendor-refacciones ion-card ion-card-content {
+  display: flex;
+  justify-content: space-evenly;
+  align-content: center;
+  text-align: center;
+  width: 100%;
+}
+ion-content .contendor-refacciones ion-card ion-card-content h3 {
+  width: 50%;
+  margin-top: 25px;
+}
+ion-content .contendor-refacciones ion-card ion-card-content h3:first-child {
+  margin-top: 0;
+}
+ion-content .contendor-refacciones ion-card ion-card-content h3:last-child {
+  margin-top: 0;
+}
+ion-content .seguimiento-serv {
+  background: #5e687f;
+  color: #fff;
+  padding: 10px;
+  margin: 20px 0;
+}
+ion-content .seguimiento-serv ion-item {
+  --background: #5e687f;
+  color: #fff;
+}

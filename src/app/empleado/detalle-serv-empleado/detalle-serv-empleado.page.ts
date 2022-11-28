@@ -129,6 +129,9 @@ export class DetalleServEmpleadoPage implements OnInit {
                   .getServicioById(this.serv.ID_SERVICIO)
                   .toPromise();
                 this.serv = this.serv[0];
+                this.actualizaciones_serv = await this.servService
+                  .getActualizacionesServicios(this.serv.ID_SERVICIO)
+                  .toPromise();
               },
               error: (e) => console.log(e),
             });

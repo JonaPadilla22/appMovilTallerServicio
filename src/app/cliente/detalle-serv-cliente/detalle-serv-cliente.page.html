@@ -36,7 +36,7 @@
       <h3>TÉCNICO ASIGNADO</h3>
       <p>{{serv.TECNICO_ENCARGADO.NOMBRE}}</p>
     </ion-label>
-    <img src="{{ url }}{{serv.TECNICO_ENCARGADO.IMG}}" alt="" />
+    <img src="{{ url }}{{serv.TECNICO_ENCARGADO.IMG ?? 'default.png'}}" alt="" />
   </ion-item>
 
   <ion-item *ngIf="!serv.TECNICO_ENCARGADO">
@@ -66,6 +66,37 @@
     </ion-label>
   </ion-item>
 
+
+  <p *ngIf="serv.ESTATUS.ID_ESTATUS!='C'">REFACCIONES Y MANO DE OBRA</p>
+  <div class="contendor-refacciones" *ngIf="serv.ESTATUS.ID_ESTATUS!='C'">
+    <ion-card *ngFor="let det of detalle_serv">
+      <ion-card-header>
+        <ion-card-title>{{det.PRODUCTO.DESCRIPCION}}</ion-card-title>
+        <ion-card-subtitle>{{det.TIPO_PROD == 'R' ? 'Refacción' : 'Mano de Obra'}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+          <h3>Precio {{det.PRECIO | currency}}</h3>
+          <h3>Total {{det.PRECIO * det.CANTIDAD | currency}}</h3>
+          <h3>Cantidad {{det.CANTIDAD}}</h3>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <p *ngIf="serv.ESTATUS.ID_ESTATUS!='C'">Total: {{total | currency}}</p>
+
+
+  <div class="seguimiento-serv" *ngIf="serv.ESTATUS.ID_ESTATUS!='C'">
+    SEGUIMIENTO SERVICIO
+    <ion-item *ngFor="let act of actualizaciones_serv" class="seguimiento">
+      <ion-avatar slot="start">
+        <img alt="" src="{{url}}{{act.USUARIO.IMG ?? 'default.png'}}" />
+      </ion-avatar>
+      <div>
+        <ion-label>{{act.ESTATUS.DESCRIPCION}}</ion-label>
+        <ion-label>{{act.USUARIO.NOMBRE}}</ion-label>
+        <ion-label>{{act.FECHA | date: 'medium'}}</ion-label>
+      </div>
+    </ion-item>
+  </div>
 
   <ion-fab>
     <ion-fab-button (click)="abrirChat(true)">
