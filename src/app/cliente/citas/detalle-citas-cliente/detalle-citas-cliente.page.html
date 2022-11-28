@@ -75,7 +75,7 @@
   </ion-fab>
 
   <div>
-    <ion-modal [isOpen]="isModalOpen">
+    <ion-modal [isOpen]="isModalOpen" (willDismiss)="onWillDismiss()">
       <ng-template>
         <ion-header>
           <ion-toolbar>

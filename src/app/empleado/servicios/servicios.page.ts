@@ -28,12 +28,12 @@ export class ServiciosPage implements OnInit {
   async ngOnInit() {
     this.page = "Servicios";
 
-    this.showLoading();
+    // this.showLoading();
     await this.cargarServ();
-    if(this.loading){
-      this.loadingCtrl.dismiss();
-      this.loading=false;
-    }  
+    // if(this.loading){
+    //   this.loadingCtrl.dismiss();
+    //   this.loading=false;
+    // }  
 
     if (this.servicios.length == 0) {
       (<HTMLInputElement>document.getElementById('noServices')).hidden = false;
@@ -83,12 +83,12 @@ export class ServiciosPage implements OnInit {
   async setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
     if(!isOpen){
-      this.showLoading();
+      // this.showLoading();
       await this.cargarServ();
-      if(this.loading){
-        this.loadingCtrl.dismiss();
-        this.loading=false;
-      }
+      // if(this.loading){
+      //   this.loadingCtrl.dismiss();
+      //   this.loading=false;
+      // }
     }
   }
 
@@ -121,4 +121,7 @@ export class ServiciosPage implements OnInit {
     });
   }
 
+  onWillDismiss() {
+    this.isModalOpen = false;
+  }
 }

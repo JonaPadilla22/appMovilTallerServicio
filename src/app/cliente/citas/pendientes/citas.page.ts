@@ -24,12 +24,12 @@ export class CitasPageCliente implements OnInit {
 
   async ngOnInit() {
     this.page = "Citas";
-    this.showLoading();
+    // this.showLoading();
     await this.cargarCitas();
-    if(this.loading){
-      this.loadingCtrl.dismiss();
-      this.loading=false;
-    }  
+    // if(this.loading){
+    //   this.loadingCtrl.dismiss();
+    //   this.loading=false;
+    // }  
     this.num_citas = this.citas.length;
     if(this.num_citas==0){
       (<HTMLInputElement>document.getElementById('noServices')).hidden = false;
@@ -96,12 +96,12 @@ export class CitasPageCliente implements OnInit {
   async setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
     if(!isOpen){
-      this.showLoading();
+      // this.showLoading();
       await this.cargarCitas();
-      if(this.loading){
-        this.loadingCtrl.dismiss();
-        this.loading=false;
-      }
+      // if(this.loading){
+      //   this.loadingCtrl.dismiss();
+      //   this.loading=false;
+      // }
     }
   }
 

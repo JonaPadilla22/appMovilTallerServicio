@@ -21,4 +21,8 @@ export class DetalleCitasClientePage{
   abrirChat(isOpen: boolean){
     this.isModalOpen = isOpen; 
   }
+
+  onWillDismiss() {
+    this.isModalOpen = false;
+  }
 }

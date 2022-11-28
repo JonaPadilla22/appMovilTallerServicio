@@ -28,13 +28,13 @@ export class CitasPage implements OnInit {
 
   async ngOnInit() {
     this.page = "Citas";
-    this.showLoading();
+    // this.showLoading();
 
     await this.cargarServ();
-    if(this.loading){
-      this.loadingCtrl.dismiss();
-      this.loading=false;
-    } 
+    // if(this.loading){
+    //   this.loadingCtrl.dismiss();
+    //   this.loading=false;
+    // } 
     if(this.servicios.length==0){
       (<HTMLInputElement>document.getElementById("noServices")).hidden = false;
     }
@@ -70,6 +70,13 @@ export class CitasPage implements OnInit {
     this.serviciosToShow = this.servicios
   }
 
+  handleRefresh(event: any) {
+    setTimeout(async () => {
+      await this.cargarServ();
+      event.target.complete();
+    }, 2000);
+  }
+
   async showLoading() {
     const loading = await this.loadingCtrl.create({
       message: 'Cargando..',
@@ -96,12 +103,12 @@ export class CitasPage implements OnInit {
   async setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
     if(!isOpen){
-      this.showLoading();
+      // this.showLoading();
       await this.cargarServ();
-      if(this.loading){
-        this.loadingCtrl.dismiss();
-        this.loading=false;
-      }
+      // if(this.loading){
+      //   this.loadingCtrl.dismiss();
+      //   this.loading=false;
+      // }
     }
   }
 
@@ -134,5 +141,9 @@ export class CitasPage implements OnInit {
         fecha.toLowerCase().includes(term)
       );
     });
+  }
+
+  onWillDismiss() {
+    this.isModalOpen = false;
   }
 }

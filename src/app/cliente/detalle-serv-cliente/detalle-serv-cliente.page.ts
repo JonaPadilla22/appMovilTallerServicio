@@ -39,4 +39,8 @@ export class DetalleServClientePage implements OnInit {
         parseFloat(this.detalle_serv[k].CANTIDAD);
     }
   }
+
+  onWillDismiss() {
+    this.abrirChat(false);
+  }
 }

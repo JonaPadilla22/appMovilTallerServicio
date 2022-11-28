@@ -292,4 +292,8 @@ export class DetalleServEmpleadoPage implements OnInit {
       );
     });
   }
+
+  onWillDismiss() {
+    this.isModalOpen = false;
+  }
 }
