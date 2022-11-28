@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
 import { ServicioService } from 'src/app/services/servicios/servicio.service';
 import { environment } from 'src/environments/environment';
 
@@ -10,7 +11,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ServiciosPageCliente implements OnInit {
   url = environment.baseUrlAPI + "/usuarios/";
-  id_usuario = JSON.parse(localStorage.getItem('USUARIO')).ID;
+  id_usuario:any;
   public page: string = "Historial";
   servicios: any = [];
   servicio: any;
@@ -38,8 +39,9 @@ export class ServiciosPageCliente implements OnInit {
 
   constructor(
     private servService: ServicioService,
-    private loadingCtrl: LoadingController
-  ) { }
+    private loadingCtrl: LoadingController,
+    private storage: Storage
+    ) { }
 
   async ngOnInit() {
     this.page = "Historial";
@@ -52,6 +54,7 @@ export class ServiciosPageCliente implements OnInit {
     if(this.servicios.length==0){
       (<HTMLInputElement>document.getElementById("noServices")).hidden = false;
     }
+    this.id_usuario = JSON.parse(await this.storage.get('USUARIO')).ID;
   }
 
   handleRefresh(event: any) {

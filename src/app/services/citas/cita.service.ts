@@ -2,19 +2,26 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Storage } from '@ionic/storage-angular';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CitaService {
   url: string;
-  token: string | null = localStorage.getItem('TOKEN');
+  token: string | null;
   // token: string =
   //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjY4ODQwNzkxfQ.7Z8wqOfOvOGeenjayIp5bLajtvvGs-3bLzW0WaGuFG0';
-  headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
+  headers:any;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private storage: Storage) {
     this.url = environment.baseUrlAPI;
+    this.inicializarToken();
+  }
+
+  async inicializarToken(){
+    this.token = await this.storage.get('TOKEN');
+    this.headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
   }
 
   getCitasPendientes() {

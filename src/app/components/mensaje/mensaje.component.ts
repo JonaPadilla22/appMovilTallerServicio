@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Storage } from '@ionic/storage-angular';
 import { TouchSequence } from 'selenium-webdriver';
 import { ClienteService } from 'src/app/services/clientes/cliente.service';
 import { environment } from 'src/environments/environment';
@@ -11,7 +12,7 @@ import { environment } from 'src/environments/environment';
 export class MensajeComponent implements OnInit {
   @Input() message: any;
   url = environment.baseUrlAPI + "/usuarios/";
-  user = JSON.parse(localStorage.getItem('USUARIO'));
+  user:any;
   usuario: any;
   date_msg: any;
   date: any;
@@ -20,7 +21,7 @@ export class MensajeComponent implements OnInit {
   isLocalUser : boolean = false;//confirmar quien es el del mensaje
 
 
-  constructor(private uService: ClienteService) {
+  constructor(private uService: ClienteService,private storage: Storage) {
 
   }
 
@@ -30,8 +31,8 @@ export class MensajeComponent implements OnInit {
     this.date_msg = new Date(this.message.timestamp).getDate();
     var date_now = new Date;
     this.date = date_now.getDate();
-
-    let usuario_id = JSON.parse(localStorage.getItem('USUARIO')).ID;
+    this.user = JSON.parse(await this.storage.get('USUARIO'));
+    let usuario_id = JSON.parse(await this.storage.get('USUARIO')).ID;
 
     if(this.usuario.ID == usuario_id){
       this.isLocalUser = true;

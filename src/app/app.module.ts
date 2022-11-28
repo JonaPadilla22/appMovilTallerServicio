@@ -10,6 +10,7 @@ import { LoginModule } from './login/login.module';
 import { NavComponent } from './nav/nav.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from './components/components.module';
+import { IonicStorageModule } from '@ionic/storage-angular';
 // import { QRCodeModule } from 'angularx-qrcode'
 //import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 // import { Globals } from './Global';
@@ -17,9 +18,10 @@ import { ComponentsModule } from './components/components.module';
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent
+    NavComponent,
   ],
   imports: [
+    IonicStorageModule.forRoot(),
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
@@ -31,9 +33,10 @@ import { ComponentsModule } from './components/components.module';
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    FirebaseService
+    FirebaseService,
     // Globals
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+}

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AlertController } from '@ionic/angular';
 import { ClienteService } from 'src/app/services/clientes/cliente.service';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-change-image',
@@ -10,8 +11,8 @@ import { ClienteService } from 'src/app/services/clientes/cliente.service';
 })
 export class ChangeImageComponent implements OnInit {
   url = environment.baseUrlAPI + "/usuarios/";
-  id_usuario = JSON.parse(localStorage.getItem('USUARIO')).ID;
-  img_usuario = JSON.parse(localStorage.getItem('USUARIO')).IMG;
+  id_usuario:any;
+  img_usuario:any;
   user: any;
   imagen: any;
 
@@ -19,11 +20,14 @@ export class ChangeImageComponent implements OnInit {
   
   constructor(
     private alertController: AlertController,
-    private clientService: ClienteService
+    private clientService: ClienteService,
+    private storage: Storage
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.url += this.img_usuario ?? 'default.png';
+    this.id_usuario = JSON.parse(await this.storage.get('USUARIO')).ID;
+    this.img_usuario = JSON.parse(await this.storage.get('USUARIO')).IMG;
   }
 
   async changeImage(){
@@ -64,7 +68,7 @@ export class ChangeImageComponent implements OnInit {
                             this.user = await this.clientService.getClienteById(this.id_usuario).toPromise();
                             localStorage.removeItem('USUARIO');
                             
-                            localStorage.setItem('USUARIO', JSON.stringify(this.user[0]));
+                            await this.storage.set('USUARIO', JSON.stringify(this.user[0]));
                             window.location.reload();
                           },
                         },

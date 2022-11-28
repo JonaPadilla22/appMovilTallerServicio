@@ -3,6 +3,7 @@ import { LoadingController } from '@ionic/angular';
 import { ServicioService } from 'src/app/services/servicios/servicio.service';
 import { CitaService } from 'src/app/services/citas/cita.service';
 import { environment } from 'src/environments/environment';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-citas',
@@ -16,8 +17,8 @@ export class CitasPage implements OnInit {
   servicios: any = [];
   estatus: any;
 
-  id_user = JSON.parse(localStorage.getItem('USUARIO')).ID;
-  tipo_usuario = JSON.parse(localStorage.getItem('USUARIO')).TIPO_USUARIO.ID;
+  id_user:any;
+  tipo_usuario:any;
 
   servicio: any;
   isModalOpen = false;
@@ -26,6 +27,9 @@ export class CitasPage implements OnInit {
   async ngOnInit() {
     this.page = "Citas";
     this.showLoading();
+
+    this.id_user = JSON.parse(await this.storage.get('USUARIO')).ID;
+    this.tipo_usuario = JSON.parse(await this.storage.get('USUARIO')).TIPO_USUARIO.ID;
 
     await this.cargarServ();
     if(this.loading){
@@ -49,8 +53,8 @@ export class CitasPage implements OnInit {
           serv.ESTATUS.ID_ESTATUS == "C"
         );
       });
-      this.servicios.forEach((element: any) => {
-        element.TECNICO_ENCARGADO = JSON.parse(localStorage.getItem('USUARIO'))
+      this.servicios.forEach(async (element: any) => {
+        element.TECNICO_ENCARGADO = JSON.parse(await this.storage.get('USUARIO'))
       });
 
     }else{
@@ -78,7 +82,8 @@ export class CitasPage implements OnInit {
   constructor(
     private loadingCtrl: LoadingController,
     private servService: ServicioService,
-    private citaService: CitaService
+    private citaService: CitaService,
+    private storage: Storage
   ) {}
 
   getSigEstatus(id_est: string): any{

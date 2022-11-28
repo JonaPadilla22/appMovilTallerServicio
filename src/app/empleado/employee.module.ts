@@ -1,5 +1,3 @@
-import { DetalleServEmpleadoPage } from './detalle-serv-empleado/detalle-serv-empleado.page';
-import { HeaderComponent } from './../components/header/header.component';
 import { ServiciosPage } from './servicios/servicios.page';
 import { InicioPageTecnico } from './inicio/inicio.page';
 import { CitasPage } from './citas/citas.page';
@@ -16,7 +14,7 @@ import { ComponentsModule } from '../components/components.module';
     FormsModule,
     IonicModule,
     EmployeePageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
   ],
   declarations: [
     CitasPage,

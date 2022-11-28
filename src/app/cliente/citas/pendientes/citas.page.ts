@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CitasPageCliente implements OnInit {
   url = environment.baseUrlAPI + "/usuarios/";
-  id_usuario = JSON.parse(localStorage.getItem('USUARIO')).ID;
+  id_usuario:any;
   public page: string;
   citas: any = [];
   num_citas: number = 0;
@@ -30,6 +30,7 @@ export class CitasPageCliente implements OnInit {
       this.loading=false;
     }  
     this.num_citas = this.citas.length;
+    this.id_usuario = JSON.parse(await this.storage.get('USUARIO')).ID;
   }
 
   async showLoading() {
@@ -44,7 +45,9 @@ export class CitasPageCliente implements OnInit {
   constructor(
     private servService: ServicioService,
     private loadingCtrl: LoadingController,
-  ) {}
+    private storage: Storage
+  ) {
+  }
 
   async cargarCitas(){
     this.loading = true;

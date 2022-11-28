@@ -5,6 +5,7 @@ import { ServicioService } from 'src/app/services/servicios/servicio.service';
 import { VehiculoService } from 'src/app/services/vehiculos/vehiculo.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AlertController, IonSelect } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-registrar-cita',
@@ -14,7 +15,7 @@ import { AlertController, IonSelect } from '@ionic/angular';
 export class RegistrarCitaPage implements OnInit {
   page = "Registrar"
   public formRegisterCit: FormGroup;
-  id_cliente = JSON.parse(localStorage.getItem('USUARIO')).ID;
+  id_cliente:any;
 
   typesServ: any;
   vehiculos: any;
@@ -36,7 +37,8 @@ export class RegistrarCitaPage implements OnInit {
     private servicioService: ServicioService,
     private vehService: VehiculoService,
     public formBuilder: FormBuilder,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private storage : Storage
   ) { 
     this.formRegisterCit = this.formBuilder.group({
       ID_TIPO_SERVICIO: ['', [Validators.required]],
@@ -65,6 +67,7 @@ export class RegistrarCitaPage implements OnInit {
     this.time = { hour: this.date.getHours, minute: 0};
     this.typesServ = await this.servService.getTiposServicios().toPromise();
     this.cargarVeh();
+    this.id_cliente = JSON.parse(await this.storage.get('USUARIO')).ID;
   }
 
   get errorControl() {

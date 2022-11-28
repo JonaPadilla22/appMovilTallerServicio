@@ -4,6 +4,7 @@ import { ServicioService } from 'src/app/services/servicios/servicio.service';
 import { AlertController, IonInput } from '@ionic/angular';
 import { NotificacionService } from 'src/app/services/notificaciones/notificacion.service';
 import { RefaccionService } from 'src/app/services/refacciones/refaccion.service';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-detalle-serv-empleado',
@@ -14,7 +15,7 @@ export class DetalleServEmpleadoPage implements OnInit {
   @Input() serv: any;
   url = environment.baseUrlAPI + '/usuarios/';
   isModalOpen = false;
-  user = JSON.parse(localStorage.getItem('USUARIO'));
+  user:any;
   estatus: any;
   actualizaciones_serv: any;
   detalle_serv: any;
@@ -34,7 +35,8 @@ export class DetalleServEmpleadoPage implements OnInit {
     private servService: ServicioService,
     private alertController: AlertController,
     private notifService: NotificacionService,
-    private refService: RefaccionService
+    private refService: RefaccionService,
+    private storage: Storage
   ) {}
 
   async ngOnInit() {
@@ -53,6 +55,7 @@ export class DetalleServEmpleadoPage implements OnInit {
     this.productosToShow = this.productos
 
     this.calcularTotalServicio();
+    this.user = JSON.parse(await this.storage.get('USUARIO'));
   }
 
   getSigEstatus(id_est: string): any {

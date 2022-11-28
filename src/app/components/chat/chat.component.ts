@@ -14,7 +14,7 @@ import { NotificacionService } from 'src/app/services/notificaciones/notificacio
 })
 export class ChatComponent implements OnInit {
   @Input() serv: any;
-  user = JSON.parse(localStorage.getItem('USUARIO'));
+  user:any
 
   @ViewChild('contenedorMensaje') contenedorMensaje : any; 
 
@@ -25,7 +25,7 @@ export class ChatComponent implements OnInit {
   message = '';
   chats: Chat[] = [];
 
-  constructor(private formBuilder: FormBuilder,private notifService: NotificacionService) {
+  constructor(private formBuilder: FormBuilder,private notifService: NotificacionService, private storage: Storage) {
     this.app = initializeApp(environment.firebaseConfig);
     this.db = getDatabase(this.app);
     this.form = this.formBuilder.group({
@@ -37,7 +37,7 @@ export class ChatComponent implements OnInit {
     this.contenedorMensaje.elc.scrollTop = 9999
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     const chatsRef = ref(this.db, `chats/${this.serv.ID_SERVICIO}`);
     onValue(chatsRef, (snapshot: any) => {
       const data = snapshot.val();
@@ -52,6 +52,7 @@ export class ChatComponent implements OnInit {
         return c-d;
       });
     });
+    this.user = JSON.parse(await this.storage.get('USUARIO'));
   }
 
   onChatSubmit(form: any) {

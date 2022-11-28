@@ -1,93 +1,103 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from  '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Storage } from '@ionic/storage-angular';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ServicioService {
   url: string;
-  headers = new HttpHeaders()
-            .set("Authorization", "Bearer "+localStorage.getItem("TOKEN"));
-  constructor(private http: HttpClient) { 
-    this.url = environment.baseUrlAPI; 
+  headers: any;
+
+  constructor(private http: HttpClient, private storage: Storage) {
+    this.url = environment.baseUrlAPI;
+    this.inicializarToken();
   }
 
-  getServicioById(id: string){
-    return this.http
-    .get(`${this.url}/servicios/${id}`, {headers: this.headers}).pipe(
-      map((res: any)=>{
-        return res;
-      })
+  async inicializarToken() {
+    this.headers = new HttpHeaders().set(
+      'Authorization',
+      'Bearer ' + (await this.storage.get('TOKEN'))
     );
   }
 
-  getServiciosPendientes(){
+  getServicioById(id: string) {
     return this.http
-    .get(`${this.url}/servicios/pendientes`, {headers: this.headers}).pipe(
-      map((res: any)=>{
-        return res;
-      })
-    );
+      .get(`${this.url}/servicios/${id}`, { headers: this.headers })
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
   }
 
-  getServiciosTecnico(id: string){
+  getServiciosPendientes() {
     return this.http
-    .get(`${this.url}/servicios/tecnico/${id}`, {headers: this.headers}).pipe(
-      map((res: any)=>{
-        return res;
-      })
-    );
+      .get(`${this.url}/servicios/pendientes`, { headers: this.headers })
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
   }
-  
-  getServiciosCliente(id: string){
+
+  getServiciosTecnico(id: string) {
     return this.http
-    .get(`${this.url}/servicios/cliente/${id}`, {headers: this.headers}).pipe(
-      map((res: any)=>{
-        return res;
+      .get(`${this.url}/servicios/tecnico/${id}`, { headers: this.headers })
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
+
+  getServiciosCliente(id: string) {
+    return this.http
+      .get(`${this.url}/servicios/cliente/${id}`, { headers: this.headers })
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
+
+  getServiciosTerminados() {
+    return this.http
+      .get(`${this.url}/servicios/estatus/T`, { headers: this.headers })
+      .pipe(map((res) => res));
+  }
+
+  getEstatus() {
+    return this.http
+      .get(`${this.url}/servicios/estatus`, { headers: this.headers })
+      .pipe(map((res) => res));
+  }
+
+  getDetalleServicio(id: string) {
+    return this.http
+      .get(`${this.url}/servicios/detalle/${id}`, { headers: this.headers })
+      .pipe(map((res) => res));
+  }
+
+  getActualizacionesServicios(id: string) {
+    return this.http
+      .get(`${this.url}/servicios/actualizacion/${id}`, {
+        headers: this.headers,
       })
-    );
+      .pipe(map((res) => res));
   }
 
-  getServiciosTerminados(){
-    return this
-            .http
-            .get(`${this.url}/servicios/estatus/T`, {headers: this.headers}).pipe(
-              map(res=>res)
-            );
+  actualizarEstatus(formActServ: FormData) {
+    return this.http.post(`${this.url}/servicios/actualizacion`, formActServ, {
+      headers: this.headers,
+    });
   }
 
-  getEstatus(){
-    return this
-            .http
-            .get(`${this.url}/servicios/estatus`, {headers: this.headers}).pipe(
-              map(res=>res)
-            );
+  insertarDetalleServ(formDet: FormData) {
+    return this.http.post(`${this.url}/servicios/detalle`, formDet, {
+      headers: this.headers,
+    });
   }
-
-  getDetalleServicio(id: string){
-    return this
-            .http
-            .get(`${this.url}/servicios/detalle/${id}`, {headers: this.headers}).pipe(
-              map(res=>res)
-            );
-  } 
-
-  getActualizacionesServicios(id: string){
-    return this
-            .http
-            .get(`${this.url}/servicios/actualizacion/${id}`, {headers: this.headers}).pipe(
-              map(res=>res)
-            );
-  }
-
-  actualizarEstatus(formActServ: FormData){
-    return this.http.post(`${this.url}/servicios/actualizacion`, formActServ, {headers: this.headers});
-  }
-
-  insertarDetalleServ(formDet: FormData){
-    return this.http.post(`${this.url}/servicios/detalle`, formDet, {headers: this.headers});
-  }
-
 }

@@ -8,7 +8,7 @@ import { ClienteService } from 'src/app/services/clientes/cliente.service';
   styleUrls: ['./change-password.component.css'],
 })
 export class ChangePasswordComponent implements OnInit {
-  id_user = JSON.parse(localStorage.getItem('USUARIO')).ID;
+  id_user:any;
 
   @ViewChild('inputActualPass') inputActualPass: any;
   @ViewChild('inputNewPass') inputNewPass: any;
@@ -16,10 +16,13 @@ export class ChangePasswordComponent implements OnInit {
 
   constructor(
     private clientService: ClienteService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private storage: Storage
   ) { }
 
-  ngOnInit() {}
+  async ngOnInit() {
+    this.id_user = JSON.parse(await this.storage.get('USUARIO')).ID;
+  }
 
   async changePass(){
 

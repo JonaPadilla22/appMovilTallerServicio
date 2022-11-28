@@ -8,6 +8,7 @@ import {
   Token,
 } from '@capacitor/push-notifications';
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'login-form',
@@ -23,7 +24,8 @@ export class FormLoginComponent implements OnInit {
     private alertController: AlertController,
     private loginService: LoginService,
     private router: Router,
-    private firebaseService: FirebaseService
+    private firebaseService: FirebaseService,
+    public storage: Storage
   )
   {
     this.formLogin = this.formBuilder.group({
@@ -43,9 +45,9 @@ export class FormLoginComponent implements OnInit {
     return this.formLogin.get('CONTRA');
   }
 
-  ngOnInit(): void {
-    if (localStorage.getItem('TOKEN')){
-      if(JSON.parse(localStorage.getItem('USUARIO')).TIPO_USUARIO.ID==4){
+  async ngOnInit() {
+    if (await this.storage.get('TOKEN')){
+      if(JSON.parse(await this.storage.get('USUARIO')).TIPO_USUARIO.ID==4){
         this.router.navigate(['/client']);
       }else{
         this.router.navigate(['/employee']);
@@ -68,6 +70,7 @@ export class FormLoginComponent implements OnInit {
 
     this.loginService.validateLogin(this.formLogin.value).subscribe({
       next: async (dataUser: any) => {
+        console.log(dataUser)
         const alert = await this.alertController.create({
           header: 'Bienvenido',
           buttons: [
@@ -81,8 +84,8 @@ export class FormLoginComponent implements OnInit {
           ],
         });
    
-        localStorage.setItem('TOKEN', dataUser.TOKEN);
-        localStorage.setItem('USUARIO', JSON.stringify(dataUser.USUARIO));
+        await this.storage.set('TOKEN', dataUser.TOKEN);
+        await this.storage.set('USUARIO', JSON.stringify(dataUser.USUARIO));
 
         if(dataUser.USUARIO.TIPO_USUARIO.ID == 4){
           PushNotifications.requestPermissions().then((result) => {
@@ -92,10 +95,10 @@ export class FormLoginComponent implements OnInit {
             }
           });
 
-          PushNotifications.addListener('registration', (token: Token) => {
+          PushNotifications.addListener('registration',async (token: Token) => {
             this.token = token.value;
-            localStorage.setItem('TOKEN_NOTIF', this.token);
-            this.firebaseService.enviarToken(token, JSON.parse(localStorage.getItem('USUARIO')).ID).subscribe();
+            await this.storage.set('TOKEN_NOTIF', this.token);
+            this.firebaseService.enviarToken(token, JSON.parse(await this.storage.get('USUARIO')).ID).subscribe();
           });
 
           await alert.present();  

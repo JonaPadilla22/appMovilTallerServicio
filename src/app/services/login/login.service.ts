@@ -11,7 +11,6 @@ export class LoginService {
   constructor(private http: HttpClient) {}
 
   validateLogin(form: any) {
-    // console.log(form);
     return this.http.post(`${this.url}/auth/login`, form);
   }
 }

@@ -2,6 +2,7 @@ import { AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-nav',
@@ -23,13 +24,13 @@ export class NavComponent implements OnInit {
   constructor(
     private alertController: AlertController,
     private router: Router,
-    private firebaseService: FirebaseService
+    private firebaseService: FirebaseService, 
+    private storage: Storage
   ) 
   { }
 
-  ngOnInit() {
-
-    this.dataUser = JSON.parse(localStorage.getItem('USUARIO'));
+  async ngOnInit() {
+    this.dataUser = JSON.parse(await this.storage.get('USUARIO'));
     if(this.dataUser.TIPO_USUARIO.ID!=4){
       this.isEmployee = true;
     }
@@ -55,6 +56,7 @@ export class NavComponent implements OnInit {
         icon: 'today',
       },
     ];
+    console.log("ja")
   }
 
   async closeSession(){
@@ -71,7 +73,7 @@ export class NavComponent implements OnInit {
           text: 'Confirmar',
           role: 'confirm',
           handler: async () => {
-            await this.firebaseService.eliminarToken(localStorage.getItem('TOKEN_NOTIF')).toPromise();
+            await this.firebaseService.eliminarToken(await this.storage.get('TOKEN_NOTIF')).toPromise();
             localStorage.removeItem('TOKEN');
             localStorage.removeItem('USUARIO');
             localStorage.removeItem('TOKEN_NOTIF');

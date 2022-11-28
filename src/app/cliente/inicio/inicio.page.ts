@@ -8,6 +8,7 @@ import {
   Token,
 } from '@capacitor/push-notifications';
 import { environment } from 'src/environments/environment';
+import { Storage } from '@ionic/storage-angular';
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.page.html',
@@ -15,7 +16,7 @@ import { environment } from 'src/environments/environment';
 })
 export class InicioPageCliente implements OnInit {
   url = environment.baseUrlAPI + "/usuarios/";
-  id_usuario = JSON.parse(localStorage.getItem('USUARIO')).ID;
+  id_usuario:any;
   public page: string = "Inicio";
   servicios: any = [];
   servicio: any;
@@ -33,7 +34,7 @@ export class InicioPageCliente implements OnInit {
     if(this.servicios.length==0){
       (<HTMLInputElement>document.getElementById("noServices")).hidden = false;
     }
-
+    this.id_usuario = JSON.parse(await this.storage.get('USUARIO')).ID;
     
     // Method called when tapping on a notification
     // PushNotifications.addListener(
@@ -67,7 +68,8 @@ export class InicioPageCliente implements OnInit {
 
   constructor(
     private servService: ServicioService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private storage: Storage
   ) {}
 
   handleRefresh(event: any) {

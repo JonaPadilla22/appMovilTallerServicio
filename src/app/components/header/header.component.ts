@@ -10,10 +10,13 @@ export class HeaderComponent{
   @Input() page: any;
   url = environment.baseUrlAPI + "/usuarios/";
   
-  id_usuario = JSON.parse(localStorage.getItem('USUARIO')).ID;
-  img_usuario = JSON.parse(localStorage.getItem('USUARIO')).IMG;
-  constructor() { }
+  id_usuario :any;
+  img_usuario :any;
+  constructor(private storage: Storage) { }
 
-  ngOnInit() {}
+  async ngOnInit() {
+    this.id_usuario = JSON.parse(await this.storage.get('USUARIO')).ID;
+    this.img_usuario = JSON.parse(await this.storage.get('USUARIO')).IMG;
+  }
 
 }
