@@ -42,4 +42,10 @@ ion-card ion-card-content .imgEstatus {
 ion-card ion-card-content .imgTecnico {
   max-width: 50px;
   width: 50px;
+}
+
+.noservices {
+  margin: 0 auto;
+  margin-top: 20px;
+  width: 250px;
 }/*# sourceMappingURL=inicio.page.css.map */

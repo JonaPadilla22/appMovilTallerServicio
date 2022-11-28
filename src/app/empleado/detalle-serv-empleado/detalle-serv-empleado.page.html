@@ -55,7 +55,7 @@
     <img src="{{ url }}{{serv.CLIENTE.IMG ?? 'default.png'}}" alt="" />
   </ion-item>
   
-  <p>REFACCIONES Y MANO DE OBRA</p>
+  <p *ngIf="serv.ESTATUS.ID_ESTATUS!='C'">REFACCIONES Y MANO DE OBRA</p>
   <div class="contendor-refacciones" *ngIf="serv.ESTATUS.ID_ESTATUS!='C'">
     <ion-card *ngFor="let det of detalle_serv">
       <ion-card-header>
@@ -71,7 +71,7 @@
   </div>
   <ion-button id="open-modal" *ngIf="serv.ESTATUS.ID_ESTATUS=='R'">AGREGAR</ion-button>
   
-  <p>Total: {{total | currency}}</p>
+  <p *ngIf="serv.ESTATUS.ID_ESTATUS!='C'">Total: {{total | currency}}</p>
 
   <ion-modal class="agregar-producto" #modal trigger="open-modal" [initialBreakpoint]="0.5" [breakpoints]="[0, 0.25, 0.5, 0.75, 1]">
     <ng-template>
@@ -98,7 +98,11 @@
           </ion-item>       
         </ion-list>
         
-        <h2 *ngIf="prod_selec.length > 0" class="productos-agregados"> Lista productos agregados </h2>
+        <h2 
+          *ngIf="prod_selec.length > 0" 
+          class="productos-agregados"> 
+          Lista productos agregados 
+        </h2>
 
         <div class="contenedor-prod-por-agregar" *ngIf="prod_selec.length > 0">
           <div *ngFor="let prod of prod_selec" class="producto">
@@ -120,7 +124,7 @@
                 (change)="actTotalSelec($event,prod)">
               </ion-input>
             </ion-item>
-            <button (click)="eliminateProdFromList(prod)"class="borrar-prod">X</button>
+            <button (click)="eliminateProdFromList(prod)" class="borrar-prod">X</button>
           </div>
         </div>
         <p
@@ -140,7 +144,7 @@
     </ng-template>
   </ion-modal>
   
-  <ion-button *ngIf="serv.ESTATUS.ID_ESTATUS!='T'" (click)="updateStatus()">ACTUALIZAR ESTATUS</ion-button>
+  <ion-button *ngIf="serv.ESTATUS.ID_ESTATUS!='T' && serv.TECNICO_ENCARGADO" (click)="updateStatus()">ACTUALIZAR ESTATUS</ion-button>
 
   <div class="seguimiento-serv" *ngIf="serv.ESTATUS.ID_ESTATUS!='C'">
     SEGUIMIENTO SERVICIO

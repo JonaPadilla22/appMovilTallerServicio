@@ -28,4 +28,10 @@ ion-content ion-card ion-card-content .tecnico-mantenimiento ion-avatar {
   margin: 0 auto;
   margin-bottom: 10px;
   margin-top: 10px;
+}
+
+.noservices {
+  margin: 0 auto;
+  margin-top: 20px;
+  width: 250px;
 }/*# sourceMappingURL=citas.page.css.map */

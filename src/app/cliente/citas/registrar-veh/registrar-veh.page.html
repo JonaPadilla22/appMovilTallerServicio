@@ -68,8 +68,10 @@
     <span class="ion-padding" *ngIf="isSubmitted && errorControl.VIN.errors?.maxlength">
       El VIN debe ser de 17 caracteres.
     </span>
-  
-    <ion-button type="submit">REGISTRAR</ion-button>
+    
+    <div class="padre-btn">
+      <ion-button type="submit">REGISTRAR</ion-button>
+    </div>
   </form>
 
 </ion-content>

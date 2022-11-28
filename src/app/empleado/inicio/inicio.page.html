@@ -59,7 +59,7 @@
             </ion-avatar>
             {{serv.TECNICO_ENCARGADO.NOMBRE}}
           </div>
-          <div *ngIf="!serv.TECNICO_ENCARGADO">
+          <div class="contendor-cliente" *ngIf="!serv.TECNICO_ENCARGADO">
             <ion-avatar>
               <img
                 class="imgTecnico"
@@ -84,7 +84,7 @@
     </ion-card-content>
   </ion-card>
 
-  <div hidden id="noServices">
+  <div hidden id="noServices" class="noservice">
     <img src="../../assets/sin-autos.png" alt="" />
     <p>Nada que mostrar por aquí...</p>
   </div>

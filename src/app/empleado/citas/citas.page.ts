@@ -40,15 +40,18 @@ export class CitasPage implements OnInit {
   async cargarServ(){
     this.loading = true;
     if(this.tipo_usuario == 3){
+      console.log(this.id_user);
+
       this.servicios = await this.servService
         .getServiciosTecnico(this.id_user)
         .toPromise();
 
       this.servicios = this.servicios.filter((serv: any) => {
         return (
-          serv.ESTATUS.ID_ESTATUS == "C"
+          serv.ESTATUS.ID_ESTATUS == "C" && serv.TECNICO_ENCARGADO
         );
       });
+
     }else{
       this.servicios = await this.citaService
         .getCitasPendientes()

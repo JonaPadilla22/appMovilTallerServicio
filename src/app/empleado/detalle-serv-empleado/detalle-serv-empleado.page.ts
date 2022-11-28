@@ -217,7 +217,7 @@ export class DetalleServEmpleadoPage implements OnInit {
         {
           text: 'Confirmar',
           role: 'confirm',
-          handler: () => {
+          handler: async () => {
             this.prod_selec.forEach((prod: any, index: any) => {
               let id_prod: number = prod.ID ?? prod.ID_MANO_OBRA;
               let tipo_prod: string = prod.ID ? 'R' : 'M';
@@ -231,16 +231,6 @@ export class DetalleServEmpleadoPage implements OnInit {
       
               this.servService.insertarDetalleServ(formAct).subscribe({
                 next: async (response: any) => {
-                  const alert = await this.alertController.create({
-                    header: 'Éxito',
-                    message: 'AGREGADO CORRECTAMENTE',
-                    buttons: ['OK'],
-                  });
-                  await alert.present();
-      
-                  // let s: any = await this.servService.getServicioById(this.serv.ID_SERVICIO).toPromise();
-                  // this.serv =  s[0];
-                  // console.log(this.serv);
                   this.detalle_serv = await this.servService
                     .getDetalleServicio(this.serv.ID_SERVICIO)
                     .toPromise();
@@ -263,6 +253,12 @@ export class DetalleServEmpleadoPage implements OnInit {
                 },
               });
             });
+            const alert = await this.alertController.create({
+              header: 'Éxito',
+              message: 'AGREGADO CORRECTAMENTE',
+              buttons: ['OK'],
+            });
+            await alert.present();
           },
         },
       ],

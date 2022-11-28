@@ -6,26 +6,26 @@
   contenido msg
 -->
 <div *ngIf="usuario">
-  <ion-item *ngIf="!isLocalUser" class="other">
+  <ion-item *ngIf="!isLocalUser" class="other contenedor-mensajes">
     <ion-thumbnail slot="start">
       <img alt="" src="{{url}}{{usuario.IMG ?? 'default.png'}}" />
     </ion-thumbnail>
     <div>
-      <ion-label>{{usuario.NOMBRE}}</ion-label>
-      <ion-label>{{message.message}}</ion-label>
+      <ion-label>{{usuario.NOMBRE}} ({{usuario.TIPO_USUARIO.DESCRIPCION}})</ion-label>
+      <ion-label class="ion-text-wrap mensaje">{{message.message}}</ion-label>
       <ion-label *ngIf="date_msg!=date">{{message.timestamp | date: 'medium'}}</ion-label>
       <ion-label *ngIf="date_msg==date">{{message.timestamp | date: 'shortTime'}}</ion-label>
     </div>
     
   </ion-item>
   
-  <ion-item *ngIf="isLocalUser" class="you">
+  <ion-item *ngIf="isLocalUser" class="you contenedor-mensajes">
     <ion-thumbnail slot="end">
       <img alt="" src="{{url}}{{usuario.IMG ?? 'default.png'}}" />
     </ion-thumbnail>
     <div>
       <ion-label>{{"Tú"}}</ion-label>
-      <ion-label>{{message.message}}</ion-label>
+      <ion-label class="ion-text-wrap mensaje">{{message.message}}</ion-label>
       <ion-label *ngIf="date_msg!=date">{{message.timestamp | date: 'medium'}}</ion-label>
       <ion-label *ngIf="date_msg==date">{{message.timestamp | date: 'shortTime'}}</ion-label>
     </div>
