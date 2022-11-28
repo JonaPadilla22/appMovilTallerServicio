@@ -40,8 +40,9 @@ ion-card ion-card-content .imgEstatus {
   margin-bottom: 10px;
 }
 ion-card ion-card-content .imgTecnico {
-  max-width: 50px;
-  width: 50px;
+  width: 60px;
+  height: 60px;
+  border-radius: 40px;
 }
 
 .noservices {

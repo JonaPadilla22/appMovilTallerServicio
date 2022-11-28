@@ -37,17 +37,17 @@
       <h3>TÉCNICO ASIGNADO</h3>
       <p>{{serv.TECNICO_ENCARGADO.NOMBRE}}</p>
     </ion-label>
-    <img src="{{ url }}{{serv.TECNICO_ENCARGADO.IMG}}" alt="" />
+    <img src="{{ url }}{{serv.TECNICO_ENCARGADO.IMG ?? 'default.png'}}" alt="" />
   </ion-item>
 
-  <ion-item *ngIf="!serv.TECNICO_ENCARGADO">
+  <ion-item *ngIf="!serv.TECNICO_ENCARGADO && user.TIPO_USUARIO.ID!=3">
     <ion-label>
       <h3>TÉCNICO NO ASIGNADO</h3>
     </ion-label>
   </ion-item>
 
 
-  <ion-item class="tecnico-encargado" *ngIf="serv.TECNICO_ENCARGADO">
+  <ion-item class="tecnico-encargado" *ngIf="serv.CLIENTE">
     <ion-label>
       <h3>CLIENTE</h3>
       <p>{{serv.CLIENTE.NOMBRE}}</p>
@@ -146,12 +146,12 @@
   
   <ion-button *ngIf="serv.ESTATUS.ID_ESTATUS!='T' && serv.TECNICO_ENCARGADO" (click)="updateStatus()">ACTUALIZAR ESTATUS</ion-button>
 
-  <div class="seguimiento-serv" *ngIf="serv.ESTATUS.ID_ESTATUS!='C'">
+  <div class="seguimiento-serv">
     SEGUIMIENTO SERVICIO
     <ion-item *ngFor="let act of actualizaciones_serv" class="seguimiento">
-      <ion-thumbnail slot="start">
+      <ion-avatar slot="start">
         <img alt="" src="{{url}}{{act.USUARIO.IMG ?? 'default.png'}}" />
-      </ion-thumbnail>
+      </ion-avatar>
       <div>
         <ion-label>{{act.ESTATUS.DESCRIPCION}}</ion-label>
         <ion-label>{{act.USUARIO.NOMBRE}}</ion-label>

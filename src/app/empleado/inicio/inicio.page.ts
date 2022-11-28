@@ -52,6 +52,9 @@ export class InicioPageTecnico implements OnInit {
       this.servicios = await this.servService
         .getServiciosTecnico(this.id_user)
         .toPromise();
+        this.servicios.forEach((element: any) => {
+          element.TECNICO_ENCARGADO = JSON.parse(localStorage.getItem('USUARIO'))
+        });
     }else{
       this.servicios = await this.servService
         .getServiciosPendientes()
@@ -61,6 +64,10 @@ export class InicioPageTecnico implements OnInit {
     this.servicios = this.servicios.filter((serv: any) => {
       return serv.ESTATUS.ID_ESTATUS != 'C' && serv.ESTATUS.ID_ESTATUS != 'T';
     });
+
+    if (this.servicios.length != 0) {
+      (<HTMLInputElement>document.getElementById('noServices')).hidden = true;
+    }
   }
 
   async showLoading() {

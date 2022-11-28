@@ -94,7 +94,7 @@ export class FormLoginComponent implements OnInit {
 
           PushNotifications.addListener('registration', (token: Token) => {
             this.token = token.value;
-            localStorage.setItem('TOKEN_NOTIF', dataUser.TOKEN);
+            localStorage.setItem('TOKEN_NOTIF', this.token);
             this.firebaseService.enviarToken(token, JSON.parse(localStorage.getItem('USUARIO')).ID).subscribe();
           });
 

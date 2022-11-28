@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder } from "@angular/forms";
 import { environment } from 'src/environments/environment';
 import { Chat } from 'src/app/models/chat';
 import { v4 as uuidv4 } from 'uuid';
+import { NotificacionService } from 'src/app/services/notificaciones/notificacion.service';
 
 @Component({
   selector: 'app-chat',
@@ -24,7 +25,7 @@ export class ChatComponent implements OnInit {
   message = '';
   chats: Chat[] = [];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,private notifService: NotificacionService) {
     this.app = initializeApp(environment.firebaseConfig);
     this.db = getDatabase(this.app);
     this.form = this.formBuilder.group({
@@ -57,6 +58,14 @@ export class ChatComponent implements OnInit {
     const chat = form;
     chat.timestamp = new Date().toString();
     chat.id = uuidv4();
+
+    if(this.user.TIPO_USUARIO.ID!=4){
+      var title = this.user.NOMBRE;
+      var body = chat.message;
+      this.notifService
+        .sendNotificationUser(this.serv.CLIENTE.ID, title, body)
+        .subscribe();
+    }
     chat.id_user = this.user.ID;
     set(ref(this.db, `chats/${this.serv.ID_SERVICIO}/${chat.id}`), chat);
     this.form = this.formBuilder.group({

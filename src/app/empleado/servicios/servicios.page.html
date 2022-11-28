@@ -46,7 +46,7 @@
       <p>MANTENIMIENTO {{serv.TIPO_SERVICIO.DESCRIPCION}}</p>
 
       <div class="tecnico-mantenimiento">
-        <div *ngIf="serv.TECNICO_ENCARGADO">
+        <div *ngIf="tipo_usuario!=3">
           <ion-avatar>
             <img
               class="imgTecnico"
@@ -59,8 +59,17 @@
           {{serv.TECNICO_ENCARGADO.NOMBRE}}
         </div>
 
-        <div *ngIf="serv.TECNICO_ENCARGADO==null">
-          TÉCNICO ENCARGADO: NO ASIGNADO
+        <div class="contendor-cliente" *ngIf="tipo_usuario==3">
+          <ion-avatar>
+            <img
+              class="imgTecnico"
+              src="{{ url }}{{
+                serv.CLIENTE.IMG ?? 'default.png'
+              }}"
+              alt=""
+            /> 
+          </ion-avatar>
+          {{serv.CLIENTE.NOMBRE}}
         </div>
       </div>
     </ion-card-content>

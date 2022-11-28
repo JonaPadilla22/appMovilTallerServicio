@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
 export class DetalleCitasClientePage{
   @Input() cita: any;
   @Input() id_cita: string;
+  isModalOpen = false;
   
   constructor() { 
     
@@ -17,4 +18,7 @@ export class DetalleCitasClientePage{
     
   }
 
+  abrirChat(isOpen: boolean){
+    this.isModalOpen = isOpen; 
+  }
 }

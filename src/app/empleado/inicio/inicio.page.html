@@ -47,19 +47,25 @@
 
       <div class="contendor-tecnico-status">
         <div>
-          <div class="tecnicoEncargado" *ngIf="serv.TECNICO_ENCARGADO">
-            <ion-avatar>
-              <img
-                class="imgTecnico"
-                src="{{ url }}{{
-                  serv.TECNICO_ENCARGADO.IMG ?? 'default.png'
-                }}"
-                alt=""
-              /> 
-            </ion-avatar>
-            {{serv.TECNICO_ENCARGADO.NOMBRE}}
+          <div class="tecnicoEncargado" *ngIf="tipo_usuario!=3">
+            <div *ngIf="serv.TECNICO_ENCARGADO">
+              <ion-avatar>
+                <img
+                  class="imgTecnico"
+                  src="{{ url }}{{
+                    serv.TECNICO_ENCARGADO.IMG ?? 'default.png'
+                  }}"
+                  alt=""
+                /> 
+              </ion-avatar>
+              {{serv.TECNICO_ENCARGADO.NOMBRE}}
+            </div>
+            <div *ngIf="!serv.TECNICO_ENCARGADO">
+              TÉCNICO ENCARGADO: NO ASIGNADO
+            </div>
+            
           </div>
-          <div class="contendor-cliente" *ngIf="!serv.TECNICO_ENCARGADO">
+          <div class="contendor-cliente" *ngIf="tipo_usuario==3">
             <ion-avatar>
               <img
                 class="imgTecnico"

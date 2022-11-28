@@ -21,6 +21,7 @@ export class RegistrarCitaPage implements OnInit {
   veh_selec: any;
   matricula_selec: string;
   cita: any;
+  id_cita: any;
 
   date = new Date();
   fecha: any;
@@ -140,6 +141,8 @@ export class RegistrarCitaPage implements OnInit {
             await alert.dismiss();    
            
             this.cita = this.cita[0];
+            this.id_cita = "'" + this.cita.ID_SERVICIO + "'";
+            
             this.setOpen(true);
             //this.matricula.emit(this.formRegisterCit.value.MATRICULA);
           },

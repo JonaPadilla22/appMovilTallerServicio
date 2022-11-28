@@ -1,5 +1,5 @@
 <ion-content>
-  <h3 class="fecha-del-chat">Hoy</h3>
+
   <div class="contenedor-mensajes" #contenedorMensaje >
     <mensaje *ngFor="let message of chats" [message]="message"></mensaje>
   </div>
@@ -7,7 +7,7 @@
   <form id="message" [formGroup]="form" (ngSubmit)="onChatSubmit(form.value)">
 
     <ion-item fill="solid" class="descripcion-text">
-      <ion-label position="floating">Descripcion</ion-label>
+      <ion-label position="floating">Escriba un mensaje</ion-label>
       <ion-textarea
         formControlName="message"
         class="custom-textarea"

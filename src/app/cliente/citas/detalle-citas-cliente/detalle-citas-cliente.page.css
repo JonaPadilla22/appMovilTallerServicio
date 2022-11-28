@@ -6,3 +6,8 @@
   width: 300px;
   margin: 0 auto;
 }/*# sourceMappingURL=detalle-citas-cliente.page.css.map */
+ion-content ion-fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
