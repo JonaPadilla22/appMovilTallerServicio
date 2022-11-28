@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { LoadingController } from '@ionic/angular';
 import { ServicioService } from 'src/app/services/servicios/servicio.service';
 import { environment } from 'src/environments/environment';
@@ -9,9 +10,11 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./inicio.page.css'],
 })
 export class InicioPageTecnico implements OnInit {
-  url = environment.baseUrlAPI + "/usuarios/";
+  url = environment.baseUrlAPI + '/usuarios/';
   public page: string;
   servicios: any = [];
+  serviciosToShow: any = [];
+
   id_user = JSON.parse(localStorage.getItem('USUARIO')).ID;
   tipo_usuario = JSON.parse(localStorage.getItem('USUARIO')).TIPO_USUARIO.ID;
 
@@ -23,17 +26,41 @@ export class InicioPageTecnico implements OnInit {
     private loadingCtrl: LoadingController,
     private servService: ServicioService
   ) {}
+  handleSearchChange(event: any) {
+    this.serviciosToShow = this.filtrarServicios(event.target.value);
+  }
+
+  filtrarServicios(text: string) {
+    return this.servicios.filter((serv: any) => {
+      const term = text.toLowerCase();
+      let carro =
+        serv.VEHICULO.MODELO.MARCA.DESCRIPCION +
+        ' ' +
+        serv.VEHICULO.MODELO.DESCRIPCION +
+        ' ' +
+        serv.VEHICULO.COLOR +
+        ' ' +
+        serv.VEHICULO.ANIO;
+      return (
+        carro.toLowerCase().includes(term) ||
+        serv.VEHICULO.MATRICULA.toLowerCase().includes(term) ||
+        serv.TECNICO_ENCARGADO?.NOMBRE.toLowerCase().includes(term) ||
+        serv.ESTATUS.DESCRIPCION.toLowerCase().includes(term)
+      );
+    });
+  }
 
   async ngOnInit() {
-    this.page = this.tipo_usuario == 3 ? 'Inicio tecnico' : 'Inicio Administrador';
+    this.page =
+      this.tipo_usuario == 3 ? 'Inicio tecnico' : 'Inicio Administrador';
 
     this.showLoading();
 
     await this.cargarServ();
-    if(this.loading){
+    if (this.loading) {
       this.loadingCtrl.dismiss();
-      this.loading=false;
-    }  
+      this.loading = false;
+    }
     if (this.servicios.length == 0) {
       (<HTMLInputElement>document.getElementById('noServices')).hidden = false;
     }
@@ -48,14 +75,14 @@ export class InicioPageTecnico implements OnInit {
 
   async cargarServ() {
     this.loading = true;
-    if(this.tipo_usuario == 3){
+    if (this.tipo_usuario == 3) {
       this.servicios = await this.servService
         .getServiciosTecnico(this.id_user)
         .toPromise();
-        this.servicios.forEach((element: any) => {
-          element.TECNICO_ENCARGADO = JSON.parse(localStorage.getItem('USUARIO'))
-        });
-    }else{
+      this.servicios.forEach((element: any) => {
+        element.TECNICO_ENCARGADO = JSON.parse(localStorage.getItem('USUARIO'));
+      });
+    } else {
       this.servicios = await this.servService
         .getServiciosPendientes()
         .toPromise();
@@ -68,6 +95,8 @@ export class InicioPageTecnico implements OnInit {
     if (this.servicios.length != 0) {
       (<HTMLInputElement>document.getElementById('noServices')).hidden = true;
     }
+
+    this.serviciosToShow = this.servicios;
   }
 
   async showLoading() {
@@ -83,12 +112,12 @@ export class InicioPageTecnico implements OnInit {
 
   async setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
-    if(!isOpen){
+    if (!isOpen) {
       this.showLoading();
       await this.cargarServ();
-      if(this.loading){
+      if (this.loading) {
         this.loadingCtrl.dismiss();
-        this.loading=false;
+        this.loading = false;
       }
     }
   }

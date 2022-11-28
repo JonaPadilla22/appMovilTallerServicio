@@ -3,6 +3,7 @@ import { LoadingController } from '@ionic/angular';
 import { ServicioService } from 'src/app/services/servicios/servicio.service';
 import { CitaService } from 'src/app/services/citas/cita.service';
 import { environment } from 'src/environments/environment';
+import { DatePipe } from '@angular/common'; 
 
 @Component({
   selector: 'app-citas',
@@ -14,6 +15,8 @@ export class CitasPage implements OnInit {
   public page: string;
 
   servicios: any = [];
+  serviciosToShow: any = [];
+
   estatus: any;
 
   id_user = JSON.parse(localStorage.getItem('USUARIO')).ID;
@@ -57,13 +60,14 @@ export class CitasPage implements OnInit {
       this.servicios = await this.citaService
         .getCitasPendientes()
         .toPromise();
-      console.log(this.servicios)
 
       this.servicios.forEach((element: any) => {
         element.ESTATUS = {ID_ESTATUS: element.ID_ESTATUS, DESCRIPCION: "CITA"}
         delete element.ID_ESTATUS
       });
     }
+
+    this.serviciosToShow = this.servicios
   }
 
   async showLoading() {
@@ -103,5 +107,31 @@ export class CitasPage implements OnInit {
 
   setServ(servicio: any) {
     this.servicio = servicio;
+  }
+
+  handleSearchChange(event: any) {
+    this.serviciosToShow = this.filtrarServicios(event.target.value);
+  }
+
+  filtrarServicios(text: string) {
+    return this.servicios.filter((serv: any) => {
+      const term = text.toLowerCase();
+      let carro =
+        serv.VEHICULO.MODELO.MARCA.DESCRIPCION +
+        ' ' +
+        serv.VEHICULO.MODELO.DESCRIPCION +
+        ' ' +
+        serv.VEHICULO.COLOR +
+        ' ' +
+        serv.VEHICULO.ANIO;
+      const fecha = new Date(serv.FECHA_CITA).toLocaleDateString('es-mx');
+      return (
+        carro.toLowerCase().includes(term) ||
+        serv.VEHICULO.MATRICULA.toLowerCase().includes(term) ||
+        serv.TECNICO_ENCARGADO?.NOMBRE.toLowerCase().includes(term) ||
+        serv.ESTATUS.DESCRIPCION.toLowerCase().includes(term) ||
+        fecha.toLowerCase().includes(term)
+      );
+    });
   }
 }

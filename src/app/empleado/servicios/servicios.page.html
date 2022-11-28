@@ -28,9 +28,13 @@
       </ng-template>
     </ion-modal>
   </div>
-
+  <ion-searchbar
+    show-cancel-button="focus"
+    cancel-button-icon="trash"
+    (ionChange)="handleSearchChange($event)"
+  ></ion-searchbar>
   <ion-card
-    *ngFor="let serv of servicios"
+    *ngFor="let serv of serviciosToShow"
     (click)="setServ(serv);setOpen(true)"
   >
     <ion-card-header>

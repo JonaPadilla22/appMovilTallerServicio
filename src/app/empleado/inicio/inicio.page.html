@@ -23,14 +23,20 @@
           </ion-toolbar>
         </ion-header>
         <ion-content class="ion-padding">
-          <app-detalle-serv-empleado [serv]="servicio"></app-detalle-serv-empleado>
+          <app-detalle-serv-empleado
+            [serv]="servicio"
+          ></app-detalle-serv-empleado>
         </ion-content>
       </ng-template>
     </ion-modal>
   </div>
-
+  <ion-searchbar
+    show-cancel-button="focus"
+    cancel-button-icon="trash"
+    (ionChange)="handleSearchChange($event)"
+  ></ion-searchbar>
   <ion-card
-    *ngFor="let serv of servicios"
+    *ngFor="let serv of serviciosToShow"
     (click)="setServ(serv);setOpen(true)"
   >
     <ion-card-header>
@@ -56,14 +62,13 @@
                     serv.TECNICO_ENCARGADO.IMG ?? 'default.png'
                   }}"
                   alt=""
-                /> 
+                />
               </ion-avatar>
               {{serv.TECNICO_ENCARGADO.NOMBRE}}
             </div>
             <div *ngIf="!serv.TECNICO_ENCARGADO">
               TÉCNICO ENCARGADO: NO ASIGNADO
             </div>
-            
           </div>
           <div class="contendor-cliente" *ngIf="tipo_usuario==3">
             <ion-avatar>
@@ -73,7 +78,7 @@
                   serv.CLIENTE.IMG ?? 'default.png'
                 }}"
                 alt=""
-              /> 
+              />
             </ion-avatar>
             {{serv.CLIENTE.NOMBRE}}
           </div>

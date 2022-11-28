@@ -11,6 +11,8 @@ export class ServiciosPage implements OnInit {
   url = environment.baseUrlAPI + "/usuarios/";
   public page: string;
   servicios: any = [];
+  serviciosToShow: any = [];
+
   id_user = JSON.parse(localStorage.getItem('USUARIO')).ID;
   tipo_usuario = JSON.parse(localStorage.getItem('USUARIO')).TIPO_USUARIO.ID;
 
@@ -62,7 +64,9 @@ export class ServiciosPage implements OnInit {
         element.ESTATUS = {ID_ESTATUS: element.ID_ESTATUS, DESCRIPCION: "TERMINADO"}
         delete element.ID_ESTATUS
       });
-    } 
+    }
+    
+    this.serviciosToShow = this.servicios;
   }
 
   async showLoading() {
@@ -90,6 +94,30 @@ export class ServiciosPage implements OnInit {
 
   setServ(servicio: any) {
     this.servicio = servicio;
+  }
+
+
+  handleSearchChange(event: any) {
+    this.serviciosToShow = this.filtrarServicios(event.target.value);
+  }
+
+  filtrarServicios(text: string) {
+    return this.servicios.filter((serv: any) => {
+      const term = text.toLowerCase();
+      let carro =
+        serv.VEHICULO.MODELO.MARCA.DESCRIPCION +
+        ' ' +
+        serv.VEHICULO.MODELO.DESCRIPCION +
+        ' ' +
+        serv.VEHICULO.COLOR +
+        ' ' +
+        serv.VEHICULO.ANIO;
+      return (
+        carro.toLowerCase().includes(term) ||
+        serv.VEHICULO.MATRICULA.toLowerCase().includes(term) ||
+        serv.TECNICO_ENCARGADO?.NOMBRE.toLowerCase().includes(term)
+      );
+    });
   }
 
 }
