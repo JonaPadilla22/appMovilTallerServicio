@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 // import { Globals } from 'src/app/Global';
 import { ClienteService } from 'src/app/services/clientes/cliente.service';
+import { regexComp } from 'src/app/utils/regexCompForms';
 
 @Component({
   selector: 'register-form',
@@ -18,24 +19,88 @@ export class RegisterFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     // public globals: Globals,
     private alertController: AlertController,
-    private clientService: ClienteService,
+    private clientService: ClienteService
   ) {
     this.formRegister = this.formBuilder.group({
       TIPO_PERSONA: 1,
       TIPO_USUARIO: 4,
-      NOMBRE: '',
-      AP1: '',
-      AP2: '',
-      TELEFONO: '',
-      CORREO: '',
-      RFC: '',
-      DIRECCION: '',
+      NOMBRE: this.formBuilder.control('', [
+        Validators.required,
+        Validators.maxLength(30),
+      ]),
+      AP1: this.formBuilder.control('', Validators.maxLength(15)),
+      AP2: this.formBuilder.control('', Validators.maxLength(15)),
+      TELEFONO: this.formBuilder.control('', [
+        Validators.required,
+        regexComp(/^\d{10}$/)
+      ]),
+      CORREO: this.formBuilder.control('', Validators.required),
+      RFC: this.formBuilder.control('', [
+        Validators.required,
+        Validators.minLength(this.isMoralPerson ? 13 : 12),
+        Validators.maxLength(this.isMoralPerson ? 13 : 12),
+      ]),
+      DIRECCION: this.formBuilder.control('', [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(40),
+      ]),
     });
+  }
+
+  get name() {
+    return this.formRegister.get('NOMBRE');
+  }
+  get ap1() {
+    return this.formRegister.get('AP1');
+  }
+  get ap2() {
+    return this.formRegister.get('AP2');
+  }
+  get tel() {
+    return this.formRegister.get('TELEFONO');
+  }
+  get correo() {
+    return this.formRegister.get('CORREO');
+  }
+  get rfc() {
+    return this.formRegister.get('RFC');
+  }
+  get direc() {
+    return this.formRegister.get('DIRECCION');
   }
 
   ngOnInit(): void {
     // TODO: check wat user is loged to redirect to his page
     // if (localStorage.getItem('TOKEN')) this.router.navigate(['/cita']);
+  }
+  createForm() {
+    this.formRegister.reset();
+    this.formRegister = this.formBuilder.group({
+      TIPO_PERSONA: 1,
+      TIPO_USUARIO: 4,
+      NOMBRE: this.formBuilder.control('', [
+        Validators.required,
+        Validators.maxLength(30),
+      ]),
+      AP1: this.formBuilder.control('', Validators.maxLength(15)),
+      AP2: this.formBuilder.control('', Validators.maxLength(15)),
+      TELEFONO: this.formBuilder.control('', [
+        Validators.required,
+        regexComp(/^\d{10}$/)
+      ]),
+      CORREO: this.formBuilder.control('', Validators.required),
+      RFC: this.formBuilder.control('', [
+        Validators.required,
+        Validators.minLength(this.isMoralPerson ? 13 : 12),
+        Validators.maxLength(this.isMoralPerson ? 13 : 12),
+      ]),
+      DIRECCION: this.formBuilder.control('', [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(40),
+      ]),
+    });
   }
 
   public async validateRegister() {

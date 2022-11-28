@@ -1,18 +1,28 @@
 <form [formGroup]="formRegister">
   <ion-item lines="none">
+    <ion-checkbox
+      slot="start"
+      (click)="isMoralPerson = !isMoralPerson; createForm()"
+    ></ion-checkbox>
+    <ion-label>Soy una persona moral</ion-label>
+  </ion-item>
+  <ion-item lines="none">
     <ion-input
       placeholder="RFC"
       class="custom"
       formControlName="RFC"
       [clearInput]="true"
+      maxlength="{{ !isMoralPerson ? 12 : 13 }}"
     ></ion-input>
-  </ion-item>
-  <ion-item lines="none">
-    <ion-checkbox
-      slot="start"
-      (click)="isMoralPerson = !isMoralPerson"
-    ></ion-checkbox>
-    <ion-label>Soy una persona moral</ion-label>
+    <ion-note slot="error" *ngIf="rfc.errors?.['required']"
+      >RFC requerido</ion-note
+    >
+    <ion-note slot="error" *ngIf="rfc.errors?.['minlength']"
+      >Logintud Mínima {{ !isMoralPerson ? "12" : "13" }}
+    </ion-note>
+    <ion-note slot="error" *ngIf="rfc.errors?.['maxlength']"
+      >Logintud Máxima {{ !isMoralPerson ? "12" : "13" }}</ion-note
+    >
   </ion-item>
   <ion-item lines="none">
     <ion-input
@@ -20,7 +30,17 @@
       class="custom"
       formControlName="NOMBRE"
       [clearInput]="true"
+      maxlength="30"
     ></ion-input>
+    <ion-note slot="error" *ngIf="name.errors?.['required']"
+      >Nombre requerido</ion-note
+    >
+    <ion-note slot="error" *ngIf="name.errors?.['minlength']"
+      >Logintud Mínima 3
+    </ion-note>
+    <ion-note slot="error" *ngIf="name.errors?.['maxlength']"
+      >Logintud Máxima 30</ion-note
+    >
   </ion-item>
   <ion-item lines="none" *ngIf="!isMoralPerson">
     <ion-input
@@ -28,7 +48,11 @@
       class="custom"
       formControlName="AP1"
       [clearInput]="true"
+      maxlength="15"
     ></ion-input>
+    <ion-note slot="error" *ngIf="ap1.errors?.['maxlength']"
+      >Logintud Máxima de 15
+    </ion-note>
   </ion-item>
   <ion-item lines="none" *ngIf="!isMoralPerson">
     <ion-input
@@ -36,7 +60,11 @@
       class="custom"
       formControlName="AP2"
       [clearInput]="true"
+      maxlength="15"
     ></ion-input>
+    <ion-note slot="error" *ngIf="ap2.errors?.['maxlength']"
+      >Logintud Máxima de 15</ion-note
+    >
   </ion-item>
   <ion-item lines="none">
     <ion-input
@@ -44,7 +72,12 @@
       class="custom"
       formControlName="TELEFONO"
       [clearInput]="true"
+      type="tel"
+      maxlength="10"
     ></ion-input>
+    <ion-note slot="error" *ngIf="tel.errors?.['regexFine']"
+      >Telefono Inválido</ion-note
+    >
   </ion-item>
   <ion-item lines="none">
     <ion-input
@@ -53,6 +86,12 @@
       formControlName="DIRECCION"
       [clearInput]="true"
     ></ion-input>
+    <ion-note slot="error" *ngIf="direc.errors?.['required']"
+      >Direccion requerida</ion-note
+    >
+    <ion-note slot="error" *ngIf="direc.errors?.['minlength']"
+      >Logintud Mínima de 10</ion-note
+    >
   </ion-item>
   <ion-item lines="none">
     <ion-input
@@ -61,6 +100,9 @@
       formControlName="CORREO"
       type="email"
       [clearInput]="true"
+      ngModel
+      email
     ></ion-input>
+    <ion-note slot="error">Correo Inválido</ion-note>
   </ion-item>
 </form>
