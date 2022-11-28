@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="contenido">
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
@@ -27,7 +27,13 @@
     </ion-modal>
   </div>
 
-  <ion-card *ngFor="let serv of citas" (click)="setServ(serv);setOpen(true)">
+  <ion-searchbar
+    show-cancel-button="focus"
+    cancel-button-icon="trash"
+    (ionChange)="handleSearchChange($event)"
+  ></ion-searchbar>
+
+  <ion-card *ngFor="let serv of citasToShow" (click)="setServ(serv);setOpen(true)">
     <ion-card-header>
       <ion-card-title
         >{{serv.VEHICULO.MODELO.MARCA.DESCRIPCION}}
@@ -82,4 +88,9 @@
       </div>
     </div>
   </div> -->
+
+  <div hidden id="noServices" class="noservice">
+    <img src="../../assets/sin-autos.png" alt="" />
+    <p>Nada que mostrar por aquí...</p>
+  </div>
 </ion-content>

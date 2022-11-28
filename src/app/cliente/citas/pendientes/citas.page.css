@@ -11,6 +11,10 @@
   width: 300px;
 }
 
+.contenido {
+  text-align: center;
+}
+
 .scan-button {
   margin: 0px;
   position: absolute;

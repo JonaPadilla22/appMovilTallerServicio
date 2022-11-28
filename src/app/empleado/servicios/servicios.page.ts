@@ -114,6 +114,7 @@ export class ServiciosPage implements OnInit {
         serv.VEHICULO.ANIO;
       return (
         carro.toLowerCase().includes(term) ||
+        serv.CLIENTE.NOMBRE.toLowerCase().includes(term) ||
         serv.VEHICULO.MATRICULA.toLowerCase().includes(term) ||
         serv.TECNICO_ENCARGADO?.NOMBRE.toLowerCase().includes(term)
       );

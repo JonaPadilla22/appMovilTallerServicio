@@ -18,6 +18,7 @@ export class InicioPageCliente implements OnInit {
   id_usuario = JSON.parse(localStorage.getItem('USUARIO')).ID;
   public page: string = "Inicio";
   servicios: any = [];
+  serviciosToShow: any = [];
   servicio: any;
   isModalOpen = false;
   loading = false;
@@ -55,6 +56,30 @@ export class InicioPageCliente implements OnInit {
     loading.present();
   }
 
+  handleSearchChange(event: any) {
+    this.serviciosToShow = this.filtrarServicios(event.target.value);
+  }
+
+  filtrarServicios(text: string) {
+    return this.servicios.filter((serv: any) => {
+      const term = text.toLowerCase();
+      let carro =
+        serv.VEHICULO.MODELO.MARCA.DESCRIPCION +
+        ' ' +
+        serv.VEHICULO.MODELO.DESCRIPCION +
+        ' ' +
+        serv.VEHICULO.COLOR +
+        ' ' +
+        serv.VEHICULO.ANIO;
+      return (
+        carro.toLowerCase().includes(term) ||
+        serv.VEHICULO.MATRICULA.toLowerCase().includes(term) ||
+        serv.TECNICO_ENCARGADO?.NOMBRE.toLowerCase().includes(term) ||
+        serv.ESTATUS.DESCRIPCION.toLowerCase().includes(term)
+      );
+    });
+  }
+
   async cargarServ(){
     this.loading = true;
     this.servicios = await this.servService.getServiciosCliente(this.id_usuario).toPromise();
@@ -63,6 +88,8 @@ export class InicioPageCliente implements OnInit {
         serv.ESTATUS.ID_ESTATUS != "C" && serv.ESTATUS.ID_ESTATUS != "T"
       );
     });
+
+    this.serviciosToShow = this.servicios;
   }
 
   constructor(

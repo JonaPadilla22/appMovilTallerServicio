@@ -129,6 +129,7 @@ export class CitasPage implements OnInit {
         carro.toLowerCase().includes(term) ||
         serv.VEHICULO.MATRICULA.toLowerCase().includes(term) ||
         serv.TECNICO_ENCARGADO?.NOMBRE.toLowerCase().includes(term) ||
+        serv.CLIENTE.NOMBRE.toLowerCase().includes(term) ||
         serv.ESTATUS.DESCRIPCION.toLowerCase().includes(term) ||
         fecha.toLowerCase().includes(term)
       );

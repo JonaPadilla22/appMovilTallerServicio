@@ -16,6 +16,7 @@ export class ServiciosPageCliente implements OnInit {
   servicio: any;
   isModalOpen = false;
   loading = false;
+  serviciosToShow: any = [];
 
   async showLoading() {
     const loading = await this.loadingCtrl.create({
@@ -34,6 +35,8 @@ export class ServiciosPageCliente implements OnInit {
         serv.ESTATUS.ID_ESTATUS == "T"
       );
     });
+    this.serviciosToShow = this.servicios;
+
   }
 
   constructor(
@@ -60,6 +63,31 @@ export class ServiciosPageCliente implements OnInit {
       event.target.complete();
     }, 2000);
   };
+
+  
+  handleSearchChange(event: any) {
+    this.serviciosToShow = this.filtrarServicios(event.target.value);
+  }
+
+  filtrarServicios(text: string) {
+    return this.servicios.filter((serv: any) => {
+      const term = text.toLowerCase();
+      let carro =
+        serv.VEHICULO.MODELO.MARCA.DESCRIPCION +
+        ' ' +
+        serv.VEHICULO.MODELO.DESCRIPCION +
+        ' ' +
+        serv.VEHICULO.COLOR +
+        ' ' +
+        serv.VEHICULO.ANIO;
+      return (
+        carro.toLowerCase().includes(term) ||
+        serv.VEHICULO.MATRICULA.toLowerCase().includes(term) ||
+        serv.TECNICO_ENCARGADO?.NOMBRE.toLowerCase().includes(term) ||
+        serv.ESTATUS.DESCRIPCION.toLowerCase().includes(term)
+      );
+    });
+  }
 
   async setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;

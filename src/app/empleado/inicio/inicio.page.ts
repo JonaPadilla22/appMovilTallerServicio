@@ -44,6 +44,7 @@ export class InicioPageTecnico implements OnInit {
       return (
         carro.toLowerCase().includes(term) ||
         serv.VEHICULO.MATRICULA.toLowerCase().includes(term) ||
+        serv.CLIENTE.NOMBRE.toLowerCase().includes(term) ||
         serv.TECNICO_ENCARGADO?.NOMBRE.toLowerCase().includes(term) ||
         serv.ESTATUS.DESCRIPCION.toLowerCase().includes(term)
       );

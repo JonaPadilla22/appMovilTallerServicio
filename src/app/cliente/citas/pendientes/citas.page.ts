@@ -15,6 +15,7 @@ export class CitasPageCliente implements OnInit {
   citas: any = [];
   num_citas: number = 0;
   cita: number = 0;
+  citasToShow: any = [];
   id_cita: string = ""
 
   isModalOpen = false;
@@ -30,6 +31,9 @@ export class CitasPageCliente implements OnInit {
       this.loading=false;
     }  
     this.num_citas = this.citas.length;
+    if(this.num_citas==0){
+      (<HTMLInputElement>document.getElementById('noServices')).hidden = false;
+    }
   }
 
   async showLoading() {
@@ -46,6 +50,30 @@ export class CitasPageCliente implements OnInit {
     private loadingCtrl: LoadingController,
   ) {}
 
+  handleSearchChange(event: any) {
+    this.citasToShow = this.filtrarServicios(event.target.value);
+  }
+
+  filtrarServicios(text: string) {
+    return this.citas.filter((serv: any) => {
+      const term = text.toLowerCase();
+      let carro =
+        serv.VEHICULO.MODELO.MARCA.DESCRIPCION +
+        ' ' +
+        serv.VEHICULO.MODELO.DESCRIPCION +
+        ' ' +
+        serv.VEHICULO.COLOR +
+        ' ' +
+        serv.VEHICULO.ANIO;
+      return (
+        carro.toLowerCase().includes(term) ||
+        serv.VEHICULO.MATRICULA.toLowerCase().includes(term) ||
+        serv.TECNICO_ENCARGADO?.NOMBRE.toLowerCase().includes(term) ||
+        serv.ESTATUS.DESCRIPCION.toLowerCase().includes(term)
+      );
+    });
+  }
+
   async cargarCitas(){
     this.loading = true;
     this.citas = await this.servService.getServiciosCliente(this.id_usuario).toPromise();
@@ -54,6 +82,8 @@ export class CitasPageCliente implements OnInit {
         serv.ESTATUS.ID_ESTATUS == "C"
       );
     });
+
+    this.citasToShow = this.citas;
   }
 
   handleRefresh(event: any) {
