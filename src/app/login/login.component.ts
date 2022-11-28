@@ -43,9 +43,7 @@ export class LoginComponent implements OnInit {
     }
 
     if (!this.isLogin) {
-      let x = await this.registerForm.validateRegister();
-      console.log(x)
-      x == 1 && this.btnChangeForms.el.click();
+      this.registerForm.validateRegister();
     }
   }
 }

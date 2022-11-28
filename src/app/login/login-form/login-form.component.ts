@@ -1,11 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { LoginService } from 'src/app/services/login/login.service';
 import {
-  ActionPerformed,
-  PushNotificationSchema,
   PushNotifications,
   Token,
 } from '@capacitor/push-notifications';
@@ -29,9 +27,20 @@ export class FormLoginComponent implements OnInit {
   )
   {
     this.formLogin = this.formBuilder.group({
-      CORREO: '',
-      CONTRA: '',
+      CORREO: this.formBuilder.control('', [
+        Validators.required,
+      ]),
+      CONTRA: this.formBuilder.control('', [
+        Validators.required,
+      ]),
     });
+  }
+
+  get correo() {
+    return this.formLogin.get('CORREO');
+  }
+  get contra() {
+    return this.formLogin.get('CONTRA');
   }
 
   ngOnInit(): void {
@@ -45,16 +54,14 @@ export class FormLoginComponent implements OnInit {
   }
 
   public async validateLogin() {
-    let correo = this.formLogin.value.CORREO;
-    let contra = this.formLogin.value.CONTRA;
 
-    if (correo == '' || contra == '') {
+    if (!this.formLogin.valid) {
       const alert = await this.alertController.create({
-        header: 'Error de Formulario',
-        message: 'Porfavor asegurese de introducir todos los campos requeridos',
+        header: 'Error',
+        message: 'Llene correctamente todos los campos',
         buttons: ['OK'],
       });
-
+  
       await alert.present();
       return;
     }

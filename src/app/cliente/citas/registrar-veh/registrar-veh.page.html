@@ -4,11 +4,14 @@
   <form [formGroup]="formRegisterVeh" (ngSubmit)="regVeh()">
     <ion-item>
       <ion-label position="stacked">Marca</ion-label>
-      <ion-select (ionChange)="cambioMarca($event)" placeholder="Selecciona Marca">
+      <ion-select (ionChange)="cambioMarca($event)" placeholder="Selecciona Marca" formControlName="ID_MARCA">
         <ion-select-option *ngFor="let marca of marcas" [value]="marca.ID_MARCA">{{marca.DESCRIPCION}}</ion-select-option>
       </ion-select>
     </ion-item>
-  
+    <!-- Error messages -->
+    <span class="ion-padding" *ngIf="isSubmitted && errorControl.ID_MARCA.errors?.required">
+      Debe ingresar matrícula.
+    </span>
     <ion-item>
       <ion-label position="stacked">Modelo</ion-label>
       <ion-select placeholder="Selecciona Modelo" formControlName="ID_MODELO">

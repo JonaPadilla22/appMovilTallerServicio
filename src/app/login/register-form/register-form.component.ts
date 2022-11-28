@@ -114,6 +114,17 @@ export class RegisterFormComponent implements OnInit {
 
     // TODO: do validations
 
+    if (!this.formRegister.valid) {
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'Llene correctamente todos los campos',
+        buttons: ['OK'],
+      });
+  
+      await alert.present();
+      return
+    }
+
     let registerUsr: any = {
       ID_TIPO_PERSONA: 1,
       ID_TIPO_USUARIO: 4,
@@ -123,17 +134,6 @@ export class RegisterFormComponent implements OnInit {
       RFC: rfc,
       DIRECCION: address,
     };
-
-    if (correo == '' || name == '') {
-      const alert = await this.alertController.create({
-        header: 'Error de Formulario',
-        message: 'Porfavor asegurese de introducir todos los campos requeridos',
-        buttons: ['OK'],
-      });
-
-      await alert.present();
-      return 0;
-    }
 
     if (this.isMoralPerson) {
       registerUsr.ID_TIPO_PERSONA = 2;
@@ -147,7 +147,6 @@ export class RegisterFormComponent implements OnInit {
         });
 
         await alert.present();
-        return 1;
       },
       error: async (e) => {
         const alert = await this.alertController.create({
@@ -160,6 +159,5 @@ export class RegisterFormComponent implements OnInit {
       },
     });
 
-    return 1;
   }
 }

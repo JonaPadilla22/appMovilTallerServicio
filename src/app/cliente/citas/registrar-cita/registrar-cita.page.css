@@ -27,6 +27,10 @@ ion-content .contenedor-btn-veih {
   display: flex;
   justify-content: space-evenly;
   align-content: center;
+  margin: 20px;
+}
+ion-content .contenedor-btn-veih ion-button ion-icon {
+  margin-right: 10px;
 }
 ion-content ion-textarea.custom-textarea {
   max-height: 200px;

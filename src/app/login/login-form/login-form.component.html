@@ -1,15 +1,25 @@
 <form [formGroup]="formLogin">
-  <ion-input
-    placeholder="Correo"
-    class="custom"
-    formControlName="CORREO"
-    [clearInput]="true"
-  ></ion-input>
-  <ion-input
-    type="password"
-    placeholder="Contraseña"
-    class="custom"
-    formControlName="CONTRA"
-    [clearInput]="true"
-  ></ion-input>
+  <ion-item lines="none">
+    <ion-input
+      placeholder="Correo"
+      class="custom"
+      formControlName="CORREO"
+      [clearInput]="true"
+      ngModel
+      email
+    ></ion-input>
+    <ion-note slot="error">Correo Inválido</ion-note>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-input
+      type="password"
+      placeholder="Contraseña"
+      class="custom"
+      formControlName="CONTRA"
+      [clearInput]="true"
+    ></ion-input>
+    <ion-note slot="error" *ngIf="contra.errors?.['required']"
+      >Contraseña requerido</ion-note
+    >
+  </ion-item>
 </form>

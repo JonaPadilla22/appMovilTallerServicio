@@ -40,6 +40,7 @@ export class RegistrarVehPage implements OnInit {
 
     this.formRegisterVeh = this.formBuilder.group({
       MATRICULA: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(7)]],
+      ID_MARCA: ['', [Validators.required]],
       ID_MODELO: [{value: '', disabled: true}, [Validators.required]],
       ANIO: [this.defaultYear, [Validators.required, Validators.max(this.maxYear), Validators.min(this.minYear)]],
       COLOR:  ['', [Validators.required]],
@@ -78,8 +79,12 @@ export class RegistrarVehPage implements OnInit {
       this.formRegisterVeh.value.MATRICULA = this.formRegisterVeh.value.MATRICULA.toUpperCase();
       this.formRegisterVeh.value.ID_CLIENTE = this.id_cliente;
       console.log(this.formRegisterVeh.value);
+      
+      let value = this.formRegisterVeh.value
 
-      this.vehService.registrarVeh(this.formRegisterVeh.value).subscribe(
+      delete value.ID_MARCA
+
+      this.vehService.registrarVeh(value).subscribe(
         {
           next: async (response: any) => {
             const alert = await this.alertController.create({
