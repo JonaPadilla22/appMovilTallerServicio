@@ -47,7 +47,6 @@ export class DetalleServEmpleadoPage implements OnInit {
       .toPromise();
     this.refacciones = await this.refService.getRefactions().toPromise();
     this.mano_obra = await this.refService.getWorkforce().toPromise();
-
     this.productos = this.refacciones.concat(this.mano_obra);
 
     this.productosToShow = this.productos
@@ -64,11 +63,24 @@ export class DetalleServEmpleadoPage implements OnInit {
   }
 
   async updateStatus() {
+   
     let sig_estatus: any;
     if (this.serv.ESTATUS.ID_ESTATUS != 'C') {
       sig_estatus = this.getSigEstatus(this.serv.ESTATUS.ID_ESTATUS);
     } else {
       sig_estatus = { ID_ESTATUS: 'I', DESCRIPCION: 'INGRESADO' };
+    }
+
+    if(sig_estatus.ID_ESTATUS == 'I'){
+      if(!this.validDate()){
+        const alert = await this.alertController.create({
+          header: 'Aviso',
+          message: "AÚN NO ES LA FECHA DE CITA DEL SERVICIO SELECCIONADO",
+          buttons: ['OK'],
+        });
+        await alert.present();
+        return;
+      }
     }
 
     const alert = await this.alertController.create({
@@ -85,53 +97,65 @@ export class DetalleServEmpleadoPage implements OnInit {
           handler: async () => {
             const formActServ = new FormData();
             formActServ.append('ID_SERVICIO', this.serv.ID_SERVICIO);
+            formActServ.append('MATRICULA', this.serv.VEHICULO.MATRICULA);
             formActServ.append('ID_ESTATUS', sig_estatus.ID_ESTATUS);
             formActServ.append('ID_USUARIO', this.user.ID);
 
             this.servService.actualizarEstatus(formActServ).subscribe({
               next: async (response: any) => {
-                var nom_cliente = this.serv.CLIENTE.NOMBRE;
-                var veh =
-                  this.serv.VEHICULO.MODELO.MARCA.DESCRIPCION +
-                  ' ' +
-                  this.serv.VEHICULO.MODELO.DESCRIPCION;
-                var mat = this.serv.VEHICULO.MATRICULA;
-                var title = 'ACTUALIZACIÓN DE SERVICIO';
 
-                var body =
-                  'HOLA ' +
-                  nom_cliente +
-                  ', SU VEHÍCULO ' +
-                  veh +
-                  ' CON MATRÍCULA: ' +
-                  mat;
-                if (sig_estatus.ID_ESTATUS == 'I') {
-                  body += ' ACABA DE INGRESAR A TALLER';
-                } else if (sig_estatus.ID_ESTATUS == 'R') {
-                  body += ' ACABA DE ENTRAR EN REVISIÓN';
-                } else if (sig_estatus.ID_ESTATUS == 'S') {
-                  body += ' ACABA DE ENTRAR EN SALIDA DE TALLER';
-                } else if (sig_estatus.ID_ESTATUS == 'T') {
-                  body += ' ACABA DE SALIR DE TALLER';
+                if(response.data){
+                  var nom_cliente = this.serv.CLIENTE.NOMBRE;
+                  var veh =
+                    this.serv.VEHICULO.MODELO.MARCA.DESCRIPCION +
+                    ' ' +
+                    this.serv.VEHICULO.MODELO.DESCRIPCION;
+                  var mat = this.serv.VEHICULO.MATRICULA;
+                  var title = 'ACTUALIZACIÓN DE SERVICIO';
+  
+                  var body =
+                    'HOLA ' +
+                    nom_cliente +
+                    ', SU VEHÍCULO ' +
+                    veh +
+                    ' CON MATRÍCULA: ' +
+                    mat;
+                  if (sig_estatus.ID_ESTATUS == 'I') {
+                    body += ' ACABA DE INGRESAR A TALLER';
+                  } else if (sig_estatus.ID_ESTATUS == 'R') {
+                    body += ' ACABA DE ENTRAR EN REVISIÓN';
+                  } else if (sig_estatus.ID_ESTATUS == 'S') {
+                    body += ' ACABA DE ENTRAR EN SALIDA DE TALLER';
+                  } else if (sig_estatus.ID_ESTATUS == 'T') {
+                    body += ' ACABA DE SALIR DE TALLER';
+                  }
+  
+                  this.notifService
+                    .sendNotificationUser(this.serv.CLIENTE.ID, title, body)
+                    .subscribe();
+  
+                  const alert = await this.alertController.create({
+                    header: 'Éxito',
+                    message: response.message,
+                    buttons: ['OK'],
+                  });
+                  await alert.present();
+                  this.serv = await this.servService
+                    .getServicioById(this.serv.ID_SERVICIO)
+                    .toPromise();
+                  this.serv = this.serv[0];
+                  this.actualizaciones_serv = await this.servService
+                    .getActualizacionesServicios(this.serv.ID_SERVICIO)
+                    .toPromise();
+                }else{
+                  const alert = await this.alertController.create({
+                    header: 'Aviso',
+                    message: response.message,
+                    buttons: ['OK'],
+                  });
+                  await alert.present();
                 }
-
-                this.notifService
-                  .sendNotificationUser(this.serv.CLIENTE.ID, title, body)
-                  .subscribe();
-
-                const alert = await this.alertController.create({
-                  header: 'Éxito',
-                  message: response.message,
-                  buttons: ['OK'],
-                });
-                await alert.present();
-                this.serv = await this.servService
-                  .getServicioById(this.serv.ID_SERVICIO)
-                  .toPromise();
-                this.serv = this.serv[0];
-                this.actualizaciones_serv = await this.servService
-                  .getActualizacionesServicios(this.serv.ID_SERVICIO)
-                  .toPromise();
+                
               },
               error: (e) => console.log(e),
             });
@@ -140,6 +164,45 @@ export class DetalleServEmpleadoPage implements OnInit {
       ],
     });
     await alert.present();
+
+  }
+
+  validDate(): boolean{
+    var isValid = true;
+    var fecha_aux: any = this.serv.FECHA_CITA.split("T")[0].split("-");
+
+    var Hoy = new Date();
+    
+    var AnyoFecha = fecha_aux[0]
+    var MesFecha = fecha_aux[1]
+    var DiaFecha = fecha_aux[2]
+  
+    var AnyoHoy = Hoy.getFullYear();
+    var MesHoy = Hoy.getMonth()+1;
+    var DiaHoy = Hoy.getDate();
+
+    if (AnyoFecha < AnyoHoy){
+      return isValid
+    }
+    else{
+      if (AnyoFecha == AnyoHoy && MesFecha < MesHoy){
+        return isValid
+      }
+      else{
+        if (AnyoFecha == AnyoHoy && MesFecha == MesHoy && DiaFecha < DiaHoy){
+          return isValid
+        }
+        else{
+            if (AnyoFecha == AnyoHoy && MesFecha == MesHoy && DiaFecha == DiaHoy){
+              return isValid
+            }
+            else{
+              isValid = false
+              return isValid
+            }
+        }
+      }
+    }
   }
 
   abrirChat(isOpen: boolean) {
@@ -188,22 +251,26 @@ export class DetalleServEmpleadoPage implements OnInit {
   }
 
   actTotalSelec(ev:any,prod_selected: any) {
-    
-
-    if(prod_selected.CANTIDAD){
-      this.total_selec -= prod_selected.PRECIO * prod_selected.CANTIDAD;
+    if(ev.target.value<=0 || ev.target.value % 1 || ev.target.value > prod_selected.STOCK){
+      ev.target.value = 1
     }else{
-      this.total_selec -= prod_selected.PRECIO;
-    }
-    
-    this.total_selec += prod_selected.PRECIO * ev.target.value;
-
-    this.prod_selec = this.prod_selec.map((prod: any) => {
-      if (prod_selected.DESCRIPCION == prod.DESCRIPCION) {
-        prod.CANTIDAD = ev.target.value;
+      if(prod_selected.CANTIDAD){
+        this.total_selec -= prod_selected.PRECIO * prod_selected.CANTIDAD;
+      }else{
+        this.total_selec -= prod_selected.PRECIO;
       }
-      return prod
-    });
+      
+      this.total_selec += prod_selected.PRECIO * ev.target.value;
+  
+      this.prod_selec = this.prod_selec.map((prod: any) => {
+        if (prod_selected.DESCRIPCION == prod.DESCRIPCION) {
+          prod.CANTIDAD = ev.target.value;
+        }
+        return prod
+      });
+    }
+
+    
 
   }
 

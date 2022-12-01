@@ -32,7 +32,7 @@ export class ClienteService {
   }
 
   registrarUsuario(form: any) {
-    return this.http.post(`${this.url}/usuarios/movil`, form);
+    return this.http.post(`${this.url}/usuarios`, form);
   }
 
   getUsuarios() {

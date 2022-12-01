@@ -16,7 +16,7 @@ export class RefaccionService {
 
   getRefactions() {
     return this.http
-      .get(`${this.url}/refacciones`, { headers: this.headers })
+      .get(`${this.url}/refacciones/actives`, { headers: this.headers })
       .pipe(map((res) => res));
   }
 
@@ -42,7 +42,7 @@ export class RefaccionService {
 
   getWorkforce() {
     return this.http
-      .get(`${this.url}/manoDeObra`, { headers: this.headers })
+      .get(`${this.url}/manoDeObra/actives`, { headers: this.headers })
       .pipe(map((res) => res));
   }
 }

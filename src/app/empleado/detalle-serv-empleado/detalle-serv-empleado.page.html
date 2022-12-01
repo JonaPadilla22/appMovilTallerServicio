@@ -85,17 +85,19 @@
         ></ion-searchbar>
         <ion-list class="lista-ref" (click)="modal.setCurrentBreakpoint(1)">
 
-          <ion-item *ngFor="let prod of productosToShow" (click)="selectProd(prod);">
-            <ion-avatar slot="start">
-              <ion-img *ngIf="!prod.ID_MANO_OBRA" src="../../../assets/service.png"></ion-img>
-              <ion-img *ngIf="prod.ID_MANO_OBRA" src="../../../assets/maintenance.png"></ion-img>
-            </ion-avatar>
-            <ion-label>
-              <h2>{{prod.DESCRIPCION}}</h2>
-              <h2>Precio: {{prod.PRECIO | currency}}</h2>
-              <h3 *ngIf="prod.STOCK">Stock disponible: {{prod.STOCK}}</h3>
-            </ion-label>
-          </ion-item>       
+          <div *ngFor="let prod of productosToShow" (click)="selectProd(prod);">
+            <ion-item *ngIf="prod.STOCK && prod.STOCK > 0 || !prod.STOCK && prod.STOCK != 0">
+              <ion-avatar slot="start">
+                <ion-img *ngIf="!prod.ID_MANO_OBRA" src="../../../assets/service.png"></ion-img>
+                <ion-img *ngIf="prod.ID_MANO_OBRA" src="../../../assets/maintenance.png"></ion-img>
+              </ion-avatar>
+              <ion-label>
+                <h2>{{prod.DESCRIPCION}}</h2>
+                <h2>Precio: {{prod.PRECIO | currency}}</h2>
+                <h3 *ngIf="prod.STOCK">Stock disponible: {{prod.STOCK}}</h3>
+              </ion-label>     
+          </ion-item>   
+          </div>      
         </ion-list>
         
         <h2 

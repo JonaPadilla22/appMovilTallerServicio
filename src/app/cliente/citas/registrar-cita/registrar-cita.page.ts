@@ -59,9 +59,26 @@ export class RegistrarCitaPage implements OnInit {
   }
 
   async ngOnInit() {
+
+    let dia: string;
+    let mes: string;
+    let anio: string;
+    if(this.date.getDate()<10){
+      dia = "0" + (this.date.getDate())
+    }else{
+      dia = this.date.getDate().toString()
+    }
     
-    this.fecha = this.date.getUTCFullYear() + "-" + (this.date.getUTCMonth()+1) + "-" + (this.date.getDate()) + "T00:00:00";
-    this.max = this.date.getUTCFullYear() + "-" + (this.date.getUTCMonth()+2) + "-" + (this.date.getDate()) + "T21:59:59";
+    if(this.date.getUTCMonth()+2>12){
+      mes = "01"
+      anio = (this.date.getUTCFullYear()+1).toString()
+    }else{
+      mes = (this.date.getUTCMonth()+1).toString()
+      anio = (this.date.getUTCFullYear()).toString()
+    }
+
+    this.fecha = this.date.getUTCFullYear() + "-" + (this.date.getUTCMonth()+1) + "-" + dia + "T00:00:00";
+    this.max = anio + "-" + mes + "-" + dia + "T21:59:59";
     this.time = { hour: this.date.getHours, minute: 0};
     this.typesServ = await this.servService.getTiposServicios().toPromise();
     this.cargarVeh();

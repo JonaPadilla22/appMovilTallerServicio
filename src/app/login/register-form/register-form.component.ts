@@ -142,7 +142,7 @@ export class RegisterFormComponent implements OnInit {
     this.clientService.registrarUsuario(registerUsr).subscribe({
       next: async (v: any) => {
         const alert = await this.alertController.create({
-          header: 'Registrado con Éxito',
+          header: 'Registrado con Éxito, por favor revise su bandeja de correo para consultar la contraseña',
           buttons: ['OK'],
         });
 
